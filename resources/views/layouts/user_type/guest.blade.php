@@ -5,15 +5,16 @@
         @include('layouts.navbars.guest.nav')
         @yield('content') --}}
     {{-- @else
-        <div class="container position-sticky z-index-sticky top-0">
-            <div class="row">
-                <div class="col-12">
-                    @include('layouts.navbars.guest.nav')
-                </div>
+    <div class="container position-sticky z-index-sticky top-0">
+        <div class="row">
+            <div class="col-12">
+                @include('layouts.navbars.guest.nav')
             </div>
         </div>
-        @yield('content')
-        @include('layouts.footers.guest.footer') --}}
+    </div>
+    @yield('content')
+    @include('layouts.footers.guest.footer')
+    @endif --}}
     @if (\Request::is('rtl'))
         @include('layouts.navbars.guest.sidebar-rtl')
         <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg overflow-hidden">
