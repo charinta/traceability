@@ -40,6 +40,7 @@
             </main>
         </div>
         @include('layouts.footers.guest.footer')
+
     @else
         @include('layouts.navbars.guest.sidebar')
         <main

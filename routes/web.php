@@ -20,4 +20,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('dashboard', function () {
             return view('session/dashboard');
         })->name('dashboard');
+
+        Route::get('user-account', function () {
+            return view('session/user-account');
+        })->name('user-account');
 // });

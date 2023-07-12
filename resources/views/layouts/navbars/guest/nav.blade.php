@@ -4,7 +4,25 @@
 <nav class="navbar navbar-expand-sm shadow-none navbar-fixed-top">
     <div class="container-fluid {{ Request::is('static-sign-up') ? 'container' : 'container-fluid' }}">
           <a class="font-weight-bolder navbar-brand">
+            @if(Request::is('dashboard'))
             Dashboard
+            @elseif(Request::is('user-account'))
+            User Account
+            @elseif(Request::is('register-pos'))
+            Register Pos
+            @elseif(Request::is('register-line-op'))
+            Register Line & OP
+            @elseif(Request::is('register-tool'))
+            Register Tool
+            @elseif(Request::is('register-holder'))
+            Register Holder
+            @elseif(Request::is('register-standar'))
+            Register Standar
+            @elseif(Request::is('resume-dashboard'))
+            Resume Dashboard
+            @elseif(Request::is('register-item'))
+            Register Item
+            @endif
           </a>
             <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
               <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
