@@ -4,7 +4,7 @@
       </div>
       @if (!auth()->user() || \Request::is('static-sign-up'))
           <div class="row">
-              <div class="col-8 mx-auto text-center footer fixed-bottom py-3">
+              <div class="col-8 mx-auto text-center footer-fixed-bottom py-3">
 
                   <p class="mb-0 text-secondary">
                       ©
