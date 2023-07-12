@@ -46,4 +46,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('register-holder', function () {
             return view('session/register-holder');
         })->name('register-holder');
+
+        // view ke register item
+        Route::get('register-item', function () {
+            return view('session/register-item');
+        })->name('register-item');
 // });
