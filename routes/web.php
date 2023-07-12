@@ -51,4 +51,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('register-item', function () {
             return view('session/register-item');
         })->name('register-item');
+
+        // view ke resume dashboard
+        Route::get('resume-dashboard', function () {
+            return view('session/resume-dashboard');
+        })->name('resume-dashboard');
 // });
