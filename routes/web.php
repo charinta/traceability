@@ -56,4 +56,14 @@ use Illuminate\Support\Facades\Route;
         Route::get('resume-dashboard', function () {
             return view('session/resume-dashboard');
         })->name('resume-dashboard');
+
+        // view ke resume tool
+        Route::get('resume-tool', function () {
+            return view('session/resume-tool');
+        })->name('resume-tool');
+
+        // view ke resume holder
+        Route::get('resume-holder', function () {
+            return view('session/resume-holder');
+        })->name('resume-holder');
 // });

@@ -20,6 +20,10 @@
                 Register Standar
             @elseif(Request::is('resume-dashboard'))
                 Overview Resume Dashboard
+            @elseif(Request::is('resume-tool'))
+                Overview Resume Dashboard
+            @elseif(Request::is('resume-holder'))
+                Overview Resume Dashboard
             @elseif(Request::is('register-item'))
                 Register Item
             @endif
