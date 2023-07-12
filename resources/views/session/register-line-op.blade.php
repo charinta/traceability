@@ -13,8 +13,8 @@
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="register-line-op" class="form-control-label text-light">Line</label>
-                                    <input class="form-control" type="register-line-op" id="register-line-op">
+                                    <label for="line" class="form-control-label text-light">Line</label>
+                                    <input class="form-control" type="line" id="line">
                                 </div>
                                 <div class="text-center">
                                     <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
@@ -47,9 +47,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        <tr>
+                                            <td>#</td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="javascript:;" tabindex="-1">
+                                                <i class="fa fa-angle-left"></i>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+                                        <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
+                                        <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:;">
+                                                <i class="fa fa-angle-right"></i>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>

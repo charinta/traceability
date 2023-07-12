@@ -16,20 +16,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::group(['middleware' => 'auth'], function () {
+    // view ke dashboard
     Route::get('/', [HomeController::class, 'home']);
         Route::get('dashboard', function () {
             return view('session/dashboard');
         })->name('dashboard');
 
+        // view ke user account
         Route::get('user-account', function () {
             return view('session/user-account');
         })->name('user-account');
 
+        // view ke register pos
         Route::get('register-pos', function () {
             return view('session/register-pos');
         })->name('register-pos');
 
+        // view ke register line op
         Route::get('register-line-op', function () {
             return view('session/register-line-op');
         })->name('register-line-op');
+
+        // view ke register tool
+        Route::get('register-tool', function () {
+            return view('session/register-tool');
+        })->name('register-tool');
 // });
