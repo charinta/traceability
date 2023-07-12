@@ -24,4 +24,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('user-account', function () {
             return view('session/user-account');
         })->name('user-account');
+
+        Route::get('register-pos', function () {
+            return view('session/register-pos');
+        })->name('register-pos');
 // });
