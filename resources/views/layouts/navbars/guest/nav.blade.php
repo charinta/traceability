@@ -1,7 +1,7 @@
 <!-- Navbar -->
 
 
-<nav class="navbar navbar-expand-sm shadow-none navbar-fixed-top">
+<nav class="navbar navbar-expand-sm shadow-none">
     <div class="container-fluid {{ Request::is('static-sign-up') ? 'container' : 'container-fluid' }}">
           <a class="font-weight-bolder navbar-brand">
             @if(Request::is('dashboard'))

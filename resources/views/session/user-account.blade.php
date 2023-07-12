@@ -3,9 +3,11 @@
 @section('content')
 
 <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
-<div class="container-fluid py-4">
+
+<!--FORM USER ACCOUNT -->
+    <div class="container-fluid py-4">
     <div class="row">
-      <div class="col-12 col-xl-4">
+      <div class="col-12 col-xl-4 pr-15">
         <div class="card h-100 w-80 mt-n4 bg-gradient-dark">
           <div class="card-header pb-0 p-3 bg-gradient-dark">
             <h4 class="mb-0 text-light"> <b>User Account </b></h4>
@@ -68,7 +70,33 @@
                 <br>
             </form>
             </div>
-          <!-- Rest of the card content -->
+        </div>
+      </div>
+          <!-- FORM USER ACCOUNT ENDS -->
+
+
+          <!-- TABEL USER ACCOUNT START -->
+          <div class="col-xl-8 mt-n4">
+            <div class="card">
+            <div class="card-header pb-0 p-3">
+                <h6 class="mb-0"><b>USER ACCOUNT TABLE</b></h6>
+            <br>
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">ID</th>
+                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Nama Karyawan</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">NPK</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Station</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Role</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Password</th>
+                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Action</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
