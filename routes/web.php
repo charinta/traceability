@@ -28,4 +28,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('register-pos', function () {
             return view('session/register-pos');
         })->name('register-pos');
+
+        Route::get('register-line-op', function () {
+            return view('session/register-line-op');
+        })->name('register-line-op');
 // });
