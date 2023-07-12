@@ -13,12 +13,12 @@
                         <div class="card-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="line" class="form-control-label text-light">Line</label>
+                                    <label for="line" class="form-control-label text-light">OP</label>
                                     <input class="form-control" type="line" id="line">
                                 </div>
                                 <div class="text-center">
                                     <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
-                                        Line</button>
+                                        OP</button>
                                 </div>
                                 <br>
                             </form>
@@ -27,48 +27,33 @@
                 </div>
                 <div class="col-12 col-xl-8">
                     <div class="card mb-4">
-                            <div class="card-header pb-0 p-3 col-xl-8"><h6>Line Table</b></h6>
+                        <div class="card-header pb-0">
+                            <h6>OP Table</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table">
+                                <table class="table align-item-center">
 
-                                    <thead align="center">
+                                    <thead>
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 ID</th>
                                             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Date</th>
                                             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                Line</th>
+                                                OP</th>
                                             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tbody align="center">
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Thomas Hardy</td>
-                                                <td>89 Chiaroscuro Rd.</td>
-                                                <td>
-                                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="fa fa-edit">&#xE417;</i></a>
-                                                    <a href="{{ url('register-op') }}" class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-eye">&#xE254;</i></a>
-                                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Thomas Hardy</td>
-                                                <td>89 Chiaroscuro Rd.</td>
-                                                <td>
-                                                    <a href="#" class="view" title="View" data-toggle="tooltip"><i class="fa fa-edit">&#xE417;</i></a>
-                                                    <a href="{{ url('register-op') }}" class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-eye">&#xE254;</i></a>
-                                                    <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash">&#xE872;</i></a>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>#</td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                                <br>
+                                <br>
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-end">
                                         <li class="page-item disabled">
