@@ -33,26 +33,22 @@
                                 </g>
                             </g>
                         </svg> --}}
-                        <svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff" stroke="#ffffff">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <title>dashboard [#ffffff]</title>
-                                <desc>Created with Sketch.</desc>
-                                <defs> </defs>
-                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <g id="Dribbble-Light-Preview" transform="translate(-340.000000, -5199.000000)"
-                                        fill="#ffffff">
-                                        <g id="icons" transform="translate(56.000000, 160.000000)">
-                                            <path
-                                                d="M294,5041 C298.411,5041 302,5044.589 302,5049 L295.406,5049 L299.197,5045.378 L297.815,5043.932 L292.511,5049 L286,5049 C286,5044.589 289.589,5041 294,5041 M294,5039 C288.477,5039 284,5043.477 284,5049 C284,5054.523 288.477,5059 294,5059 C299.523,5059 304,5054.523 304,5049 C304,5043.477 299.523,5039 294,5039"
-                                                id="dashboard-[#ffffff]"> </path>
+                        <svg fill="#ffffff" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                    <g transform="translate(1716.000000, 291.000000)">
+                                        <g transform="translate(0.000000, 148.000000)">
+                                            {{-- warna hitam --}}
+                                            <path class="color-background opacity-6"
+                                                d="M501.62 92.11L267.24 2.04a31.958 31.958 0 0 0-22.47 0L10.38 92.11A16.001 16.001 0 0 0 0 107.09V144c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-36.91c0-6.67-4.14-12.64-10.38-14.98zM64 192v160H48c-8.84 0-16 7.16-16 16v48h448v-48c0-8.84-7.16-16-16-16h-16V192h-64v160h-96V192h-64v160h-96V192H64zm432 256H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z">
+                                            </path>
+                                            {{-- warna putih saat hover --}}
+                                            <path class="color-background"
+                                                d="M501.62 92.11L267.24 2.04a31.958 31.958 0 0 0-22.47 0L10.38 92.11A16.001 16.001 0 0 0 0 107.09V144c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-36.91c0-6.67-4.14-12.64-10.38-14.98zM64 192v160H48c-8.84 0-16 7.16-16 16v48h448v-48c0-8.84-7.16-16-16-16h-16V192h-64v160h-96V192h-64v160h-96V192H64zm432 256H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z">
+                                            </path>
                                         </g>
-                                    </g>
-                                </g>
-                            </g>
                         </svg>
+
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
