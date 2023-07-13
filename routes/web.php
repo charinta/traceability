@@ -52,5 +52,23 @@ use Illuminate\Support\Facades\Route;
             return view('session/register-holder');
         })->name('register-holder');
 
-       
+        // view ke register item
+        Route::get('register-item', function () {
+            return view('session/register-item');
+        })->name('register-item');
+
+        // view ke resume dashboard
+        Route::get('resume-dashboard', function () {
+            return view('session/resume-dashboard');
+        })->name('resume-dashboard');
+
+        // view ke resume tool
+        Route::get('resume-tool', function () {
+            return view('session/resume-tool');
+        })->name('resume-tool');
+
+        // view ke resume holder
+        Route::get('resume-holder', function () {
+            return view('session/resume-holder');
+        })->name('resume-holder');
 // });
