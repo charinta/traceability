@@ -290,5 +290,3 @@
         </div>
     </div>
 @endsection
-{{-- @push('dashboard')
-@endpush --}}
