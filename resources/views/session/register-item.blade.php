@@ -4,6 +4,8 @@
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
         <div class="container-fluid py-4">
             <div class="row">
+
+                {{-- form --}}
                 <div class="col-12 col-xl-4">
                     <div class="card h-100 w-80 mt-n4 bg-gradient-dark">
                         <div class="card-header pb-0 p-3 bg-gradient-dark">
@@ -25,6 +27,9 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{-- table --}}
                 <div class="col-12 col-xl-8">
                     <div class="card mb-4">
                         <div class="card-header pb-0">

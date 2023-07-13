@@ -2,9 +2,14 @@
 
 @section('content')
     <div class="row">
+
+        {{-- button back --}}
         <div class="card card-plain col-2">
             <a href="{{ url('resume-dashboard') }}" class="btn btn-primary active" role="button" aria-pressed="true">Back</a>
         </div>
+
+
+        {{-- table --}}
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
