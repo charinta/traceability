@@ -71,4 +71,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('resume-holder', function () {
             return view('session/resume-holder');
         })->name('resume-holder');
+
+        // view ke register standard
+        Route::get('register-standar', function () {
+            return view('session/register-standar');
+        })->name('register-standar');
 // });
