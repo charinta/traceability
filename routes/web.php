@@ -37,6 +37,11 @@ use Illuminate\Support\Facades\Route;
             return view('session/register-line-op');
         })->name('register-line-op');
 
+         // view ke register op
+         Route::get('register-op', function () {
+            return view('session/register-op');
+        })->name('register-op');
+
         // view ke register tool
         Route::get('register-tool', function () {
             return view('session/register-tool');

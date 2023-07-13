@@ -76,10 +76,10 @@
 
 
           <!-- TABEL USER ACCOUNT START -->
-          <div class="col-xl-8 mt-n4">
+          <div class="col-xl-8">
             <div class="card">
             <div class="card-header pb-0 p-3">
-                <h6 class="mb-0"><b>USER ACCOUNT TABLE</b></h6>
+                <h6 class="mb-0">User Account Table</h6>
             <br>
               <div class="table-responsive">
                 <table class="table align-items-center mb-0">

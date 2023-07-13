@@ -44,9 +44,9 @@
     @else
         @include('layouts.navbars.guest.sidebar')
         <main
-            class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg">
+            class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg }">
             @include('layouts.navbars.guest.nav')
-            <div class="container-fluid py-4">
+            <div class="container-fluid py-4 px-4">
                 @yield('content')
                 @include('layouts.footers.guest.footer')
             </div>
