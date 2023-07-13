@@ -95,7 +95,9 @@
                                 <div class="form-group">
                                     <label for="standard-image" class="form-control-label text-light">Standard Image</label>
                                     <input class="form-control" type="file" id="standard-image" accept="image/*" disabled>
+                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image" hidden style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
                                 </div>
+                                
                                 
                                 <div class="form-group">
                                     <label for="remark" class="form-control-label text-light">Remark</label>
@@ -128,6 +130,7 @@
                                     const standardImageInput = document.getElementById('standard-image');
                                     const remarkImage = document.getElementById('remark');
                                     const statusImage = document.getElementById('status-image');
+                                    const uploadedImage = document.getElementById('uploaded-image');
 
                                     radioButtons.forEach((radioButton) => {
                                         radioButton.addEventListener('change', function () {
@@ -149,6 +152,17 @@
                                             remarkImage.required = this.id !== 'opt-standard-image';
                                             statusImage.required = this.id !== 'opt-standard-image';
                                         });
+                                    });
+
+                                    standardImageInput.addEventListener('change', function () {
+                                        const file = this.files[0];
+                                        if (file) {
+                                            uploadedImage.src = URL.createObjectURL(file);
+                                            uploadedImage.hidden = false;
+                                        } else {
+                                            uploadedImage.src = '#';
+                                            uploadedImage.hidden = true;
+                                        }
                                     });
                                 </script>
                             
