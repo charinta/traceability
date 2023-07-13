@@ -24,40 +24,32 @@
                     <input class="form-control" type="NPK" id="NPK">
                 </div>
                 <div class="form-group">
-                    <label for="pos" class="form-control-label text-light">Pos</label>
+                    <label for="pos" class="form-control-label text-light">Pos</label><label for="type-tool" class="form-control-label text-light">Type Tool</label>
                     <div class="dropdown">
-                        <a href="javascript:;" class="btn dropdown-toggle w-100 bg-light " data-bs-toggle="dropdown" id="pos">
-                        </a>
-                        <ul class="dropdown-menu mx-auto" aria-labelledby="pos">
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">111</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">2222</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">3333</a>
-                            </li>
-                        </ul>
-                      </div>
+                                        <button class="btn bg-gradient-secondary dropdown-toggle w-100" type="button"
+                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Pos
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li><a class="dropdown-item" href="javascript:;">1</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;">2</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;">3</a></li>
+                                        </ul>
+                                    </div>
                 </div>
                 <div class="form-group">
                     <label for="role" class="form-control-label text-light">Role</label>
                     <div class="dropdown">
-                        <a href="javascript:;" class="btn dropdown-toggle w-100 bg-light " data-bs-toggle="dropdown" id="role">
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="role">
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">1111</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">2222</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="javascript:;">3333</a>
-                            </li>
-                        </ul>
-                      </div>
+                                        <button class="btn bg-gradient-secondary dropdown-toggle w-100" type="button"
+                                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Type
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li><a class="dropdown-item" href="javascript:;">1</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;">2</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;">3</a></li>
+                                        </ul>
+                                    </div>
                 </div>
                 <div class="form-group">
                     <label for="example-password-input" class="form-control-label text-light">Password</label>
