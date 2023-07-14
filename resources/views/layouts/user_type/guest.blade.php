@@ -40,11 +40,9 @@
             </main>
         </div>
         @include('layouts.footers.guest.footer')
-
     @else
         @include('layouts.navbars.guest.sidebar')
-        <main
-            class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg }">
+        <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg }">
             @include('layouts.navbars.guest.nav')
             <div class="container-fluid py-4 px-4">
                 @yield('content')
@@ -52,5 +50,4 @@
             </div>
         </main>
     @endif
-    @include('components.fixed-plugin')
 @endsection

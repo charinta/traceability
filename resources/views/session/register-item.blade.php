@@ -30,7 +30,7 @@
 
 
                 {{-- table --}}
-                <div class="col-12 col-xl-8">
+                <div class="col-6 col-xl-8">
                     <div class="card mb-4">
                         <div class="card-header pb-0">
                             <h6>Item Table</h6>
