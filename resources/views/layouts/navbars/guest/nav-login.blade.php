@@ -14,10 +14,17 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link me-2" href="{{ auth()->user() ? url('static-sign-up') : url('register') }}">
-                        <i class="fas fa-user-circle opacity-6 me-1 {{ (Request::is('static-sign-up') ? '' : 'text-dark') }}"></i>
+                    @if (Request::is('login'))
+                    <a class="nav-link me-2" href="{{ auth()->user() ? url('sign-up') : url('sign-up') }}">
+                        <i class="fas fa-user-circle opacity-6 me-1 {{ (Request::is('sign-up') ? '' : 'text-dark') }}"></i>
                         Sign Up
                     </a>
+                    @elseif (Request::is('sign-up'))
+                    <a class="nav-link me-2" href="{{ auth()->user() ? url('login') : url('login') }}">
+                        <i class="fas fa-user-circle opacity-6 me-1 {{ (Request::is('login') ? '' : 'text-dark') }}"></i>
+                        Login
+                    </a>
+                    @endif
                 </li>
             </ul>
         </div>

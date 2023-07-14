@@ -44,6 +44,10 @@
         @elseif(\Request::is('login'))
             @include('layouts.navbars.guest.nav-login')
             @yield('content')
+
+        @elseif(\Request::is('sign-up'))
+            @include('layouts.navbars.guest.nav-login')
+            @yield('content')
             
 
     @else

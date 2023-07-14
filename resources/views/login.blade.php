@@ -10,7 +10,7 @@
         </div>
         
         <div class="col-md-6">
-            <div class="card mt-5" style="max-width: 400px; margin-left:10">
+            <div class="card mt-5 " style="max-width: 400px; margin-left:10">
                 <div class="card-header">
                     <h4 class="font-weight-bolder text-primary text-gradient"><b>{{ __('Login') }}</b></h4>
                 </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="mt-3 margin-left:10">
                 <small>{{ __("Don't have an account?") }}</small>
-                <a href="{{ route('dashboard') }}" class="text-warning text-sm font-semibold">{{ __('Sign up') }}</a>
+                <a href="{{ route('sign-up') }}" class="text-warning text-sm font-semibold">{{ __('Sign up') }}</a>
             </div>
         </div>
     </div>

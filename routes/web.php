@@ -81,4 +81,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('login', function () {
             return view('login');
         })->name('login');
+
+        // view ke login
+        Route::get('sign-up', function () {
+            return view('sign-up');
+        })->name('sign-up');
 // });

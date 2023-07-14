@@ -35,8 +35,8 @@
             <ul class="navbar-nav justify-content-end ">
                 <!-- icon profile -->
                 <li class="nav-item">
-                    <a class="nav-link me-2" href="{{ auth()->user() ? url('#') : url('#') }}">
-                        <i class="fas fa-user-circle opacity-6 me-1 {{ Request::is('#') ? 'active' : '' }}"></i>
+                    <a class="nav-link me-2" href="{{ auth()->user() ? url('login') : url('login') }}">
+                        <i class="fas fa-user-circle opacity-6 me-1 {{ Request::is('login') ? 'active' : '' }}"></i>
                     </a>
                 </li>
                 <!-- icon settings -->
