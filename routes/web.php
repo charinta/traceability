@@ -19,61 +19,61 @@ use Illuminate\Support\Facades\Route;
     // view ke dashboard
     Route::get('/', [HomeController::class, 'home']);
         Route::get('dashboard', function () {
-            return view('session/dashboard');
+            return view('dashboard');
         })->name('dashboard');
 
         // view ke user account
         Route::get('user-account', function () {
-            return view('session/user-account');
+            return view('user-account');
         })->name('user-account');
 
         // view ke register pos
         Route::get('register-pos', function () {
-            return view('session/register-pos');
+            return view('register-pos');
         })->name('register-pos');
 
         // view ke register line op
         Route::get('register-line-op', function () {
-            return view('session/register-line-op');
+            return view('register-line-op');
         })->name('register-line-op');
 
          // view ke register op
          Route::get('register-op', function () {
-            return view('session/register-op');
+            return view('register-op');
         })->name('register-op');
 
         // view ke register tool
         Route::get('register-tool', function () {
-            return view('session/register-tool');
+            return view('register-tool');
         })->name('register-tool');
 
         // view ke register holder
         Route::get('register-holder', function () {
-            return view('session/register-holder');
+            return view('register-holder');
         })->name('register-holder');
 
         // view ke register item
         Route::get('register-item', function () {
-            return view('session/register-item');
+            return view('register-item');
         })->name('register-item');
 
         // view ke resume dashboard
         Route::get('resume-dashboard', function () {
-            return view('session/resume-dashboard');
+            return view('resume-dashboard');
         })->name('resume-dashboard');
 
         // view ke resume tool
         Route::get('resume-tool', function () {
-            return view('session/resume-tool');
+            return view('resume-tool');
         })->name('resume-tool');
 
         // view ke resume holder
         Route::get('resume-holder', function () {
-            return view('session/resume-holder');
+            return view('resume-holder');
         })->name('resume-holder');
 
         // view ke register standard
         Route::get('register-standar', function () {
-            return view('session/register-standar');
+            return view('register-standar');
         })->name('register-standar');
 // });
