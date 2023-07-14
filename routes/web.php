@@ -76,4 +76,9 @@ use Illuminate\Support\Facades\Route;
         Route::get('register-standar', function () {
             return view('register-standar');
         })->name('register-standar');
+
+        // view ke login
+        Route::get('login', function () {
+            return view('login');
+        })->name('login');
 // });

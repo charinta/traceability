@@ -40,6 +40,12 @@
             </main>
         </div>
         @include('layouts.footers.guest.footer')
+    
+        @elseif(\Request::is('login'))
+            @include('layouts.navbars.guest.nav-login')
+            @yield('content')
+            
+
     @else
         @include('layouts.navbars.guest.sidebar')
         <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg }">
