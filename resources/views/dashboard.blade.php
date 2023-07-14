@@ -8,7 +8,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool in Dolly Supply Pos
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Dolly Supply Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
                                     0
@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool in Input Supply
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Input Supply
                                     Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool in
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in
                                     Disassembly Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -77,7 +77,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool in Reg.
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Reg.
                                     Auto Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -102,7 +102,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool in
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in
                                     Reg. Manual Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -126,7 +126,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of Tool
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool
                                     in Pre Assy Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -150,7 +150,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number of
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of
                                     Tool in MC.Nt Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -174,7 +174,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Number
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number
                                     of Tool in MC.Zol Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -199,7 +199,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">
                                     Number of Tool in MC.Zol Spe
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -223,7 +223,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">
                                     Number of Tool
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -247,7 +247,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">
                                     Number of Holder
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -271,7 +271,7 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">
                                     Number of User
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">

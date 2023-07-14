@@ -6,10 +6,10 @@
             <div class="row">
 
                 {{-- form --}}
-                <div class="col-12 col-xl-4">
-                    <div class="card h-100 w-80 mt-n4 bg-gradient-dark">
+                <div class="col-12 col-xl-3">
+                    <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                         <div class="card-header pb-0 p-3 bg-gradient-dark">
-                            <h4 class="mb-0 text-light"> <b>Register Line & OP </b></h4>
+                            <h4 class="mb-0 text-light"> <b>Register Line </b></h4>
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
@@ -30,8 +30,8 @@
 
 
                 {{-- table --}}
-                <div class="col-12 col-xl-8">
-                    <div class="card mb-4">
+                <div class="col-12 col-xl-9">
+                    <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0 p-3 col-xl-8">
                             <h6>Line Table</b></h6>
                         </div>

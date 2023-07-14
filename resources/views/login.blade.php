@@ -3,13 +3,13 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center align-items-center min-vh-100">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="text-center" style="margin-right: auto">
                 <img src="{{ asset('assets/img/login.jpg') }}" class="img-fluid" alt="Login Image" width="500">
             </div>
         </div>
         
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="card mt-5 " style="max-width: 400px; margin-left:10">
                 <div class="card-header">
                     <h4 class="font-weight-bolder text-primary text-gradient"><b>{{ __('Login') }}</b></h4>

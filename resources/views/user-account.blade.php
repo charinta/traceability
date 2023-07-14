@@ -7,8 +7,8 @@
 <!--FORM USER ACCOUNT -->
     <div class="container-fluid py-4">
     <div class="row">
-      <div class="col-12 col-xl-4 pr-15">
-        <div class="card h-100 w-80 mt-n4 bg-gradient-dark">
+      <div class="col-12 col-xl-3 pr-15">
+        <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
           <div class="card-header pb-0 p-3 bg-gradient-dark">
             <h4 class="mb-0 text-light"> <b>User Account </b></h4>
             <hr class="text-light">
@@ -68,8 +68,8 @@
 
 
           <!-- TABEL USER ACCOUNT START -->
-          <div class="col-xl-8">
-            <div class="card">
+          <div class="col-xl-9">
+            <div class="card mt-n4">
             <div class="card-header pb-0 p-3">
                 <h6 class="mb-0">User Account Table</h6>
             <br>
@@ -86,6 +86,11 @@
                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Action</th>
                   </tr>
                 </thead>
+                <tbody>
+                  <tr>
+                      <td>#</td>
+                  </tr>
+              </tbody>
               </table>
             </div>
           </div>

@@ -5,8 +5,8 @@
         <div class="row">
 
             {{-- form --}}
-            <div class="col-12 col-xl-4">
-                <div class="card h-100 w-80 mt-n4 bg-gradient-dark">
+            <div class="col-12 col-xl-3">
+                <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                     <div class="card-header pb-0 p-3 bg-gradient-dark">
                         <h4 class="mb-0 text-light"> <b>Register Tool </b></h4>
                         <hr class="text-light">
@@ -102,8 +102,8 @@
 
 
             {{-- table --}}
-            <div class="col-12 col-xl-8">
-                <div class="card mb-4">
+            <div class="col-12 col-xl-9">
+                <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
                         <h6>Tool Table</h6>
                     </div>
