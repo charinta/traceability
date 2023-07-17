@@ -5,10 +5,14 @@
         <div class="container-fluid py-4">
 
             {{-- button back --}}
-            <div class="card card-plain col-2">
-                <a href="{{ url('register-line-op') }}" class="btn btn-primary active" role="button"
-                    aria-pressed="true">Back</a>
+            <div class="row">
+            <div class="card card-plain col-12 col-sm-10">
+                
             </div>
+            <div class="card card-plain col-12 col-sm-2">
+                <a href="{{ url('register-line-op') }}" class="btn btn-primary active float-right" role="button" aria-pressed="true">Back</a>
+            </div>
+            
 
             {{-- container --}}
             <div class="row mt-4">

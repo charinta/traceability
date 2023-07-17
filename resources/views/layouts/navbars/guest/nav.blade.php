@@ -12,6 +12,8 @@
                 Register Pos
             @elseif(Request::is('register-line-op'))
                 Register Line & OP
+            @elseif(Request::is('register-op'))
+                Register OP
             @elseif(Request::is('register-tool'))
                 Register Tool
             @elseif(Request::is('register-holder'))
