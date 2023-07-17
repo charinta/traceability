@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('tbl_register_tool', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_created')->nullable();
+            $table->timestamp('date_modify')->nullable();
+            $table->string('no_drawing_tool', 50)->nullable();
+            $table->string('tool_type', 50)->nullable();
+            $table->decimal('tool_spec', 18, 0)->nullable();
+            $table->decimal('tool_diameter', 18, 0)->nullable();
+            $table->integer('tool_lifetime_std')->nullable();
+            $table->integer('tool_frequency_std')->nullable();
+            $table->string('line', 50)->nullable();
+            $table->string('op', 50)->nullable();
+            $table->string('no_drawing_holder', 50)->nullable();
+            
         });
     }
 

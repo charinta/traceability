@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('tbl_history_assy_setting_mcsperoni', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan')->nullable();
+            $table->timestamp('date_created')->nullable();
+            $table->string('no_drawing_tool', 50)->nullable();
+            $table->string('qr_marking_tool', 50)->nullable();
+            $table->string('item_check', 50)->nullable();
+            $table->string('standard_check', 50)->nullable();
+            $table->string('actual_check', 50)->nullable();
+            $table->string('judgment', 50)->nullable();
+            $table->string('status_check', 50)->nullable();
+            $table->string('pic', 50)->nullable();
+            
         });
     }
 

@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_tool_position', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_created')->nullable();
+            $table->string('no_drawing', 50)->nullable();
+            $table->string('qr_marking', 50)->nullable();
+            $table->string('part_name', 50)->nullable();
+            $table->integer('pos_id')->nullable();
+            $table->string('pos_name', 50)->nullable();
         });
     }
 

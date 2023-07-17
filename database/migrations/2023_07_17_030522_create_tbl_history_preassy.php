@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_history_preassy', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan')->nullable();
+            $table->timestamp('date_created')->nullable();
+            $table->string('no_drawing_tool', 50)->nullable();
+            $table->string('no_drawing_holder', 50)->nullable();
+            $table->string('pic', 50)->nullable();
+            
         });
     }
 

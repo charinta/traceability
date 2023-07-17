@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('tbl_history_toolsupply', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan')->nullable();
+            $table->timestamp('date_created')->nullable();
+            $table->string('no_drawing', 50)->nullable();
+            $table->string('qr_marking', 50)->nullable();
+            $table->string('pic', 50)->nullable();
+            $table->integer('status')->nullable();
+            
         });
     }
 

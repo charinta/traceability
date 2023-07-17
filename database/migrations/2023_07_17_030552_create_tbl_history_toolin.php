@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('tbl_history_toolin', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan')->nullable();
+            $table->timestamp('date_created')->nullable();
+            $table->string('no_drawing', 50)->nullable();
+            $table->string('qr_marking', 50)->nullable();
+            $table->integer('tool_lifetime_std')->nullable();
+            $table->integer('tool_lifetime_actual')->nullable();
+            $table->string('pic', 50)->nullable();
+            $table->string('status', 50)->nullable();
+            
         });
     }
 

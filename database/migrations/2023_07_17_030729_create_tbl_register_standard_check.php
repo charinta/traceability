@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('tbl_register_standard_check', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_created')->nullable();
+            $table->timestamp('date_modify')->nullable();
+            $table->string('pos_name', 50)->nullable();
+            $table->string('item_check', 50)->nullable();
+            $table->text('standard_check')->nullable();
+            $table->string('remark', 50)->nullable();
+            $table->string('status', 50)->nullable();
+            
         });
     }
 
