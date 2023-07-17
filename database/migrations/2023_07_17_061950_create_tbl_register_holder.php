@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('qr_marking', 50)->nullable();
             $table->string('part_name', 50)->nullable();
             $table->unsignedBigInteger('pos_id')->nullable();
-            $table->foreign('pos_id')->references('id')->on('positions')->onDelete('set null');
+            $table->foreign('pos_id')->references('id')->on('tbl_pos')->onDelete('set null');
             $table->string('pos_name', 50)->nullable();
             
         });

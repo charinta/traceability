@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbl_history_marking', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan', 7)->nullable();
+            $table->timestamp('date_created', 7)->nullable();
+            $table->timestamp('date_modify', 7)->nullable();
+            $table->string('no_drawing', 50)->nullable();
+            $table->string('qr_marking', 50)->nullable();
+            $table->string('mode', 50)->nullable();
         });
     }
 

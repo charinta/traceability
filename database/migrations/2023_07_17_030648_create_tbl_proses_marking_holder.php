@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('tbl_proses_marking_holder', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_created', 7)->nullable();
+            $table->string('nama_line', 50)->nullable();
+            $table->string('op_number', 50)->nullable();
+            $table->string('no_urut_tool', 50)->nullable();
+            $table->string('no_urut_holder', 50)->nullable();
+            $table->string('qr_holder_marking', 50)->nullable();
+            $table->string('no_drawing', 50)->nullable();
         });
     }
 

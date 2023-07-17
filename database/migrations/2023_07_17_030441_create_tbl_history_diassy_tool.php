@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_history_disassy_tool', function (Blueprint $table) {
+        Schema::create('tbl_history_diassy_tool', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_scan', 7)->nullable();
+            $table->timestamp('date_created', 7)->nullable();
+            $table->string('no_drawing_tool', 50)->nullable();
+            $table->string('qr_marking_tool', 50)->nullable();
+            $table->string('pic', 50)->nullable();
         });
     }
 
