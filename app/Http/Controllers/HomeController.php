@@ -9,6 +9,6 @@ class HomeController extends Controller
 //untuk redirect ke dashboard 
     public function home()
     {
-        return redirect('dashboard');
+        return redirect('login');
     }
 }

@@ -16,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::group(['middleware' => 'auth'], function () {
-    // view ke dashboard
+    // view ke login
     Route::get('/', [HomeController::class, 'home']);
+        Route::get('login', function () {
+            return view('login');
+        })->name('login');
+
+        // view ke dashboard
         Route::get('dashboard', function () {
             return view('dashboard');
         })->name('dashboard');
