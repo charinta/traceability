@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_holder_position', function (Blueprint $table) {
+        Schema::create('tbl_register_holder', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date_created')->nullable();
-            $table->string('no_drawing', 50)->nullable();
-            $table->string('qr_marking', 50)->nullable();
-            $table->string('part_name', 50)->nullable();
-            $table->unsignedBigInteger('pos_id')->nullable();
-            $table->foreign('pos_id')->references('id')->on('tbl_pos')->onDelete('set null');
-            $table->string('pos_name', 50)->nullable();
-            
+            $table->timestamp('date_modify')->nullable();
+            $table->string('no_drawing_holder', 50)->nullable();
+            $table->string('holder_name', 50)->nullable();
+            $table->decimal('holder_spec', 18, 0)->nullable();
+            $table->decimal('holder_diameter', 18, 0)->nullable();
+            $table->integer('holder_lifetime_std')->nullable();
+            $table->integer('holder_frequency_std')->nullable();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_holder_position');
+        Schema::dropIfExists('tbl_register_holder');
     }
 };
