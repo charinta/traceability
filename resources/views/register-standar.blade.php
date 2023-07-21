@@ -3,6 +3,7 @@
 @section('content')
     <div class="container-fluid py-4">
         <div class="row">
+            {{--form--}}
             <div class="col-12 col-xl-3">
                 <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                     <div class="card-header pb-0 p-3 bg-gradient-dark">
@@ -10,84 +11,90 @@
                         <hr class="text-light">
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="{{route('register-standar.store')}}">
+                            @csrf
                             <div class="form-group">
-                                <label for="pos" class="form-control-label text-light">Pos</label>
-                                <div class="dropdown">
-                                    <button class="btn bg-gradient-secondary dropdown-toggle w-100" type="button"
-                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pos
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="javascript:;">1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">3</a></li>
-                                    </ul>
-                                </div>
+                                <label for="pos_name" class="form-control-label text-light"
+                                    name="pos_name">Pos</label><br>
+                                <select class="form-select" name="pos_name">
+                                    <option value="marking">Marking</option>
+                                    <option value="dolly-tool-supply">Dolly Tool Supply</option>
+                                    <option value="tools-input">Tools Input</option>
+                                    <option value="disasemmbly">Disasemmbly</option>
+                                    <option value="washing">Washing</option>
+                                    <option value="regrinding-auto">Regrinding Auto</option>
+                                    <option value="regrinding-manual">Regrinding Manual</option>
+                                    <option value="pre-assembly">Pre-Assembly</option>
+                                    <option value="setting-tool-mc-nt">Setting Tool Mc NT</option>
+                                    <option value="setting-tool-mc-spe">Setting Tool Mc Spe</option>
+                                    <option value="setting-tool-mc-zol">Setting Tool Mc Zol</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="item-check" class="form-control-label text-light">Item Check</label>
-                                <div class="dropdown">
-                                    <button class="btn bg-gradient-secondary dropdown-toggle w-100" type="button"
-                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Item Check
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="javascript:;">1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">3</a></li>
-                                    </ul>
-                                </div>
+                                <label for="item_check" class="form-control-label text-light"
+                                    name="item_check">Item Check</label><br>
+                                <select class="form-select" name="item_check">
+                                    <option value="diameter">Diameter</option>
+                                    <option value="length">Length</option>
+                                </select>
                             </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="opt-standard-value">
-                                <label class="form-check-label text-light" for="opt-standard-value">
-                                    Standard Value
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="opt-standard-string">
-                                <label class="form-check-label text-light" for="opt-standard-string">
-                                    Standard String
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="opt-standard-image">
-                                <label class="form-check-label text-light" for="opt-standard-image">
-                                    Standard Image
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="standard-value" class="form-control-label text-light">Standard Value</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="standard-value"
-                                        placeholder="Enter a value" style="margin-right: 7px" disabled>
-                                    <div class="input-group-append">
-                                        <select class="form-select" id="unit-dropdown" disabled>
-                                            <option value="cm">cm</option>
-                                            <option value="inch">inch</option>
-                                            <option value="m">m</option>
-                                            <option value="ft">ft</option>
-                                        </select>
+                            <form action="{{ route('register-standar.store') }}" method="POST">
+                                @csrf
+    
+                                <div class="form-group text-light">
+                                    <label class="text-light">Select Standard Type:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard Value"
+                                            id="opt-standard-value">
+                                        <label class="form-check-label text-light" for="opt-standard-value">
+                                            Standard Value
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard String"
+                                            id="opt-standard-string">
+                                        <label class="form-check-label text-light" for="opt-standard-string">
+                                            Standard String
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard Image"
+                                            id="opt-standard-image">
+                                        <label class="form-check-label text-light" for="opt-standard-image">
+                                            Standard Image
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
+    
+                                <div class="form-group">
+                                    <label for="standard_value" class="form-control-label text-light">Standard Value</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="standard_value" id="standard-value"
+                                            placeholder="Enter a value" style="margin-right: 7px"
+                                            {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
+                                        <div class="input-group-append">
+                                            <select class="form-select" id="unit-dropdown" name="unit-dropdown"
+                                                {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
+                                                <option value="cm">cm</option>
+                                                <option value="inch">inch</option>
+                                                <option value="m">m</option>
+                                                <option value="ft">ft</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
                             <div class="form-group d-flex">
                                 <div class="flex-grow-1 me-2">
-                                    <label for="toleransi-atas" class="form-control-label text-light">Toleransi Atas</label>
-                                    <input class="form-control" type="text" id="toleransi-atas" disabled>
+                                    <label for="batas_atas" class="form-control-label text-light">Toleransi Atas</label>
+                                    <input class="form-control" type="text" id="batas_atas" disabled>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <label for="toleransi-bawah" class="form-control-label text-light">Toleransi
+                                    <label for="batas_bawah" class="form-control-label text-light">Toleransi
                                         Bawah</label>
-                                    <input class="form-control" type="text" id="toleransi-bawah" disabled>
+                                    <input class="form-control" type="text" id="batas_bawah" disabled>
                                 </div>
                             </div>
 
@@ -113,26 +120,20 @@
 
 
                             <div class="form-group">
-                                <label for="status" class="form-control-label text-light">Status</label>
-                                <div class="dropdown">
-                                    <button class="btn bg-gradient-secondary dropdown-toggle w-100" type="button"
-                                        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Status
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item" href="javascript:;">1</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">2</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;">3</a></li>
-                                    </ul>
-                                </div>
+                                <label for="status" class="form-control-label text-light"
+                                    name="status">Status</label><br>
+                                <select class="form-select" name="status">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
                             </div>
 
                             <script>
-                                const radioButtons = document.querySelectorAll('input[name="flexRadioDefault"]');
+                                const radioButtons = document.querySelectorAll('input[name="standard_check"]');
                                 const standardValueInput = document.getElementById('standard-value');
                                 const unitDropdown = document.getElementById('unit-dropdown');
-                                const toleransiAtas = document.getElementById('toleransi-atas');
-                                const toleransiBawah = document.getElementById('toleransi-bawah');
+                                const toleransiAtas = document.getElementById('batas_atas');
+                                const toleransiBawah = document.getElementById('batas_bawah');
                                 const standardStringInput = document.getElementById('standard-string');
                                 const standardImageInput = document.getElementById('standard-image');
                                 const remarkImage = document.getElementById('remark');
@@ -141,6 +142,7 @@
 
                                 radioButtons.forEach((radioButton) => {
                                     radioButton.addEventListener('change', function() {
+                                        console.log(this.value);
                                         standardValueInput.disabled = this.id !== 'opt-standard-value';
                                         unitDropdown.disabled = this.id !== 'opt-standard-value';
                                         toleransiAtas.disabled = this.id !== 'opt-standard-value';
@@ -171,11 +173,12 @@
                                         uploadedImage.hidden = true;
                                     }
                                 });
+                                
                             </script>
 
 
                             <div class="text-center">
-                                <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
                                     Standard</button>
                             </div>
                             <br>
@@ -183,10 +186,12 @@
                     </div>
                 </div>
             </div>
+
+            {{--Table--}}
             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
-                        <h6>Tool Table</h6>
+                        <h6>Standard Table</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -194,51 +199,91 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            ID</th>
+                                            Pos</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Date</th>
+                                            Item Check</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            No Drawing</th>
+                                            Standard</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Tool</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Lifetime</th>
+                                            Status</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#</td>
+                                    @foreach ($tbl_register_standar_check as $standar)
+                                    <tr class = "text-center">
+                                        <td>{{ $standar -> pos_name }}</td>
+                                        <td>{{ $standar -> item_check }}</td>
+                                        <td>{{ $standar -> standard_check }}</td>
+                                        <td>{{ $standar -> status }}</td>
+                                        <td>
+                                            <form action="{{ route('register-standar.destroy', $standar->id) }}" method="POST">
+                                                <a href="{{ route('register-standar.index', $standar->id) }}"
+                                                class="btn btn-sm btn-primary fa fa-edit"></a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
+                                        </form>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="javascript:;" tabindex="-1">
-                                            <i class="fa fa-angle-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+
+                    
                         </div>
                     </div>
                 </div>
             </div>
+             <!-- Pagination Section -->
+             <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    {{-- Previous Page Link --}}
+                    @if ($tbl_pos->onFirstPage())
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">
+                                <i class="fa fa-angle-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $tbl_pos->previousPageUrl() }}" tabindex="-1">
+                                <i class="fa fa-angle-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Page Links --}}
+                    @foreach ($tbl_pos->getUrlRange(1, $tbl_pos->lastPage()) as $page => $url)
+                        @if ($page == $tbl_pos->currentPage())
+                            <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($tbl_pos->hasMorePages())
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $tbl_pos->nextPageUrl() }}">
+                                <i class="fa fa-angle-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">
+                                <i class="fa fa-angle-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
         </div>
     </div>
 @endsection

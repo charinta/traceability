@@ -32,10 +32,9 @@ use Illuminate\Support\Facades\Route;
             return view('user-account');
         })->name('user-account');
 
-        // view ke register pos
-        Route::get('register-pos', function () {
-            return view('register-pos');
-        })->name('register-pos');
+       
+        Route::resource('register-pos',\App\Http\Controllers\PosController::class);
+        Route::resource('register-standar',\App\Http\Controllers\StandarController::class);
 
         // view ke register line op
         Route::get('register-line-op', function () {

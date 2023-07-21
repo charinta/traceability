@@ -68,3 +68,74 @@
     box-shadow: none;
     border:none;
 }
+
+/* CSS untuk mengatur opasitas jika form dalam keadaan disabled */
+.form-group.disabled .form-control {
+    opacity: 0.2; /* Ubah angka ini untuk mengatur tingkat opasitas */
+    pointer-events: none; /* Ini untuk menghindari klik pada form yang disabled */
+  }
+  
+  .form-group.disabled label {
+    opacity: 0.2; /* Ubah angka ini untuk mengatur tingkat opasitas */
+  }
+  
+  /* Ubah style untuk elemen yang disabled */
+  .form-group.disabled {
+    /* Misalnya, ubah warna latar belakang atau border jika diinginkan */
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    /* Atur style lainnya sesuai kebutuhan */
+  }
+  
+
+  /* Toggle Switch Styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch-checkbox {
+    display: none;
+}
+
+.toggle-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+.toggle-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+/* Styling when the toggle switch is checked */
+.toggle-switch-checkbox:checked + .toggle-switch-slider {
+    background-color: #66bb6a; /* Green color or any color for active status */
+}
+
+.toggle-switch-checkbox:checked + .toggle-switch-slider:before {
+    transform: translateX(26px);
+}
+
+/* Optional: Add styling for the disabled toggle switch */
+.toggle-switch-checkbox:disabled + .toggle-switch-slider {
+    background-color: #ccc;
+    opacity: 0.6;
+    cursor: not-allowed;
+}

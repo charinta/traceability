@@ -71,9 +71,9 @@
                                             <td>Thomas Hardy</td>
                                             <td>89 Chiaroscuro Rd.</td>
                                             <td>
-                                                <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
                                                         class="fa fa-edit">&#xE417;</i></a>
-                                                <a href="{{ url('register-op') }}" class="edit" title="Edit"
+                                                <a href="{{ url('register-op') }}" class="view" title="View OP"
                                                     data-toggle="tooltip"><i class="fa fa-eye">&#xE254;</i></a>
                                                 <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
                                                         class="fa fa-trash">&#xE872;</i></a>

@@ -4,14 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Standar extends Model
 {
+    protected $createdAtColumn = 'date_created';
     use HasFactory;
+    public $timestamps = false;
+    protected $table = 'tbl_register_standar_check';
     protected $fillable = [
+        'pos_name',
+        'item_check',
+        'standard_check',
         'standard_value',
+        'batas_atas',
+        'batas_bawah',
         'standard_string',
         'standard_image',
         'remark',
+        'status',
     ];
+
 }

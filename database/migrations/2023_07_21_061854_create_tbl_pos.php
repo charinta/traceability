@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamp('date_created', 7)->nullable();
             $table->timestamp('date_modify', 7)->nullable();
             $table->string('pos_name', 50)->nullable();
+            $table->string('status')->nullable();
         });
     }
 
