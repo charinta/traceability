@@ -15,15 +15,17 @@
                         </div>
                         {{-- form body --}}
                         <div class="card-body">
-                            <form action="{{ route('register-line-op.storeLine') }}" method="POST"
+                            <form action="{{ route('register-line-op.updateLine', $line->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <label for="line" class="form-control-label text-light">Line</label>
-                                    <input class="form-control" type="text" name="line" placeholder="Masukkan Line">
+                                    <input class="form-control" type="text" name="line"
+                                        value="{{ old('line', $line->line) }}" placeholder="Masukkan Line">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                         Line</button>
                                 </div>
                                 <br>
@@ -33,7 +35,7 @@
                 </div>
 
 
-                {{-- table --}}
+                {{-- table
                 <div class="col-12 col-xl-9">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0 p-3 col-xl-8">
@@ -42,7 +44,7 @@
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
                                 <table class="table">
-                                    {{-- table header --}}
+                                    table header
                                     <thead align="center">
                                         <tr>
                                             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
@@ -55,7 +57,7 @@
                                                 Action</th>
                                         </tr>
                                     </thead>
-                                    {{-- table body --}}
+                                    table body
                                     <tbody align="center">
                                         @foreach ($line as $lin)
                                             <tr>
@@ -66,7 +68,7 @@
                                                     <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                         action="{{ route('register-line-op.destroy', $lin->id) }}"
                                                         method="POST">
-                                                        {{-- icon edit --}}
+                                                        icon edit
                                                         <button type="button">
                                                             <a href="{{ route('register-line-op.editLine', $lin->id) }}">
                                                                 <svg width="18px" height="18px" viewBox="0 0 24 24"
@@ -81,7 +83,7 @@
                                                                     </g>
                                                                 </svg>
                                                             </a></button>
-                                                        {{-- icon show op --}}
+                                                        icon show op
                                                         <button type="button">
                                                             <a href="{{ route('register-op', $lin->id) }}">
                                                                 <svg width="18px" height="18px" viewBox="0 0 24 24"
@@ -97,7 +99,7 @@
                                                                 </svg>
                                                             </a>
                                                         </button>
-                                                        {{-- icon delete --}}
+                                                        icon delete
                                                         <button type="submit"> <svg width="18px" height="18px"
                                                                 viewBox="0 0 24 24" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -133,33 +135,33 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="javascript:;" tabindex="-1">
-                                                <i class="fa fa-angle-left"></i>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                                        <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                                        <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="javascript:;">
-                                                <i class="fa fa-angle-right"></i>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                </table> --}}
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="javascript:;" tabindex="-1">
+                                <i class="fa fa-angle-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+                        <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
+                        <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="javascript:;">
+                                <i class="fa fa-angle-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

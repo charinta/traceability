@@ -3,42 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
+    // melihat data tabel
     public function getUser () {
         $user = User::all();
         return view('user-account')->with('user', $user);
     }
 
-    public function create() {
+    public function createUser() {
         return view('user-account');
     }
 
-    public function storeUser(Request $request){
-        $validatedData = $request->validate([
+    // menyimpan data/menyimpan insert data 
+    public function storeUser(Request $request): RedirectResponse{
+        $this -> validate($request,[
             'username'=> 'required',
             'npk' => 'required',
-            'pos' => 'required',
+            'pos_id' => 'required',
             'role' => 'required',
             'password' => 'required',
         ]);
 
-        $user = User::create($validatedData);
+        $data = $request->all();
+        $data['date_created'] = Carbon::now('Asia/Jakarta');
+        $data['date_modify'] = Carbon::now('Asia/Jakarta'); 
+        $user = User::create($data);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Produk berhasil dibuat',
-            'data' => $user
-        ], 201);
+         return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Diubah!']);
     }
-
+    
+    // view ke halaman edit
     public function editUser($id){
         $user = User::findOrFail($id);
         return view('edit-user-account', compact('user'));
     }
 
+    // update data
     public function updateUser(Request $request, User $user){
         $validatedData = $request->validate([
             'username' => 'required',
@@ -50,12 +55,13 @@ class UserController extends Controller
 
         $user->update($validatedData);
 
-        return redirect()->route('user-account')->with(['success'=>'Data Berhasil Diubah!']);
+        return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Diubah!']);
     }
 
+    // hapus data
     public function destroy(User $user){
         $user->delete();
 
-        return redirect()->route('user-account')->with(['success'=>'Data Berhasil Dihapus']);
+        return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Dihapus']);
     }
 }
