@@ -8,7 +8,8 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Dolly Supply Pos
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Dolly
+                                    Supply Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
                                     0
@@ -30,7 +31,8 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Input Supply
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold text-xs">Number of Tool in Input
+                                    Supply
                                     Pos
                                 </p>
                                 <h5 class="font-weight-bolder mb-0">
@@ -192,7 +194,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4 mb-6">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">

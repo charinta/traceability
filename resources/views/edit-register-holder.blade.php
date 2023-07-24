@@ -4,52 +4,59 @@
     <div class="container-fluid py-4">
         <div class="row">
 
-            {{-- form insert register holder --}}
+            {{-- form update register holder --}}
             <div class="col-12 col-xl-3">
+                {{-- form header --}}
                 <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
-                    {{-- form header --}}
                     <div class="card-header pb-0 p-3 bg-gradient-dark">
-                        <h4 class="mb-0 text-light"> <b>Register Holder </b></h4>
+                        <h4 class="mb-0 text-light"> <b>Update Register Holder </b></h4>
                         <hr class="text-light">
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-holder.storeHolder') }}" method="POST"
+                        <form action="{{ route('register-holder.updateHolder', $holder->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="no_drawing_holder" class="form-control-label text-light">No Drawing</label>
                                 <input class="form-control" type="text" name="no_drawing_holder"
+                                    value="{{ old('no_drawing_holder', $holder->no_drawing_holder) }}"
                                     placeholder="Masukkan No Drawing">
                             </div>
                             <div class="form-group">
                                 <label for="holder_name" class="form-control-label text-light">Holder Name</label>
                                 <input class="form-control" type="text" name="holder_name"
+                                    value="{{ old('holder_name', $holder->holder_name) }}"
                                     placeholder="Masukkan Holder Name">
                             </div>
                             <div class="form-group">
                                 <label for="holder_spec" class="form-control-label text-light">Spec. Holder</label>
                                 <input class="form-control" type="text" name="holder_spec"
+                                    value="{{ old('holder_spec', $holder->holder_spec) }}"
                                     placeholder="Masukkan Spec. Holder">
                             </div>
                             <div class="form-group">
                                 <label for="holder_diameter" class="form-control-label text-light">Diameter</label>
                                 <input class="form-control" type="text" name="holder_diameter"
+                                    value="{{ old('holder_diameter', $holder->holder_diameter) }}"
                                     placeholder="Masukkan diameter">
                             </div>
                             <div class="form-group">
                                 <label for="holder_lifetime_std" class="form-control-label text-light">Lifetime</label>
                                 <input class="form-control" type="text" name="holder_lifetime_std"
+                                    value="{{ old('holder_lifetime_std', $holder->holder_lifetime_std) }}"
                                     placeholder="Masukkan lifetime">
                             </div>
                             <div class="form-group">
                                 <label for="holder_frequency_std" class="form-control-label text-light">Standard
                                     Frekuensi</label>
                                 <input class="form-control" type="text" name="holder_frequency_std"
+                                    value="{{ old('holder_frequency_std', $holder->holder_frequency_std) }}"
                                     placeholder="Masukkan Standard Frekuensi">
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                     Holder</button>
                             </div>
                             <br>
@@ -60,16 +67,16 @@
 
 
             {{-- table --}}
-            <div class="col-12 col-xl-9">
+            {{-- <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
                         <h6>Holder Table</h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table">
-                                {{-- table header --}}
-                                <thead align="center">
+                            <table class="table align-item-center">
+
+                                <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             ID</th>
@@ -83,8 +90,7 @@
                                             Action</th>
                                     </tr>
                                 </thead>
-                                {{-- table body --}}
-                                <tbody align="center">
+                                <tbody>
                                     @foreach ($holder as $hold)
                                         <tr>
                                             <td>{{ $hold->id }}</td>
@@ -137,37 +143,37 @@
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                            </table>
-                            {{-- pagination --}}
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="javascript:;" tabindex="-1">
-                                            <i class="fa fa-angle-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </table> --}}
+
+            {{-- pagination --}}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:;" tabindex="-1">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
+                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:;">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

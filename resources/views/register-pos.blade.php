@@ -9,8 +9,24 @@
                 <div class="col-12">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0">
-                            <h6>Pos Table</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Pos Table</h6>
+                                <form action=" " method="GET" class="form-inline">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <div class="form-group">
+                                                <div class="input-group mb-4">
+                                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                    <input class="form-control" placeholder="Search" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                        
+                        
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
                                 <table class="table align-item-center">
@@ -36,6 +52,7 @@
                                             <td>{{ $pos -> date_created}}</td>
                                             <td>{{ $pos -> pos_name }} </td>
                                             <td>
+                                                {{--toggle switch dinamis--}}
                                                 <label class="toggle-switch">
                                                     <input type="checkbox" class="toggle-switch-checkbox" name="status" value="active"
                                                         {{ $pos->status === 'active' ? 'checked' : '' }} disabled>
@@ -58,6 +75,7 @@
                     </div>
                 </div>
             </div>
+            
                     <!-- Pagination Section -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">

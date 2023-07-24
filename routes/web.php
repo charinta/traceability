@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\HolderController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LineController;
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StandarController;
+use App\Http\Controllers\PosController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,15 +33,20 @@ use Illuminate\Support\Facades\Route;
             return view('dashboard');
         })->name('dashboard');
 
-        // view ke user account
-        Route::get('user-account', function () {
-            return view('user-account');
-        })->name('user-account');
+        // // view ke user account
+        // Route::get('user-account', function () {
+        //     return view('user-account');
+        // })->name('user-account');
 
        
         Route::resource('register-pos',\App\Http\Controllers\PosController::class);
+        Route::post('/update-status/{id}', [PosController::class, 'updateStatus'])->name('pos.updateStatus');
+       
         Route::resource('register-standar',\App\Http\Controllers\StandarController::class);
-
+       // Route::get('register-standar', [StandarController::class, 'index'])->name('register-standar.index');
+        // Route::post('register-standar', [StandarController::class, 'store'])->name('register-standar.store');
+        
+        
         // view ke register line op
         Route::get('register-line-op', function () {
             return view('register-line-op');
@@ -46,15 +57,15 @@ use Illuminate\Support\Facades\Route;
             return view('register-op');
         })->name('register-op');
 
-        // view ke register tool
-        Route::get('register-tool', function () {
-            return view('register-tool');
-        })->name('register-tool');
+        // // view ke register tool
+        // Route::get('register-tool', function () {
+        //     return view('register-tool');
+        // })->name('register-tool');
 
-        // view ke register holder
-        Route::get('register-holder', function () {
-            return view('register-holder');
-        })->name('register-holder');
+        // // view ke register holder
+        // Route::get('register-holder', function () {
+        //     return view('register-holder');
+        // })->name('register-holder');
 
         // view ke register item
         Route::get('register-item', function () {
@@ -76,10 +87,6 @@ use Illuminate\Support\Facades\Route;
             return view('resume-holder');
         })->name('resume-holder');
 
-        // view ke register standard
-        Route::get('register-standar', function () {
-            return view('register-standar');
-        })->name('register-standar');
 
         // view ke login
         Route::get('login', function () {
@@ -90,4 +97,33 @@ use Illuminate\Support\Facades\Route;
         Route::get('sign-up', function () {
             return view('sign-up');
         })->name('sign-up');
-// });
+
+        // });
+
+        // route view user-account
+        Route::get('user-account', [UserController::class, 'getUser'])->name('user-account.getUser');
+        Route::post('user-account', [UserController::class, 'storeUser'])->name('user-account.storeUser');
+        Route::get('edit-user-account/{user}', [UserController::class, 'editUser'])->name('user-account.editUser');
+        Route::put('user-account/{user}', [UserController::class, 'updateUser'])->name('user-account.updateUser');
+        Route::delete('user-account/{user}', [UserController::class, 'destroy'])->name('user-account.destroy');
+        
+        // route view register-holder
+        Route::get('register-holder', [HolderController::class, 'getHolder'])->name('register-holder.getHolder');
+        Route::post('register-holder', [HolderController::class, 'storeHolder'])->name('register-holder.storeHolder');
+        Route::get('edit-register-holder/{holder}', [HolderController::class, 'editHolder'])->name('register-holder.editHolder');
+        Route::put('register-holder/{holder}', [HolderController::class, 'updateHolder'])->name('register-holder.updateHolder');
+        Route::delete('register-holder/{holder}', [HolderController::class, 'destroy'])->name('register-holder.destroy');
+
+        // route view register-line-op
+        Route::get('register-line-op', [LineController::class, 'getLine'])->name('register-line-op.getLine');
+        Route::post('register-line-op', [LineController::class, 'storeLine'])->name('register-line-op.storeLine');
+        Route::get('edit-register-line-op/{line}', [LineController::class, 'editLine'])->name('register-line-op.editLine');
+        Route::put('register-line-op/{line}', [LineController::class, 'updateLine'])->name('register-line-op.updateLine');
+        Route::delete('register-line-op/{line}', [LineController::class, 'destroy'])->name('register-line-op.destroy');
+            
+        // route view register-tool
+        Route::get('register-tool', [ToolController::class, 'getTool'])->name('register-tool.getTool');
+        Route::post('register-tool', [ToolController::class, 'storeTool'])->name('register-tool.storeTool');
+        Route::get('edit-register-tool/{tool}', [ToolController::class, 'editTool'])->name('register-tool.editTool');
+        Route::put('register-tool/{tool}', [ToolController::class, 'updateTool'])->name('register-tool.updateTool');
+        Route::delete('register-tool/{tool}', [ToolController::class, 'destroy'])->name('register-tool.destroy');

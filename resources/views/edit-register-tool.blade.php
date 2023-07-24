@@ -14,11 +14,14 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-tool.storeTool') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('register-tool.updateTool', $tool->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="no_drawing_tool" class="form-control-label text-light">No Drawing</label>
                                 <input class="form-control" type="text" name="no_drawing_tool"
+                                    value=" {{ old('no_drawing_tool', $tool->no_drawing_tool) }}"
                                     placeholder="Masukkan No Drawing">
                             </div>
                             <div class="form-group">
@@ -26,51 +29,54 @@
                                     Tool</label>
                                 <select class="form-select" name="tool_type">
                                     <option value="">---Pilih Type---</option>
-                                    <option value="drill">D</option>
-                                    <option value="reamer">R</option>
-                                    <option value="tap">T</option>
-                                    <option value="enmilld">E</option>
+                                    <option value="drill" @if ($tool->tool_type === 'drill') selected @endif>D</option>
+                                    <option value="reamer" @if ($tool->tool_type === 'reamer') selected @endif>R</option>
+                                    <option value="tap" @if ($tool->tool_type === 'tap') selected @endif>T</option>
+                                    <option value="enmilld" @if ($tool->tool_type === 'enmilld') selected @endif>E</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="tool_spec" class="form-control-label text-light">Spec. Tool</label>
                                 <input class="form-control" type="text" name="tool_spec"
-                                    placeholder="Masukkan Spec. Tool">
+                                    value="{{ old('tool_spec', $tool->tool_spec) }}" placeholder="Masukkan Spec. Tool">
                             </div>
                             <div class="form-group">
                                 <label for="tool_diameter" class="form-control-label text-light">Diameter</label>
                                 <input class="form-control" type="text" name="tool_diameter"
+                                    value="{{ old('tool_diameter', $tool->tool_diameter) }}"
                                     placeholder="Masukkan Diameter">
                             </div>
                             <div class="form-group">
                                 <label for="tool_lifetime_std" class="form-control-label text-light">Lifetime</label>
                                 <input class="form-control" type="text" name="tool_lifetime_std"
+                                    value="{{ old('tool_lifetime_std', $tool->tool_lifetime_std) }}"
                                     placeholder="Masukkan Lifetime">
                             </div>
                             <div class="form-group">
                                 <label for="tool_frequency_std" class="form-control-label text-light">Standard
                                     Frekuensi</label>
                                 <input class="form-control" type="text" name="tool_frequency_std"
+                                    value="{{ old('tool_frequency_std', $tool->tool_frequency_std) }}"
                                     placeholder="Masukkan Frekuensi">
                             </div>
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
                                     <option value="">---Pilih Line---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    <option value="1" @if ($tool->line === '1') selected @endif>1</option>
+                                    <option value="2" @if ($tool->line === '2') selected @endif>2</option>
+                                    <option value="3" @if ($tool->line === '3') selected @endif>3</option>
+                                    <option value="4" @if ($tool->line === '4') selected @endif>4</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
                                     <option value="">---Pilih OP---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    <option value="1" @if ($tool->op === '1') selected @endif>1</option>
+                                    <option value="2" @if ($tool->op === '2') selected @endif>2</option>
+                                    <option value="3" @if ($tool->op === '3') selected @endif>3</option>
+                                    <option value="4" @if ($tool->op === '4') selected @endif>4</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -78,17 +84,18 @@
                                     name="no_drawing_holder">Holder</label>
                                 <select class="form-select" name="no_drawing_holder">
                                     <option value="">---Pilih Holder---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    <option value="1" @if ($tool->no_drawing_holder === '1') selected @endif>1</option>
+                                    <option value="2" @if ($tool->no_drawing_holder === '2') selected @endif>2</option>
+                                    <option value="3" @if ($tool->no_drawing_holder === '3') selected @endif>3</option>
+                                    <option value="4" @if ($tool->no_drawing_holder === '4') selected @endif>4</option>
                                 </select>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="washing_ct" class="form-control-label text-light">Washing CT</label>
-                                        <input class="form-control" type="text" name="washing_ct">
+                                        <input class="form-control" type="text" name="washing_ct"
+                                            value="{{ old('washing_ct', $tool->washing_ct) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-3">
@@ -100,7 +107,8 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="grinding_ct" class="form-control-label text-light">Grinding CT</label>
-                                        <input class="form-control" type="text" name="grinding_ct">
+                                        <input class="form-control" type="text" name="grinding_ct"
+                                            value="{{ old('grinding_ct', $tool->grinding_ct) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-3">
@@ -112,7 +120,8 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="setting_ct" class="form-control-label text-light">Setting CT</label>
-                                        <input class="form-control" type="text" name="setting_ct">
+                                        <input class="form-control" type="text" name="setting_ct"
+                                            value="{{ old('setting_ct', $tool->setting_ct) }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-3">
@@ -121,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                     Tool</button>
                             </div>
                             <br>
@@ -131,7 +140,7 @@
             </div>
 
 
-            {{-- table --}}
+            {{-- table
             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
@@ -140,7 +149,7 @@
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table">
-                                {{-- table header --}}
+                                table header
                                 <thead align="center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -157,7 +166,7 @@
                                             Action</th>
                                     </tr>
                                 </thead>
-                                {{-- table body --}}
+                                table body
                                 <tbody align="center">
                                     @foreach ($tool as $tol)
                                         <tr>
@@ -217,32 +226,32 @@
                                     @endforeach
                                 </tbody>
 
-                            </table>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="javascript:;" tabindex="-1">
-                                            <i class="fa fa-angle-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </table> --}}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="javascript:;" tabindex="-1">
+                            <i class="fa fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
+                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
+                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
+                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:;">
+                            <i class="fa fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

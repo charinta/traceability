@@ -17,9 +17,12 @@ return new class extends Migration
             $table->timestamp('date_modify')->nullable();
             $table->string('pos_name', 50)->nullable();
             $table->string('item_check', 50)->nullable();
+            $table->text('standard_check')->nullable();
+            $table->integer('standard_value')->nullable();
             $table->decimal('batas_atas')->nullable();
             $table->decimal('batas_bawah')->nullable();
-            $table->text('standard_check')->nullable();
+            $table->string('standard_string')->nullable();
+            $table->string('standard_image')->nullable();
             $table->string('remark', 50)->nullable();
             $table->string('status', 50)->nullable();
             

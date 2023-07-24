@@ -7,17 +7,17 @@ use App\Models\Standar;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Validation\Rule;
 
 class StandarController extends Controller
 {
-    public function index(): View
-    {
-        // Get data standar
-        $tbl_register_standar_check = Standar::oldest('id')->paginate(3);
+    public function index(){
+        $standar = Standar::paginate(10);
+        return view('register-standar')->with('standar',$standar);
+    }
 
-        // Render view with data standar
-        return view('register-standar', compact('tbl_register_standar_check'));
+    public function create():View
+    {
+        return view('register-standar');
     }
 
     public function store(Request $request): RedirectResponse
@@ -39,15 +39,18 @@ class StandarController extends Controller
         $data = $request->all();
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
-        $tbl_register_standar_check = Standar::create($data);
+        $standar = Standar::create($data);
 
         return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    public function destroy($id): RedirectResponse
+   
+
+    public function destroy(Standar $standar): RedirectResponse
     {
-        $tbl_register_standar_check = Standar::findOrFail($id);
-        $tbl_register_standar_check->delete();
+       
+        $standar->delete();
+        
         return redirect()->route('register-standar.index')->with(['success' => 'Data terhapus!']);
     }
 }

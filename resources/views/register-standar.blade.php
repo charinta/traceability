@@ -11,7 +11,7 @@
                         <hr class="text-light">
                     </div>
                     <div class="card-body">
-                        <form action="{{route('register-standar.store')}}">
+                        <form action="{{route('register-standar.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="pos_name" class="form-control-label text-light"
@@ -89,12 +89,12 @@
                             <div class="form-group d-flex">
                                 <div class="flex-grow-1 me-2">
                                     <label for="batas_atas" class="form-control-label text-light">Toleransi Atas</label>
-                                    <input class="form-control" type="text" id="batas_atas" disabled>
+                                    <input class="form-control" type="text" name="batas_atas" id="batas_atas" disabled>
                                 </div>
                                 <div class="flex-grow-1">
                                     <label for="batas_bawah" class="form-control-label text-light">Toleransi
                                         Bawah</label>
-                                    <input class="form-control" type="text" id="batas_bawah" disabled>
+                                    <input class="form-control" type="text" name="batas_bawah" id="batas_bawah" disabled>
                                 </div>
                             </div>
 
@@ -191,12 +191,26 @@
             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
-                        <h6>Standard Table</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Standard Table</h6>
+                            <form action=" " method="GET" class="form-inline">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <div class="input-group mb-4">
+                                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                <input class="form-control" placeholder="Search" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-item-center">
-                                <thead>
+                                <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Pos</th>
@@ -210,24 +224,25 @@
                                             Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($tbl_register_standar_check as $standar)
+                                <tbody class="text-center">
+                                    @foreach($standar as $standard)
                                     <tr class = "text-center">
-                                        <td>{{ $standar -> pos_name }}</td>
-                                        <td>{{ $standar -> item_check }}</td>
-                                        <td>{{ $standar -> standard_check }}</td>
-                                        <td>{{ $standar -> status }}</td>
+                                        <td>{{ $standard->pos_name }}</td>
+                                        <td>{{ $standard->item_check }}</td>
+                                        <td>{{ $standard->standard_check }}</td>
+                                        <td>{{ $standard->status }}</td>
                                         <td>
-                                            <form action="{{ route('register-standar.destroy', $standar->id) }}" method="POST">
-                                                <a href="{{ route('register-standar.index', $standar->id) }}"
+                                            <form action="{{ route('register-standar.destroy', $standard->id) }}" method="POST">
+                                                <a href="{{ route('register-standar.index', $standard->id) }}"
                                                 class="btn btn-sm btn-primary fa fa-edit"></a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
                                         </form>
                                         </td>
+                                        @endforeach
                                     </tr>
-                                    @endforeach
+                                 
                                 </tbody>
 
                             </table>
@@ -236,12 +251,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
              <!-- Pagination Section -->
              <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
                     {{-- Previous Page Link --}}
-                    @if ($tbl_pos->onFirstPage())
+                    @if ($standar->onFirstPage())
                         <li class="page-item disabled">
                             <a class="page-link" href="#" tabindex="-1">
                                 <i class="fa fa-angle-left"></i>
@@ -250,7 +265,7 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $tbl_pos->previousPageUrl() }}" tabindex="-1">
+                            <a class="page-link" href="{{ $standar->previousPageUrl() }}" tabindex="-1">
                                 <i class="fa fa-angle-left"></i>
                                 <span class="sr-only">Previous</span>
                             </a>
@@ -258,8 +273,8 @@
                     @endif
 
                     {{-- Page Links --}}
-                    @foreach ($tbl_pos->getUrlRange(1, $tbl_pos->lastPage()) as $page => $url)
-                        @if ($page == $tbl_pos->currentPage())
+                    @foreach ($standar->getUrlRange(1, $standar->lastPage()) as $page => $url)
+                        @if ($page == $standar->currentPage())
                             <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                         @else
                             <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
@@ -267,9 +282,9 @@
                     @endforeach
 
                     {{-- Next Page Link --}}
-                    @if ($tbl_pos->hasMorePages())
+                    @if ($standar->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $tbl_pos->nextPageUrl() }}">
+                            <a class="page-link" href="{{ $standar->nextPageUrl() }}">
                                 <i class="fa fa-angle-right"></i>
                                 <span class="sr-only">Next</span>
                             </a>
@@ -284,6 +299,7 @@
                     @endif
                 </ul>
             </nav>
+            </div>
         </div>
     </div>
 @endsection

@@ -8,8 +8,8 @@ use Carbon\Carbon;
 
 class Standar extends Model
 {
-    protected $createdAtColumn = 'date_created';
     use HasFactory;
+    protected $createdAtColumn = 'date_created';
     public $timestamps = false;
     protected $table = 'tbl_register_standar_check';
     protected $fillable = [
@@ -24,5 +24,18 @@ class Standar extends Model
         'remark',
         'status',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($standar) {
+            $standar->date_created = Carbon::now('Asia/Jakarta');
+        });
+
+        static::updating(function ($standar) {
+            $standar->date_modify = Carbon::now('Asia/Jakarta');
+});
+}
 
 }

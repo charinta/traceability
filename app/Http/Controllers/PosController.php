@@ -20,6 +20,7 @@ class PosController extends Controller
         return view('register-pos', compact('tbl_pos'));
     }
 
+
     public function create():View
     {
         return view('register-pos');
@@ -45,6 +46,19 @@ class PosController extends Controller
         return redirect()->route('register-pos.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
+    public function updateStatus(Request $request, $id)
+    {
+        $status = $request->input('status');
+        // Lakukan proses untuk memperbarui status pada tabel tbl_pos dengan ID yang sesuai
+        // Contoh:
+        $pos = Pos::findOrFail($id);
+        $pos->status = $status;
+        $pos->save();
+
+        // Beri respon sukses atau sebaliknya jika ada error
+        return response()->json(['message' => 'Status berhasil diperbarui!']);
+    }
+    
     public function destroy ($id): RedirectResponse
     {
         $tbl_pos = Pos::findOrFail($id);
