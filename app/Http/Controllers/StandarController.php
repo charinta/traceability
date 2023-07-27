@@ -13,8 +13,15 @@ use Carbon\Carbon;
 class StandarController extends Controller
 {
     public function index(){
+        // agar tabel pos terbaca di form
+        $pos = Pos::all();
         $standar = Standar::paginate(10);
-        return view('register-standar')->with('standar',$standar);
+        return view('register-standar', compact('standar', 'pos'));
+    }
+
+    public function show(Standar $standar, $id)
+    {
+        return view('register-standar', compact('standar'));
     }
 
     public function search(Request $request)
