@@ -64,12 +64,13 @@
                                 <div class="form-group">
                                     <label for="standard_value" class="form-control-label text-light">Standard Value</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="standard_value" id="standard-value"
-                                            placeholder="Enter a value" style="margin-right: 7px"
-                                            {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
+                                        <input type="text" class="form-control" name="standard_check" id="standard-value"
+                                            style="margin-right: 7px"
+                                            {{ old('check') === 'Standard Value' ? '' : 'disabled' }}>
+                                        <input type="hidden" name="selected_option" value="Standard Value">
                                         <div class="input-group-append">
                                             <select class="form-select" id="unit-dropdown" name="unit-dropdown"
-                                                {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
+                                                {{ old('check') === 'Standard Value' ? '' : 'disabled' }}>
                                                 <option value="cm">cm</option>
                                                 <option value="inch">inch</option>
                                                 <option value="m">m</option>
@@ -100,7 +101,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="standard-image" class="form-control-label text-light">Standard Image</label>
+                                    <label for="standard-image" class="form-control-label text-light">Standard
+                                        Image</label>
                                     <input class="form-control" type="file" id="standard-image" accept="image/*"
                                         disabled>
                                     <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
@@ -188,13 +190,14 @@
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Standard Table</h6>
-                            <form action=" " method="GET" class="form-inline">
+                            <form class="form-inline" method="get" action="{{ route('register-standar.search') }}">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="form-group">
                                             <div class="input-group mb-4">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                <input class="form-control" placeholder="Search" type="text">
+                                                <input class="form-control" placeholder="Search" type="text"
+                                                    name="search" value="{{ request('search') }}">
                                             </div>
                                         </div>
                                     </div>

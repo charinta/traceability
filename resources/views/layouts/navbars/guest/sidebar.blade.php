@@ -79,8 +79,7 @@
             </a>
         </li>
         <li class="nav-item mt-2">
-            <a class="nav-link {{ Request::is('register-line-op') ? 'active' : '' }}"
-                href="{{ url('register-line-op') }}">
+            <a class="nav-link {{ Request::is('register-line') ? 'active' : '' }}" href="{{ url('register-line') }}">
                 <div
                     class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                     <svg width="12px" height="12px" fill="#000000" version="1.1" id="Capa_1"

@@ -11,13 +11,14 @@
                         <div class="card-header pb-0">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h6 class="mb-0">Pos Table</h6>
-                                <form action=" " method="GET" class="form-inline">
+                                <form class="form-inline" method="get" action="{{ route('register-pos.search') }}">
                                     <div class="row">
                                         <div class="col-md-11">
                                             <div class="form-group">
                                                 <div class="input-group mb-4">
                                                     <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                    <input class="form-control" placeholder="Search" type="text">
+                                                    <input class="form-control" placeholder="Search" type="text"
+                                                        name="search" value="{{ request('search') }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -47,21 +48,21 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($tbl_pos as $pos)
-                                            <tr class="text-center text-s">
-                                                <td>{{ $pos->pos_id }}</td>
+                                            <tr class="text-center">
+                                                <td>{{ $pos->id }}</td>
                                                 <td>{{ $pos->date_created }}</td>
                                                 <td>{{ $pos->pos_name }} </td>
                                                 <td>
                                                     {{-- toggle switch dinamis --}}
                                                     <label class="toggle-switch">
                                                         <input type="checkbox" class="toggle-switch-checkbox" name="status"
-                                                            value="active" {{ $pos->status === '1' ? 'checked' : '' }}
+                                                            value="active" {{ $pos->status === 'active' ? 'checked' : '' }}
                                                             disabled>
                                                         <span class="toggle-switch-slider"></span>
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    <form action="{{ route('register-pos.destroy', $pos->pos_id) }}"
+                                                    <form action="{{ route('register-pos.destroy', $pos->id) }}"
                                                         method="POST">
 
                                                         @csrf

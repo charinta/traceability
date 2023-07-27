@@ -11,16 +11,14 @@ class Standar extends Model
     use HasFactory;
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;
-    protected $table = 'tbl_register_standar_check';
+    protected $table = 'tbl_register_standard_check';
     protected $fillable = [
         'pos_id',
         'item_check',
         'standard_check',
-        'standard_value',
         'batas_atas',
         'batas_bawah',
-        'standard_string',
-        'standard_image',
+        'status_data',
         'remark',
         'status',
     ];
@@ -37,11 +35,11 @@ class Standar extends Model
             $standar->date_modify = Carbon::now('Asia/Jakarta');
 });
 }
-
 // relasi ke tbl_pos
     public function pos()
         {
             return $this->hasMany(Pos::class, 'pos_id');
         }
+}
 
 }
