@@ -26,10 +26,10 @@
                                     Tool</label>
                                 <select class="form-select" name="tool_type">
                                     <option value="">---Pilih Type---</option>
-                                    <option value="drill">D</option>
-                                    <option value="reamer">R</option>
-                                    <option value="tap">T</option>
-                                    <option value="enmilld">E</option>
+                                    <option value="D">Drill</option>
+                                    <option value="R">Reamer</option>
+                                    <option value="T">Tap</option>
+                                    <option value="E">Enmilld</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -74,14 +74,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="no_drawing_holder" class="form-control-label text-light"
-                                    name="no_drawing_holder">Holder</label>
-                                <select class="form-select" name="no_drawing_holder">
+                                <label for="holder_id" class="form-control-label text-light" name="holder_id">Holder</label>
+                                <select class="form-select" name="holder_id">
                                     <option value="">---Pilih Holder---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    {{-- relasi ke tabel pos --}}
+                                    @foreach ($holder as $posData)
+                                        <option value="{{ $posData->holder_id }}">{{ $posData->no_drawing_holder }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="row">

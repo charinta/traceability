@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\HolderController;
-use App\Http\Controllers\HolderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LineController;
 use App\Http\Controllers\ToolController;
@@ -30,9 +29,9 @@ use Illuminate\Support\Facades\Route;
         })->name('login');
 
         // view ke dashboard
-        Route::get('dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
+        // Route::get('dashboard', function () {
+        //     return view('dashboard');
+        // })->name('dashboard');
 
         // // view ke user account
         // Route::get('user-account', function () {
@@ -107,51 +106,29 @@ use Illuminate\Support\Facades\Route;
             return view('sign-up');
         })->name('sign-up');
 
+        // view ke historical data
+        Route::get('historical-data', function () {
+            return view('historical-data');
+        })->name('historical-data');
+
         // });
+
+        
+        Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 
         // route view user-account
         Route::get('user-account', [UserController::class, 'getUser'])->name('user-account.getUser');
         Route::post('user-account', [UserController::class, 'storeUser'])->name('user-account.storeUser');
-        Route::get('edit-user-account/{user}', [UserController::class, 'editUser'])->name('user-account.editUser');
-        Route::put('user-account/{user}', [UserController::class, 'updateUser'])->name('user-account.updateUser');
-        Route::delete('user-account/{user}', [UserController::class, 'destroy'])->name('user-account.destroy');
+        Route::get('edit-user-account/{id}', [UserController::class, 'editUser'])->name('user-account.editUser');
+        Route::put('user-account/{id}', [UserController::class, 'updateUser'])->name('user-account.updateUser');
+        Route::delete('user-account/{id}', [UserController::class, 'destroy'])->name('user-account.destroy');
         
         // route view register-holder
         Route::get('register-holder', [HolderController::class, 'getHolder'])->name('register-holder.getHolder');
         Route::post('register-holder', [HolderController::class, 'storeHolder'])->name('register-holder.storeHolder');
-        Route::get('edit-register-holder/{holder}', [HolderController::class, 'editHolder'])->name('register-holder.editHolder');
-        Route::put('register-holder/{holder}', [HolderController::class, 'updateHolder'])->name('register-holder.updateHolder');
-        Route::delete('register-holder/{holder}', [HolderController::class, 'destroy'])->name('register-holder.destroy');
-
-        // route view register-line-op
-        Route::get('register-line-op', [LineController::class, 'getLine'])->name('register-line-op.getLine');
-        Route::post('register-line-op', [LineController::class, 'storeLine'])->name('register-line-op.storeLine');
-        Route::get('edit-register-line-op/{line}', [LineController::class, 'editLine'])->name('register-line-op.editLine');
-        Route::put('register-line-op/{line}', [LineController::class, 'updateLine'])->name('register-line-op.updateLine');
-        Route::delete('register-line-op/{line}', [LineController::class, 'destroy'])->name('register-line-op.destroy');
-            
-        // route view register-tool
-        Route::get('register-tool', [ToolController::class, 'getTool'])->name('register-tool.getTool');
-        Route::post('register-tool', [ToolController::class, 'storeTool'])->name('register-tool.storeTool');
-        Route::get('edit-register-tool/{tool}', [ToolController::class, 'editTool'])->name('register-tool.editTool');
-        Route::put('register-tool/{tool}', [ToolController::class, 'updateTool'])->name('register-tool.updateTool');
-        Route::delete('register-tool/{tool}', [ToolController::class, 'destroy'])->name('register-tool.destroy');
-
-        // });
-
-        // route view user-account
-        Route::get('user-account', [UserController::class, 'getUser'])->name('user-account.getUser');
-        Route::post('user-account', [UserController::class, 'storeUser'])->name('user-account.storeUser');
-        Route::get('edit-user-account/{user}', [UserController::class, 'editUser'])->name('user-account.editUser');
-        Route::put('user-account/{user}', [UserController::class, 'updateUser'])->name('user-account.updateUser');
-        Route::delete('user-account/{user}', [UserController::class, 'destroy'])->name('user-account.destroy');
-        
-        // route view register-holder
-        Route::get('register-holder', [HolderController::class, 'getHolder'])->name('register-holder.getHolder');
-        Route::post('register-holder', [HolderController::class, 'storeHolder'])->name('register-holder.storeHolder');
-        Route::get('edit-register-holder/{holder}', [HolderController::class, 'editHolder'])->name('register-holder.editHolder');
-        Route::put('register-holder/{holder}', [HolderController::class, 'updateHolder'])->name('register-holder.updateHolder');
-        Route::delete('register-holder/{holder}', [HolderController::class, 'destroy'])->name('register-holder.destroy');
+        Route::get('edit-register-holder/{holder_id}', [HolderController::class, 'editHolder'])->name('register-holder.editHolder');
+        Route::put('register-holder/{holder_id}', [HolderController::class, 'updateHolder'])->name('register-holder.updateHolder');
+        Route::delete('register-holder/{holder_id}', [HolderController::class, 'destroy'])->name('register-holder.destroy');
 
         // route view register-line-op
         Route::get('register-line-op', [LineController::class, 'getLine'])->name('register-line-op.getLine');

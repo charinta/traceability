@@ -18,7 +18,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label for="nama-user" class="form-control-label text-light">Nama</label>
+                                    <label for="username" class="form-control-label text-light">Nama</label>
                                     <input class="form-control" type="text" name="username"
                                         value="{{ old('username', $user->username) }}" placeholder="Masukkan Nama">
                                 </div>
@@ -31,28 +31,12 @@
                                     <label for="pos_id" class="form-control-label text-light">Pos</label><br>
                                     <select class="form-select" name="pos_id">
                                         <option value="">---Pilih Pos---</option>
-                                        <option value="marking" @if ($user->pos_id === 'marking') selected @endif>Marking
-                                        </option>
-                                        <option value="dolly-tool-supply" @if ($user->pos_id === 'dolly-tool-supply') selected @endif>
-                                            Dolly Tool Supply</option>
-                                        <option value="tools-input" @if ($user->pos_id === 'tools-input') selected @endif>Tools
-                                            Input</option>
-                                        <option value="disasemmbly" @if ($user->pos_id === 'disasemmbly') selected @endif>
-                                            Disasemmbly</option>
-                                        <option value="washing" @if ($user->pos_id === 'washing') selected @endif>Washing
-                                        </option>
-                                        <option value="regrinding-auto" @if ($user->pos_id === 'regrinding-auto') selected @endif>
-                                            Regrinding Auto</option>
-                                        <option value="regrinding-manual" @if ($user->pos_id === 'regrinding-manual') selected @endif>
-                                            Regrinding Manual</option>
-                                        <option value="pre-assembly" @if ($user->pos_id === 'pre-assembly') selected @endif>
-                                            Pre-Assembly</option>
-                                        <option value="setting-tool-mc-nt"
-                                            @if ($user->pos_id === 'setting-tool-mc-nt') selected @endif>Setting Tool Mc NT</option>
-                                        <option value="setting-tool-mc-spe"
-                                            @if ($user->pos_id === 'setting-tool-mc-spe') selected @endif>Setting Tool Mc Spe</option>
-                                        <option value="setting-tool-mc-zol"
-                                            @if ($user->pos_id === 'setting-tool-mc-zol') selected @endif>Setting Tool Mc Zol</option>
+                                        @foreach ($pos as $position)
+                                            <option value="{{ $position->pos_id }}"
+                                                @if ($user->pos_id == $position->pos_id) selected @endif>
+                                                {{ $position->pos_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -61,15 +45,14 @@
                                     <br>
                                     <select class="form-select" name="role">
                                         <option value="">---Pilih Role---</option>
-                                        <option value="admin" @if ($user->role === 'admin') selected @endif>Admin
+                                        <option value="Admin" @if ($user->role === 'Admin') selected @endif>Admin
                                         </option>
-                                        <option value="user" @if ($user->role === 'user') selected @endif>User
+                                        <option value="User" @if ($user->role === 'User') selected @endif>User
                                         </option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-password-input"
-                                        class="form-control-label text-light">Password</label>
+                                    <label for="password" class="form-control-label text-light">Password</label>
                                     <input class="form-control" type="password" name="password"
                                         value="{{ old('password', $user->password) }}" placeholder="Masukkan Password">
                                 </div>
@@ -80,6 +63,7 @@
 
                                 <br>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -138,17 +122,13 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table> --}}
+                                </table> 
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div> --}}
+
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-@endsection
+    @endsection

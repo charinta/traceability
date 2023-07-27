@@ -87,16 +87,17 @@
                                 <tbody align="center">
                                     @foreach ($holder as $hold)
                                         <tr>
-                                            <td>{{ $hold->id }}</td>
+                                            <td>{{ $hold->holder_id }}</td>
                                             <td>{{ $hold->date_created }}</td>
                                             <td>{{ $hold->no_drawing_holder }}</td>
                                             <td>{{ $hold->holder_name }}</td>
                                             <td>
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
+                                                    action="{{ route('register-holder.destroy', $hold->holder_id) }}"
                                                     method="POST">
                                                     <button type="button">
-                                                        <a href="{{ route('register-holder.editHolder', $hold->id) }}">
+                                                        <a
+                                                            href="{{ route('register-holder.editHolder', $hold->holder_id) }}">
                                                             <svg width="18px" height="18px" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

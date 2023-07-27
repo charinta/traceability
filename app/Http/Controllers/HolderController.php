@@ -32,17 +32,19 @@ class HolderController extends Controller
         $holder = Holder::create($data);
 
 
-         return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Diubah!']);
+         return redirect()->route('register-holder.getHolder');
     }
 
     // view ke halaman update
-    public function editHolder($id){
-        $holder = Holder::findOrFail($id);
+    public function editHolder($holder_id){
+        $holder = Holder::findOrFail($holder_id);
         return view('edit-register-holder', compact('holder'));
     }
 
     // update data
-    public function updateHolder(Request $request, Holder $holder){
+    public function updateHolder(Request $request, Holder $holder, $holder_id){
+
+        $holder=Holder::findOrFail($holder_id);
         $validatedData = $request->validate([
            'no_drawing_holder'=> 'required',
             'holder_name' => 'required',
@@ -52,13 +54,22 @@ class HolderController extends Controller
             'holder_frequency_std' => 'required',
         ]);
 
-        $holder->update($validatedData);
+        $holder->no_drawing_holder = $request->input('no_drawing_holder');
+        $holder->holder_name = $request->input('holder_name');
+        $holder->holder_spec = $request->input('holder_spec');
+        $holder->holder_diameter = $request->input('holder_diameter');
+        $holder->holder_lifetime_std = $request->input('holder_lifetime_std');
+        $holder->holder_frequency_std = $request->input('holder_frequency_std');
+        $holder->save();
 
-        return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Diubah!']);
+        // $holder->update($validatedData);
+
+        return redirect()->route('register-holder.getHolder');
     }
 
     // delete data/hapus data
-    public function destroy(Holder $holder){
+    public function destroy(Holder $holder, $holder_id){
+        $holder = Holder::findOrFail($holder_id);
         $holder->delete();
 
         return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Dihapus']);

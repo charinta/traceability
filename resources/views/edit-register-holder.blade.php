@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-holder.updateHolder', $holder->id) }}" method="POST"
+                        <form action="{{ route('register-holder.updateHolder', $holder) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')

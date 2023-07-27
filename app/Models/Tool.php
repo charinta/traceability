@@ -27,7 +27,7 @@ class Tool extends Model
         'tool_frequency_std',
         'line',
         'op',
-        'no_drawing_holder',
+        'holder_id',
         'washing_ct',
         'grinding_ct',
         'setting_ct',
@@ -46,4 +46,10 @@ class Tool extends Model
             $holder->date_modify = Carbon::now('Asia/Jakarta');
 });
 }
+
+ // relasi ke tbl_register_holder
+    public function holder()
+    {
+        return $this->belongsTo(Holder::class, 'holder_id');
+    }
 }

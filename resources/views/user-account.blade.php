@@ -15,6 +15,7 @@
                         </div>
                         {{-- form body --}}
                         <div class="card-body">
+
                             <form action="{{ route('user-account.storeUser') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -30,24 +31,12 @@
                                     <label for="pos_id" class="form-control-label text-light"
                                         name="pos_id">Pos</label><br>
                                     <select class="form-select" name="pos_id">
-                                        {{-- tanpa relasi --}}
                                         <option value="">---Pilih Pos---</option>
-                                        <option value="marking">Marking</option>
-                                        <option value="dolly-tool-supply">Dolly Tool Supply</option>
-                                        <option value="tools-input">Tools Input</option>
-                                        <option value="disasemmbly">Disasemmbly</option>
-                                        <option value="washing">Washing</option>
-                                        <option value="regrinding-auto">Regrinding Auto</option>
-                                        <option value="regrinding-manual">Regrinding Manual</option>
-                                        <option value="pre-assembly">Pre-Assembly</option>
-                                        <option value="setting-tool-mc-nt">Setting Tool Mc NT</option>
-                                        <option value="setting-tool-mc-spe">Setting Tool Mc Spe</option>
-                                        <option value="setting-tool-mc-zol">Setting Tool Mc Zol</option>
 
-                                        {{-- pake relasi ke tabel pos --}}
-                                        {{-- @foreach ($user as $use)
-                                            <option value="{{ $use->pos_id }}">{{ $use->pos_name }}</option>
-                                        @endforeach --}}
+                                        {{-- relasi ke tabel pos --}}
+                                        @foreach ($pos as $posData)
+                                            <option value="{{ $posData->pos_id }}">{{ $posData->pos_name }}</option>
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -56,8 +45,8 @@
                                     <br>
                                     <select class="form-select" name="role">
                                         <option value="">---Pilih Role---</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -72,6 +61,7 @@
 
                                 <br>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -119,8 +109,8 @@
                                                 <td>{{ $users->username }}</td>
                                                 <td>{{ $users->npk }}</td>
 
-                                                {{-- mau dijadiin relasi tapi belum --}}
-                                                <td>{{ $users->pos_id }}</td>
+                                                {{-- column join dari relasi  --}}
+                                                <td>{{ $users->pos_name }}</td>
 
                                                 <td>{{ $users->role }}</td>
                                                 <td>{{ $users->password }}</td>

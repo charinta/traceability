@@ -12,6 +12,7 @@ class Pos extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'tbl_pos';
+    protected $primaryKey = 'pos_id';
     protected $fillable = [
         'pos_name', 'date_created', 'date_modify', 'status'
     ];
@@ -28,5 +29,17 @@ class Pos extends Model
             $pos->date_modify = Carbon::now('Asia/Jakarta');
         });
     }
-}
 
+    // relasi ke tbl_user_account
+    public function users()
+        {
+            return $this->hasMany(User::class, 'pos_id');
+        }
+
+    // relasi ke tbl_register_standar_check
+    public function standar()
+        {
+            return $this->hasMany(Standar::class, 'pos_id');
+        }
+
+}

@@ -16,6 +16,8 @@ class Holder extends Model
 
     // membaca data pada tabel
     protected $table = 'tbl_register_holder';
+    protected $primaryKey = 'holder_id';
+
 
     // menentukan variabel yang diisi
     protected $fillable = [
@@ -43,4 +45,9 @@ class Holder extends Model
 });
 }
 
+ // relasi ke tbl_register_tool
+    public function tool()
+    {
+        return $this->belongsTo(Tool::class, 'holder_id');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Holder;
 use App\Models\Tool;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,7 +13,9 @@ class ToolController extends Controller
     // melihat data Tool
     public function getTool () {
         $tool = Tool::all();
-        return view('register-tool')->with('tool', $tool);
+        // agar tabel register holder terbaca di form
+        $holder = Holder::all();
+        return view('register-tool', compact('tool', 'holder'));
     }
 
     // menyimpan data/menyimpan insert data 

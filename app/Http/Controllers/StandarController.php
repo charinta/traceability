@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pos;
 use Illuminate\Contracts\View\View;
 use App\Models\Standar;
 use Illuminate\Http\RedirectResponse;
@@ -11,8 +12,10 @@ use Carbon\Carbon;
 class StandarController extends Controller
 {
     public function index(){
+        // agar tabel pos terbaca di form
+        $pos = Pos::all();
         $standar = Standar::paginate(10);
-        return view('register-standar')->with('standar',$standar);
+        return view('register-standar', compact('standar', 'pos'));
     }
 
     public function create():View
@@ -23,7 +26,7 @@ class StandarController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
-            'pos_name' => 'required',
+            'pos_id' => 'required',
             'item_check' => 'required',
             'standard_check' => 'required',
             'standard_value' => 'required_if:standard_check,opt-standard-value',

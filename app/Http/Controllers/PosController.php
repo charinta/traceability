@@ -14,7 +14,7 @@ class PosController extends Controller
     public function index():View
     {
         //get data pos
-        $tbl_pos = Pos::oldest('id')->paginate(10);
+        $tbl_pos = Pos::oldest('pos_id')->paginate(10);
 
         //render view with data pos
         return view('register-pos', compact('tbl_pos'));
@@ -65,4 +65,6 @@ class PosController extends Controller
         $tbl_pos -> delete();
         return redirect()->route('register-pos.index')->with(['success'=> 'Data terhapus!']);
     }
+
+    
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('date_modify', 7)->nullable();
             $table->string('username', 50)->nullable();
             $table->integer('npk')->nullable();
-            $table->string('pos', 50)->nullable();
+            $table->string('pos_id', 50)->nullable();
             $table->string('role', 50)->nullable();
             $table->string('password', 50)->nullable();
         });
