@@ -1,6 +1,8 @@
 @extends('layouts.user_type.guest')
 
 @section('content')
+
+
     <div class="container-fluid py-4">
         <div class="row">
             {{--form--}}
@@ -17,17 +19,9 @@
                                 <label for="pos_name" class="form-control-label text-light"
                                     name="pos_name">Pos</label><br>
                                 <select class="form-select" name="pos_name">
-                                    <option value="marking">Marking</option>
-                                    <option value="dolly-tool-supply">Dolly Tool Supply</option>
-                                    <option value="tools-input">Tools Input</option>
-                                    <option value="disasemmbly">Disasemmbly</option>
-                                    <option value="washing">Washing</option>
-                                    <option value="regrinding-auto">Regrinding Auto</option>
-                                    <option value="regrinding-manual">Regrinding Manual</option>
-                                    <option value="pre-assembly">Pre-Assembly</option>
-                                    <option value="setting-tool-mc-nt">Setting Tool Mc NT</option>
-                                    <option value="setting-tool-mc-spe">Setting Tool Mc Spe</option>
-                                    <option value="setting-tool-mc-zol">Setting Tool Mc Zol</option>
+                                    @foreach($activePosNames as $posName)
+                                        <option value="{{ $posName }}">{{ $posName }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -46,21 +40,21 @@
                                 <div class="form-group text-light">
                                     <label class="text-light">Select Standard Type:</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard Value"
+                                        <input class="form-check-input" type="radio" name="check" value="Standard Value"
                                             id="opt-standard-value">
                                         <label class="form-check-label text-light" for="opt-standard-value">
                                             Standard Value
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard String"
+                                        <input class="form-check-input" type="radio" name="check" value="Standard String"
                                             id="opt-standard-string">
                                         <label class="form-check-label text-light" for="opt-standard-string">
                                             Standard String
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="standard_check" value="Standard Image"
+                                        <input class="form-check-input" type="radio" name="check" value="Standard Image"
                                             id="opt-standard-image">
                                         <label class="form-check-label text-light" for="opt-standard-image">
                                             Standard Image
@@ -71,13 +65,11 @@
                                 <div class="form-group">
                                     <label for="standard_value" class="form-control-label text-light">Standard Value</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="standard_value" id="standard-value"
-                                            placeholder="Enter a value" style="margin-right: 7px"
-                                            {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
+                                        <input type="text" class="form-control" name="standard_check" id="standard-value" style="margin-right: 7px" {{ old('check') === 'Standard Value' ? '' : 'disabled' }}>
+                                        <input type="hidden" name="selected_option" value="Standard Value">
                                         <div class="input-group-append">
-                                            <select class="form-select" id="unit-dropdown" name="unit-dropdown"
-                                                {{ old('standard_check') === 'Standard Value' ? '' : 'disabled' }}>
-                                                <option value="cm">cm</option>
+                                            <select class="form-select" id="unit-dropdown" name="unit-dropdown" {{ old('check') === 'Standard Value' ? '' : 'disabled' }}>
+                                            <option value="cm">cm</option>
                                                 <option value="inch">inch</option>
                                                 <option value="m">m</option>
                                                 <option value="ft">ft</option>
@@ -100,13 +92,16 @@
 
                             <div class="form-group">
                                 <label for="standard-string" class="form-control-label text-light">Standard String</label>
-                                <input class="form-control" type="text" id="standard-string" disabled>
+                                <input class="form-control" type="text" name="standard_check" id="standard-string" disabled>
+                                <input type="hidden" name="selected_option" value="Standard String">
+
                             </div>
 
                             <div class="form-group">
                                 <label for="standard-image" class="form-control-label text-light">Standard Image</label>
-                                <input class="form-control" type="file" id="standard-image" accept="image/*"
-                                    disabled>
+                                <input class="form-control" type="file" name="standard_check" id="standard-image" accept="image/*" disabled>
+                                <input type="hidden" name="selected_option" value="Standard Image">
+
                                 <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
                                     hidden
                                     style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
@@ -115,7 +110,7 @@
 
                             <div class="form-group">
                                 <label for="remark" class="form-control-label text-light">Remark</label>
-                                <input class="form-control" type="text" id="remark" disabled>
+                                <input class="form-control" type="text" name="remark" id="remark" disabled>
                             </div>
 
 
@@ -129,51 +124,61 @@
                             </div>
 
                             <script>
-                                const radioButtons = document.querySelectorAll('input[name="standard_check"]');
+                                const radioButtons = document.querySelectorAll('input[name="check"]');
                                 const standardValueInput = document.getElementById('standard-value');
                                 const unitDropdown = document.getElementById('unit-dropdown');
-                                const toleransiAtas = document.getElementById('batas_atas');
-                                const toleransiBawah = document.getElementById('batas_bawah');
+                                const batasAtas = document.getElementById('batas_atas');
+                                const batasBawah = document.getElementById('batas_bawah');
                                 const standardStringInput = document.getElementById('standard-string');
                                 const standardImageInput = document.getElementById('standard-image');
                                 const remarkImage = document.getElementById('remark');
                                 const statusImage = document.getElementById('status-image');
-                                const uploadedImage = document.getElementById('uploaded-image');
 
                                 radioButtons.forEach((radioButton) => {
-                                    radioButton.addEventListener('change', function() {
-                                        console.log(this.value);
-                                        standardValueInput.disabled = this.id !== 'opt-standard-value';
-                                        unitDropdown.disabled = this.id !== 'opt-standard-value';
-                                        toleransiAtas.disabled = this.id !== 'opt-standard-value';
-                                        toleransiBawah.disabled = this.id !== 'opt-standard-value';
-                                        standardStringInput.disabled = this.id !== 'opt-standard-string';
-                                        standardImageInput.disabled = this.id !== 'opt-standard-image';
-                                        remarkImage.disabled = this.id !== 'opt-standard-image';
-                                        statusImage.disabled = this.id !== 'opt-standard-image';
+                                    radioButton.addEventListener('change', function () {
+                                        standardValueInput.disabled = this.value !== 'Standard Value';
+                                        unitDropdown.disabled = this.value !== 'Standard Value';
+                                        batasAtas.disabled = this.value!=='Standard Value';
+                                        batasBawah.disabled = this.value!=='Standard Value';
+                                        standardStringInput.disabled = this.value !== 'Standard String';
+                                        standardImageInput.disabled = this.value !== 'Standard Image';
+                                        remarkImage.disabled = this.value !== 'Standard Image';
+                                        statusImage.disabled = this.value !== 'Standard Image';
 
-                                        standardValueInput.required = this.id === 'opt-standard-value';
-                                        unitDropdown.required = this.id === 'opt-standard-value';
-                                        toleransiAtas.required = this.id === 'opt-standard-value';
-                                        toleransiBawah.required = this.id === 'opt-standard-value';
-                                        standardStringInput.required = this.id === 'opt-standard-string';
-                                        standardImageInput.required = this.id === 'opt-standard-image';
-                                        remarkImage.required = this.id !== 'opt-standard-image';
-                                        statusImage.required = this.id !== 'opt-standard-image';
+                                        standardValueInput.required = this.value === 'Standard Value';
+                                        unitDropdown.required = this.value === 'Standard Value';
+                                        batasAtas.required=this.value==='Standard Value';
+                                        batasBawah.required=this.value==='Standard Value';
+                                        standardStringInput.required = this.value === 'Standard String';
+                                        standardImageInput.required = this.value === 'Standard Image';
+                                        remarkImage.required = this.value === 'Standard Image';
+                                        statusImage.required = this.value === 'Standard Image';
                                     });
                                 });
 
-                                standardImageInput.addEventListener('change', function() {
-                                    const file = this.files[0];
-                                    if (file) {
-                                        uploadedImage.src = URL.createObjectURL(file);
-                                        uploadedImage.hidden = false;
+                                // Function to handle image preview
+                                function previewImage(event) {
+                                    const input = event.target;
+                                    const previewImage = document.getElementById('uploaded-image');
+
+                                    if (input.files && input.files[0]) {
+                                        const reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            previewImage.src = e.target.result;
+                                            previewImage.hidden = false;
+                                        };
+
+                                        reader.readAsDataURL(input.files[0]);
                                     } else {
-                                        uploadedImage.src = '#';
-                                        uploadedImage.hidden = true;
+                                        previewImage.src = '#';
+                                        previewImage.hidden = true;
                                     }
-                                });
-                                
+                                }
+
+                                // Add an event listener to the file input
+                                const fileInput = document.getElementById('standard-image');
+                                fileInput.addEventListener('change', previewImage);
                             </script>
 
 
@@ -193,13 +198,13 @@
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Standard Table</h6>
-                            <form action=" " method="GET" class="form-inline">
+                           <form class="form-inline" method="get" action="{{route('register-standar.search')}}">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="form-group">
                                             <div class="input-group mb-4">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                <input class="form-control" placeholder="Search" type="text">
+                                                <input class="form-control" placeholder="Search" type="text" name="search" value="{{ request('search') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -233,11 +238,11 @@
                                         <td>{{ $standard->status }}</td>
                                         <td>
                                             <form action="{{ route('register-standar.destroy', $standard->id) }}" method="POST">
-                                                <a href="{{ route('register-standar.index', $standard->id) }}"
+                                                <a href="{{ route('register-standar.edit', $standard->id) }}"
                                                 class="btn btn-sm btn-primary fa fa-edit"></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                <button type="submit" class="btn btn-sm btn-danger fa fa-trash remove-user "></button>
                                         </form>
                                         </td>
                                         @endforeach
@@ -302,4 +307,6 @@
             </div>
         </div>
     </div>
+    
+
 @endsection

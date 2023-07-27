@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('tbl_item_check', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamp('date_created')->nullable();
+            $table->timestamp('date_modify')->nullable();
+            $table->string('item_check', 50)->nullable();
         });
     }
 
