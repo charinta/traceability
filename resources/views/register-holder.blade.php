@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-holder.storeHolder') }}" method="POST"
+                        <form action="{{ route('register-holder.store') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
@@ -60,16 +60,30 @@
 
 
             {{-- table --}}
-            <div class="col-12 col-xl-9">
+             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
-                        <h6>Holder Table</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Register Holder Table</h6>
+                           <form class="form-inline" method="get" action=" ">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <div class="input-group mb-4">
+                                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                <input class="form-control" placeholder="Search" type="text" name="search" value="{{ request('search') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table">
+                            <table class="table align-item-center">
                                 {{-- table header --}}
-                                <thead align="center">
+                                <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             ID</th>
@@ -84,86 +98,83 @@
                                     </tr>
                                 </thead>
                                 {{-- table body --}}
-                                <tbody align="center">
+                                <tbody class="text-center">
                                     @foreach ($holder as $hold)
                                         <tr>
-                                            <td>{{ $hold->id }}</td>
+                                            <td>{{ $hold->holder_id }}</td>
                                             <td>{{ $hold->date_created }}</td>
                                             <td>{{ $hold->no_drawing_holder }}</td>
                                             <td>{{ $hold->holder_name }}</td>
-                                            <td>
-                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
-                                                    method="POST">
-                                                    <button type="button">
-                                                        <a href="{{ route('register-holder.editHolder', $hold->id) }}">
-                                                            <svg width="18px" height="18px" viewBox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                                    stroke-linejoin="round"></g>
-                                                                <g id="SVGRepo_iconCarrier">
-                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                        d="M20.8477 1.87868C19.6761 0.707109 17.7766 0.707105 16.605 1.87868L2.44744 16.0363C2.02864 16.4551 1.74317 16.9885 1.62702 17.5692L1.03995 20.5046C0.760062 21.904 1.9939 23.1379 3.39334 22.858L6.32868 22.2709C6.90945 22.1548 7.44285 21.8693 7.86165 21.4505L22.0192 7.29289C23.1908 6.12132 23.1908 4.22183 22.0192 3.05025L20.8477 1.87868ZM18.0192 3.29289C18.4098 2.90237 19.0429 2.90237 19.4335 3.29289L20.605 4.46447C20.9956 4.85499 20.9956 5.48815 20.605 5.87868L17.9334 8.55027L15.3477 5.96448L18.0192 3.29289ZM13.9334 7.3787L3.86165 17.4505C3.72205 17.5901 3.6269 17.7679 3.58818 17.9615L3.00111 20.8968L5.93645 20.3097C6.13004 20.271 6.30784 20.1759 6.44744 20.0363L16.5192 9.96448L13.9334 7.3787Z"
-                                                                        fill="#0F0F0F"></path>
-                                                                </g>
-                                                            </svg>
-                                                        </a></button>
-                                                    <button type="submit"> <svg width="18px" height="18px"
-                                                            viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                                stroke-linejoin="round"></g>
-                                                            <g id="SVGRepo_iconCarrier">
-                                                                <path d="M10 12V17" stroke="#000000" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path d="M14 12V17" stroke="#000000" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path d="M4 7H20" stroke="#000000" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path
-                                                                    d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
-                                                                    stroke="#000000" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                                <path
-                                                                    d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
-                                                                    stroke="#000000" stroke-width="2"
-                                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                                </path>
-                                                            </g>
-                                                        </svg></button>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                
+                                                 <td class="text-center">
+                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                        action="{{ route('register-holder.destroy', $hold->holder_id) }}"
+                                                        method="POST">
+                                                        {{-- icon edit --}}
+                                                            <a href="{{ route('register-holder.edit', $hold->holder_id) }}" class="btn btn-sm btn-primary fa fa-edit">
+                                                            </a>
+                                                        {{-- icon delete --}}
+
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                    </form>
+                                                </td>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{-- pagination --}}
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="javascript:;" tabindex="-1">
-                                            <i class="fa fa-angle-left"></i>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;">
-                                            <i class="fa fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                </div>
+                    </div>
+                </div>
+                                <!-- Pagination Section -->
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-end">
+                                        {{-- Previous Page Link --}}
+                                        @if ($holder->onFirstPage())
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">
+                                                    <i class="fa fa-angle-left"></i>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $holder->previousPageUrl() }}" tabindex="-1">
+                                                    <i class="fa fa-angle-left"></i>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        {{-- Page Links --}}
+                                        @foreach ($holder->getUrlRange(1, $holder->lastPage()) as $page => $url)
+                                            @if ($page == $holder->currentPage())
+                                                <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                            @else
+                                                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                            @endif
+                                        @endforeach
+
+                                        {{-- Next Page Link --}}
+                                        @if ($holder->hasMorePages())
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $holder->nextPageUrl() }}">
+                                                    <i class="fa fa-angle-right"></i>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">
+                                                    <i class="fa fa-angle-right"></i>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </nav>
                         </div>
                     </div>
                 </div>

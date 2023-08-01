@@ -10,15 +10,17 @@ use Carbon\Carbon;
 class HolderController extends Controller
 {
     // melihat data Holder
-    public function getHolder () {
-        $holder = Holder::all();
+    public function index()
+    {
+        $holder = Holder::paginate(10);
         return view('register-holder')->with('holder', $holder);
     }
 
     // menyimpan data/menyimpan insert data 
-    public function storeHolder(Request $request): RedirectResponse{
-        $this -> validate($request, [
-            'no_drawing_holder'=> 'required',
+    public function store(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'no_drawing_holder' => 'required',
             'holder_name' => 'required',
             'holder_spec' => 'required',
             'holder_diameter' => 'required',
@@ -28,23 +30,27 @@ class HolderController extends Controller
 
         $data = $request->all();
         $data['date_created'] = Carbon::now('Asia/Jakarta');
-        $data['date_modify'] = Carbon::now('Asia/Jakarta'); 
+        $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $holder = Holder::create($data);
 
 
-         return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Diubah!']);
+        return redirect()->route('register-holder.index');
     }
 
     // view ke halaman update
-    public function editHolder($id){
-        $holder = Holder::findOrFail($id);
+    public function edit($holder_id)
+    {
+        $holder = Holder::findOrFail($holder_id);
         return view('edit-register-holder', compact('holder'));
     }
 
     // update data
-    public function updateHolder(Request $request, Holder $holder){
+    public function update(Request $request, Holder $holder, $holder_id)
+    {
+
+        $holder = Holder::findOrFail($holder_id);
         $validatedData = $request->validate([
-           'no_drawing_holder'=> 'required',
+            'no_drawing_holder' => 'required',
             'holder_name' => 'required',
             'holder_spec' => 'required',
             'holder_diameter' => 'required',
@@ -52,15 +58,20 @@ class HolderController extends Controller
             'holder_frequency_std' => 'required',
         ]);
 
-        $holder->update($validatedData);
+        $data = $request->all();
+        $holder->update($data);
 
-        return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Diubah!']);
+        // $holder->update($validatedData);
+
+        return redirect()->route('register-holder.index');
     }
 
     // delete data/hapus data
-    public function destroy(Holder $holder){
+    public function destroy(Holder $holder, $holder_id)
+    {
+        $holder = Holder::findOrFail($holder_id);
         $holder->delete();
 
-        return redirect()->route('register-holder.getHolder')->with(['success'=>'Data Berhasil Dihapus']);
+        return redirect()->route('register-holder.index')->with(['success' => 'Data Berhasil Dihapus']);
     }
 }

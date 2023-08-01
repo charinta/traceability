@@ -44,7 +44,7 @@ class StandarController extends Controller
             'status' => 'required',
         ]);
 
-        // Validate and set the "standard_check" field based on the selected option
+
         $selectedOption = $request->input('check');
         if ($selectedOption === 'Standard Value') {
             $this->validate($request, [
@@ -53,18 +53,16 @@ class StandarController extends Controller
                 'batas_bawah' => 'required',
             ]);
 
-            // Combine the "standard_check" and "unit-dropdown" values
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
-            $statusData = 'int'; // Set the status_data to "int"
+            $statusData = 'int';
             $remark = $request->input('standard_check');
         } elseif ($selectedOption === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
             ]);
 
-            // Set "standard_check" value directly
             $combinedValue = $request->input('standard_check');
-            $statusData = 'string'; // Set the status_data to "string"
+            $statusData = 'string';
             $remark = $request->input('standard_check');
         } elseif ($selectedOption === 'Standard Image') {
             $this->validate($request, [
@@ -72,41 +70,39 @@ class StandarController extends Controller
                 'remark' => 'required',
             ]);
 
-            // Set "standard_check" value directly
             $combinedValue = $request->input('standard_check');
-            $statusData = 'image'; // Set the status_data to "image"
-
+            $statusData = 'image';
         } else {
-            // Handle the case where no checkbox option is selected (optional)
+
             $combinedValue = null;
-            $statusData = 'string'; // Set the default status_data to "string" (or any other appropriate default)
+            $statusData = 'string';
         }
 
-        // Set default values for non-required fields to 0
+
         $request->merge([
             'batas_atas' => $request->input('batas_atas', 0),
             'batas_bawah' => $request->input('batas_bawah', 0),
-            // Add other non-required fields here with their default values
+
         ]);
 
-        // Save the data to the database
+
         $data = $request->all();
         $data['standard_value'] = $combinedValue;
-        $data['status_data'] = $statusData; // Set the status_data value
+        $data['status_data'] = $statusData;
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
-        $data['remark'] = $remark;
+        //  $data['remark'] = $remark;
         $standar = Standar::create($data);
         return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
-
-
 
     // view ke halaman update
     public function edit($id)
     {
         $standar = Standar::findOrFail($id);
-        return view('edit-register-standar', compact('standar'));
+        $PosController = app(PosController::class);
+        $activePosNames = $PosController->getActivePosNames();
+        return view('edit-register-standar', compact('standar', 'activePosNames'));
     }
 
     // update data
@@ -118,7 +114,6 @@ class StandarController extends Controller
             'status' => 'required',
         ]);
 
-        // Validate and set the "standard_check" field based on the selected option
         $selectedOption = $request->input('check');
         if ($selectedOption === 'Standard Value') {
             $this->validate($request, [
@@ -127,18 +122,18 @@ class StandarController extends Controller
                 'batas_bawah' => 'required',
             ]);
 
-            // Combine the "standard_check" and "unit-dropdown" values
+
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
-            $statusData = 'int'; // Set the status_data to "int"
+            $statusData = 'int';
             $remark = $request->input('standard_check');
         } elseif ($selectedOption === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
             ]);
 
-            // Set "standard_check" value directly
+
             $combinedValue = $request->input('standard_check');
-            $statusData = 'string'; // Set the status_data to "string"
+            $statusData = 'string';
             $remark = $request->input('standard_check');
         } elseif ($selectedOption === 'Standard Image') {
             $this->validate($request, [
@@ -146,29 +141,27 @@ class StandarController extends Controller
                 'remark' => 'required',
             ]);
 
-            // Set "standard_check" value directly
             $combinedValue = $request->input('standard_check');
-            $statusData = 'image'; // Set the status_data to "image"
+            $statusData = 'image';
             $remark = $request->input('remark');
         } else {
-            // Handle the case where no checkbox option is selected (optional)
+
             $combinedValue = null;
-            $statusData = 'string'; // Set the default status_data to "string" (or any other appropriate default)
+            $statusData = 'string';
         }
 
-        // Set default values for non-required fields to 0
+
         $request->merge([
             'batas_atas' => $request->input('batas_atas', 0),
             'batas_bawah' => $request->input('batas_bawah', 0),
-            //'remark' => $request->input('remark', 0)
-            // Add other non-required fields here with their default values
+            //'remark' => $request->input('remark', 0)s
         ]);
 
-        // Update the data in the database
-        $standar = Standar::findOrFail($id); // Find the record by its ID
+
+        $standar = Standar::findOrFail($id);
         $data = $request->all();
         $data['standard_value'] = $combinedValue;
-        $data['status_data'] = $statusData; // Set the status_data value
+        $data['status_data'] = $statusData;
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $data['remark'] = $remark;
         $standar->update($data);

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbl_register_tool', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->timestamp('date_created')->nullable();
             $table->timestamp('date_modify')->nullable();
             $table->string('no_drawing_tool', 50)->nullable();
@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('line', 50)->nullable();
             $table->string('op', 50)->nullable();
             $table->string('no_drawing_holder', 50)->nullable();
-            
         });
     }
 

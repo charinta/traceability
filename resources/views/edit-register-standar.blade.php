@@ -18,23 +18,15 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                        <div class="form-group">
-                         <label for="pos_name" class="form-control-label text-light">Pos</label><br>
-                        <select class="form-select" name="pos_name">
-                                <option value="marking"  @if ($standar->pos_name === 'marking') selected @endif>Marking</option>
-                                <option value="dolly-tool-supply" @if ($standar->pos_name === 'dolly-tolly-supply') selected @endif>Dolly Tool Supply</option>
-                                <option value="tools-input" @if ($standar->pos_name === 'tools-input') selected @endif>Tools Input</option>
-                                <option value="disasemmbly" @if ($standar->pos_name === 'disassembly') selected @endif>Disasemmbly</option>
-                                <option value="washing" @if ($standar->pos_name === 'washing') selected @endif>Washing</option>
-                                <option value="regrinding-auto" @if ($standar->pos_name === 'regrinding-auto') selected @endif>Regrinding Auto</option>
-                                <option value="regrinding-manual" @if ($standar->pos_name === 'regrinding-manual') selected @endif>Regrinding Manual</option>
-                                <option value="pre-assembly" @if ($standar->pos_name === 'pre-assembly') selected @endif>Pre-Assembly</option>
-                                <option value="setting-tool-mc-nt" @if ($standar->pos_name === 'setting-tool-mc-nt') selected @endif>Setting Tool Mc NT</option>
-                                <option value="setting-tool-mc-spe" @if ($standar->pos_name === 'setting-tool-mc-spe') selected @endif>Setting Tool Mc Spe</option>
-                                <option value="setting-tool-mc-zol" @if ($standar->pos_name === 'setting-tool-mc-zol') selected @endif>Setting Tool Mc Zol</option>
-                            </select>
+                         <div class="form-group">
+                                   <label for="pos_name" class="form-control-label text-light"
+                                    name="pos_name">Pos</label><br>
+                                    <select class="form-select" name="pos_name">
+                                            @foreach($activePosNames as $posName)
+                                                <option value="{{ $posName }}" @if($standar->pos_name === $posName) selected @endif>{{ $posName }}</option>
+                                            @endforeach
+                                    </select>
                         </div>
-
                         <div class="form-group">
                             <label for="item_check" class="form-control-label text-light"
                                 name="item_check">Item Check</label><br>

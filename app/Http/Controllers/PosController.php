@@ -54,6 +54,7 @@ class PosController extends Controller
 
         return redirect()->route('register-pos.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
+
     public function getActivePosNames()
     {
         $activePosNames = Pos::where('status', 'active')->pluck('pos_name');

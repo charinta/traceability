@@ -2,66 +2,90 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\PosController;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     // melihat data tabel
-    public function getUser () {
-        $user = User::all();
-        return view('user-account')->with('user', $user);
+    public function index()
+    {
+        $PosController = app(PosController::class);
+        // agar tabel pos terbaca di form
+        $user = User::paginate(10);
+        $activePosNames = $PosController->getActivePosNames();
+        return view('user-account', compact('user', 'activePosNames'));
     }
 
-    public function createUser() {
-        return view('user-account');
+    public function createUser()
+    {
+
+        return view('user-account', compact('user'));
     }
+
 
     // menyimpan data/menyimpan insert data 
-    public function storeUser(Request $request): RedirectResponse{
-        $this -> validate($request,[
-            'username'=> 'required',
+    public function store(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'username' => 'required',
             'npk' => 'required',
-            'pos_id' => 'required',
+            'pos_name' => 'required',
             'role' => 'required',
             'password' => 'required',
         ]);
 
         $data = $request->all();
         $data['date_created'] = Carbon::now('Asia/Jakarta');
-        $data['date_modify'] = Carbon::now('Asia/Jakarta'); 
+        $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $user = User::create($data);
 
-         return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Diubah!']);
+        return redirect()->route('user-account.index');
     }
-    
+
     // view ke halaman edit
-    public function editUser($id){
+    public function edit($id)
+    {
         $user = User::findOrFail($id);
-        return view('edit-user-account', compact('user'));
+        $PosController = app(PosController::class);
+        $activePosNames = $PosController->getActivePosNames();
+        // agar tabel pos terbaca di form
+        return view('edit-user-account', compact('user', 'activePosNames'));
     }
 
     // update data
-    public function updateUser(Request $request, User $user){
+    public function update(Request $request, User $user, $id)
+    {
+        // dd($request->input());
+
+        $user = User::findOrFail($id);
         $validatedData = $request->validate([
             'username' => 'required',
             'npk' => 'required',
-            'pos' => 'required',
+            'pos_name' => 'required',
             'role' => 'required',
             'password' => 'required',
         ]);
 
-        $user->update($validatedData);
+        $data = $request->all();
+        $user->update($data);
 
-        return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Diubah!']);
+        // $user->update($validatedData);
+
+
+        return redirect()->route('user-account.index');
     }
 
     // hapus data
-    public function destroy(User $user){
+    public function destroy(User $user, $id)
+    {
+        $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('user-account.getUser')->with(['success'=>'Data Berhasil Dihapus']);
+        return redirect()->route('user-account.index');
     }
 }

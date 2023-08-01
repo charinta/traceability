@@ -1,4 +1,6 @@
 @extends('layouts.user_type.guest')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
 
 @section('content')
     <div class="row">
@@ -194,7 +196,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4 mb-6">
+    <div class="row mt-4 ">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">
@@ -291,4 +293,72 @@
             </div>
         </div>
     </div>
+    <div class="row mt-4 mb-6">
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <canvas id="myChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <canvas id="myChart4"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <canvas id="myChart5"></canvas>
+            </div>
+        </div>
+    </div>
 @endsection
+@extends('layouts.user_type.guest')
+
+@push('dashboard')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script>
+        var year = <?php echo json_encode($year, JSON_NUMERIC_CHECK); ?>;
+        var user = <?php echo json_encode($user, JSON_NUMERIC_CHECK); ?>;
+
+        var barChartData = {
+            labels: year,
+            datasets: [{
+                label: 'User',
+                backgroundColor: "pink",
+                data: user
+            }]
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("myChart").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    elements: {
+                        rectangle: {
+                            borderWidth: 2,
+                            borderColor: '#c1c1c1',
+                            borderSkipped: 'bottom'
+                        }
+                    },
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Yearly User Joined'
+                    }
+                }
+            });
+
+        };
+    </script>
+@endpush

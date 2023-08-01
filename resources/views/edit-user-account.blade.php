@@ -13,7 +13,7 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user-account.updateUser', $user->id) }}" method="POST"
+                            <form action="{{ route('user-account.update', $user->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -28,44 +28,21 @@
                                         value="{{ old('npk', $user->npk) }}" placeholder="Masukkan NPK">
                                 </div>
                                 <div class="form-group">
-                                    <label for="pos_id" class="form-control-label text-light">Pos</label><br>
-                                    <select class="form-select" name="pos_id">
-                                        <option value="">---Pilih Pos---</option>
-                                        <option value="marking" @if ($user->pos_id === 'marking') selected @endif>Marking
-                                        </option>
-                                        <option value="dolly-tool-supply" @if ($user->pos_id === 'dolly-tool-supply') selected @endif>
-                                            Dolly Tool Supply</option>
-                                        <option value="tools-input" @if ($user->pos_id === 'tools-input') selected @endif>Tools
-                                            Input</option>
-                                        <option value="disasemmbly" @if ($user->pos_id === 'disasemmbly') selected @endif>
-                                            Disasemmbly</option>
-                                        <option value="washing" @if ($user->pos_id === 'washing') selected @endif>Washing
-                                        </option>
-                                        <option value="regrinding-auto" @if ($user->pos_id === 'regrinding-auto') selected @endif>
-                                            Regrinding Auto</option>
-                                        <option value="regrinding-manual" @if ($user->pos_id === 'regrinding-manual') selected @endif>
-                                            Regrinding Manual</option>
-                                        <option value="pre-assembly" @if ($user->pos_id === 'pre-assembly') selected @endif>
-                                            Pre-Assembly</option>
-                                        <option value="setting-tool-mc-nt"
-                                            @if ($user->pos_id === 'setting-tool-mc-nt') selected @endif>Setting Tool Mc NT</option>
-                                        <option value="setting-tool-mc-spe"
-                                            @if ($user->pos_id === 'setting-tool-mc-spe') selected @endif>Setting Tool Mc Spe</option>
-                                        <option value="setting-tool-mc-zol"
-                                            @if ($user->pos_id === 'setting-tool-mc-zol') selected @endif>Setting Tool Mc Zol</option>
+                                   <label for="pos_name" class="form-control-label text-light"
+                                    name="pos_name">Pos</label><br>
+                                    <select class="form-select" name="pos_name">
+                                            @foreach($activePosNames as $posName)
+                                                <option value="{{ $posName }}" @if($user->pos_name === $posName) selected @endif>{{ $posName }}</option>
+                                            @endforeach
                                     </select>
-
                                 </div>
                                 <div class="form-group">
                                     <label for="role" class="form-control-label text-light">Role</label>
                                     <br>
                                     <select class="form-select" name="role">
-                                        <option value="">---Pilih Role---</option>
-                                        <option value="admin" @if ($user->role === 'admin') selected @endif>Admin
-                                        </option>
-                                        <option value="user" @if ($user->role === 'user') selected @endif>User
-                                        </option>
-                                    </select>
+                                    <option value="Admin"  @if ($user->role === 'Admin') selected @endif>Admin</option>
+                                    <option value="User"  @if ($user->role === 'User') selected @endif>User</option>
+                                </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-password-input"
