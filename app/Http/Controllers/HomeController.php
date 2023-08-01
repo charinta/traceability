@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\RegrindingAuto;
 use DB;
 use Illuminate\Http\Request;
@@ -8,22 +9,23 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class HomeController extends Controller
 {
-//untuk redirect ke dashboard 
+    //untuk redirect ke dashboard 
     public function home()
     {
         return redirect('login');
     }
 
-    public function index(){
-    $year = ['2023'];
+    public function index()
+    {
+        $year = ['2023'];
 
-    $user = [];
-    foreach ($year as $value){
-        $user[] = RegrindingAuto::where(FacadesDB::raw("FORMAT(date_created, 'yyyy')"), $value)->count();
+        $user = [];
+        foreach ($year as $value) {
+            $user[] = RegrindingAuto::where(FacadesDB::raw("FORMAT(date_created, 'yyyy')"), $value)->count();
+        }
+
+        return view('dashboard', compact('year', 'user'));
     }
-
-    return view('dashboard', compact('year', 'user'));
-}
 
 
     // public function createChart(){
@@ -58,7 +60,7 @@ class HomeController extends Controller
     //     }
 
     //     $randomColor ='rgb('. rand(1,255). ',' .rand(1,255). ','. rand(1,255) .')';
-        
+
     //     return [
     //         'label'=> $label->kode_sub. ' - '.$label->nama_sub_kegiatan,
     //         'data'=>$data,

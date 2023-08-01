@@ -13,7 +13,7 @@ class RegrindingAuto extends Model
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;
 
-    
+
     // membaca data pada tabel
     protected $table = 'tbl_regrinding_auto';
 
@@ -40,6 +40,6 @@ class RegrindingAuto extends Model
 
         static::updating(function ($regrinding_auto) {
             $regrinding_auto->date_modify = Carbon::now('Asia/Jakarta');
-});
-}
+        });
+    }
 }

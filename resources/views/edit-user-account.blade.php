@@ -13,12 +13,12 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user-account.updateUser', $user->id) }}" method="POST"
+                            <form action="{{ route('user-account.update', $user->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
-                                    <label for="username" class="form-control-label text-light">Nama</label>
+                                    <label for="nama-user" class="form-control-label text-light">Nama</label>
                                     <input class="form-control" type="text" name="username"
                                         value="{{ old('username', $user->username) }}" placeholder="Masukkan Nama">
                                 </div>
@@ -28,23 +28,20 @@
                                         value="{{ old('npk', $user->npk) }}" placeholder="Masukkan NPK">
                                 </div>
                                 <div class="form-group">
-                                    <label for="pos_id" class="form-control-label text-light">Pos</label><br>
-                                    <select class="form-select" name="pos_id">
-                                        <option value="">---Pilih Pos---</option>
-                                        @foreach ($pos as $position)
-                                            <option value="{{ $position->pos_id }}"
-                                                @if ($user->pos_id == $position->pos_id) selected @endif>
-                                                {{ $position->pos_name }}
+                                    <label for="pos" class="form-control-label text-light" name="pos">Pos</label>
+                                    <select class="form-select" name="pos">
+                                        @foreach ($activePosNames as $posName)
+                                            <option value="{{ $posName }}"
+                                                @if ($user->pos === $posName) selected @endif>
+                                                {{ $posName }}
                                             </option>
                                         @endforeach
                                     </select>
-
                                 </div>
                                 <div class="form-group">
                                     <label for="role" class="form-control-label text-light">Role</label>
                                     <br>
                                     <select class="form-select" name="role">
-                                        <option value="">---Pilih Role---</option>
                                         <option value="Admin" @if ($user->role === 'Admin') selected @endif>Admin
                                         </option>
                                         <option value="User" @if ($user->role === 'User') selected @endif>User
@@ -52,7 +49,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="form-control-label text-light">Password</label>
+                                    <label for="example-password-input"
+                                        class="form-control-label text-light">Password</label>
                                     <input class="form-control" type="password" name="password"
                                         value="{{ old('password', $user->password) }}" placeholder="Masukkan Password">
                                 </div>
@@ -63,7 +61,6 @@
 
                                 <br>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -122,13 +119,17 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table> 
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-            </div> --}}
-
+                                </table> --}}
             </div>
         </div>
-    @endsection
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+@endsection

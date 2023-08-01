@@ -13,7 +13,7 @@ class Standar extends Model
     public $timestamps = false;
     protected $table = 'tbl_register_standard_check';
     protected $fillable = [
-        'pos_id',
+        'pos_name',
         'item_check',
         'standard_check',
         'batas_atas',
@@ -33,13 +33,6 @@ class Standar extends Model
 
         static::updating(function ($standar) {
             $standar->date_modify = Carbon::now('Asia/Jakarta');
-});
-}
-// relasi ke tbl_pos
-    public function pos()
-        {
-            return $this->hasMany(Pos::class, 'pos_id');
-        }
-}
-
+        });
+    }
 }

@@ -11,17 +11,19 @@ use Carbon\Carbon;
 class ToolController extends Controller
 {
     // melihat data Tool
-    public function getTool () {
-        $tool = Tool::all();
+    public function getTool()
+    {
+        $tool = Tool::paginate(10);
         // agar tabel register holder terbaca di form
         $holder = Holder::all();
         return view('register-tool', compact('tool', 'holder'));
     }
 
     // menyimpan data/menyimpan insert data 
-    public function storeTool(Request $request): RedirectResponse{
-        $this -> validate($request, [
-            'no_drawing_tool'=> 'required',
+    public function storeTool(Request $request): RedirectResponse
+    {
+        $this->validate($request, [
+            'no_drawing_tool' => 'required',
             'tool_type' => 'required',
             'tool_spec' => 'required',
             'tool_diameter' => 'required',
@@ -37,23 +39,25 @@ class ToolController extends Controller
 
         $data = $request->all();
         $data['date_created'] = Carbon::now('Asia/Jakarta');
-        $data['date_modify'] = Carbon::now('Asia/Jakarta'); 
+        $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $tool = Tool::create($data);
 
 
-         return redirect()->route('register-tool.getTool')->with(['success'=>'Data Berhasil Diubah!']);
+        return redirect()->route('register-tool.getTool')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     // view ke halaman update
-    public function editTool($id){
+    public function editTool($id)
+    {
         $tool = Tool::findOrFail($id);
         return view('edit-register-tool', compact('tool'));
     }
 
     // update data
-    public function updateTool(Request $request, Tool $tool){
+    public function updateTool(Request $request, Tool $tool)
+    {
         $validatedData = $request->validate([
-          'no_drawing_tool'=> 'required',
+            'no_drawing_tool' => 'required',
             'tool_type' => 'required',
             'tool_spec' => 'required',
             'tool_diameter' => 'required',
@@ -69,13 +73,14 @@ class ToolController extends Controller
 
         $tool->update($validatedData);
 
-        return redirect()->route('register-tool.getTool')->with(['success'=>'Data Berhasil Diubah!']);
+        return redirect()->route('register-tool.getTool')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     // delete data/hapus data
-    public function destroy(Tool $tool){
+    public function destroy(Tool $tool)
+    {
         $tool->delete();
 
-        return redirect()->route('register-tool.getTool')->with(['success'=>'Data Berhasil Dihapus']);
+        return redirect()->route('register-tool.getTool')->with(['success' => 'Data Berhasil Dihapus']);
     }
 }

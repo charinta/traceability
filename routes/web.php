@@ -30,10 +30,7 @@ Route::get('login', function () {
     return view('login');
 })->name('login');
 
-        // view ke dashboard
-        // Route::get('dashboard', function () {
-        //     return view('dashboard');
-        // })->name('dashboard');
+Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
 
 // // view ke user account
 // Route::get('user-account', function () {
@@ -54,6 +51,15 @@ Route::get('register-op/{id}', '\App\Http\Controllers\LineController@showOpData'
 Route::resource('register-standar', StandarController::class);
 Route::get('register-standar.search', [StandarController::class, 'search'])->name('register-standar.search');
 Route::resource('register-standar', StandarController::class);
+//Route::resource('register-standar', StandarController::class);
+
+Route::resource('user-account', UserController::class);
+Route::get('user-account.search', [UserController::class, 'search'])->name('user-account.search');
+Route::resource('user-account', UserController::class);
+
+Route::resource('register-holder', HolderController::class);
+//Route::get('register-holder.search', [HolderController::class, 'search'])->name('register-holder.search');
+Route::resource('register-holder', HolderController::class);
 
 
 Route::get('register-op', [OpController::class, 'index'])->name('register-op.index');
@@ -109,34 +115,34 @@ Route::get('login', function () {
     return view('login');
 })->name('login');
 
-        // view ke login
-        Route::get('sign-up', function () {
-            return view('sign-up');
-        })->name('sign-up');
+// view ke login
+Route::get('sign-up', function () {
+    return view('sign-up');
+})->name('sign-up');
 
-        // view ke historical data
-        Route::get('historical-data', function () {
-            return view('historical-data');
-        })->name('historical-data');
+// view ke historical data
+Route::get('historical-data', function () {
+    return view('historical-data');
+})->name('historical-data');
 
 // });
 
-        
-        Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+// route view user-account
+// route view register-line-op
+// Route::get('register-line-op', [LineController::class, 'getLine'])->name('register-line-op.getLine');
+//Route::post('register-line-op', [LineController::class, 'storeLine'])->name('register-line-op.storeLine');
+//Route::get('edit-register-line-op/{line}', [LineController::class, 'editLine'])->name('register-line-op.editLine');
+//Route::put('register-line-op/{line}', [LineController::class, 'updateLine'])->name('register-line-op.updateLine');
+//Route::delete('register-line-op/{line}', [LineController::class, 'destroy'])->name('register-line-op.destroy');
 
-        // route view user-account
-        Route::get('user-account', [UserController::class, 'getUser'])->name('user-account.getUser');
-        Route::post('user-account', [UserController::class, 'storeUser'])->name('user-account.storeUser');
-        Route::get('edit-user-account/{id}', [UserController::class, 'editUser'])->name('user-account.editUser');
-        Route::put('user-account/{id}', [UserController::class, 'updateUser'])->name('user-account.updateUser');
-        Route::delete('user-account/{id}', [UserController::class, 'destroy'])->name('user-account.destroy');
-        
-        // route view register-holder
-        Route::get('register-holder', [HolderController::class, 'getHolder'])->name('register-holder.getHolder');
-        Route::post('register-holder', [HolderController::class, 'storeHolder'])->name('register-holder.storeHolder');
-        Route::get('edit-register-holder/{holder_id}', [HolderController::class, 'editHolder'])->name('register-holder.editHolder');
-        Route::put('register-holder/{holder_id}', [HolderController::class, 'updateHolder'])->name('register-holder.updateHolder');
-        Route::delete('register-holder/{holder_id}', [HolderController::class, 'destroy'])->name('register-holder.destroy');
+// route view register-tool
+Route::get('register-tool', [ToolController::class, 'getTool'])->name('register-tool.getTool');
+Route::post('register-tool', [ToolController::class, 'storeTool'])->name('register-tool.storeTool');
+Route::get('edit-register-tool/{tool}', [ToolController::class, 'editTool'])->name('register-tool.editTool');
+Route::put('register-tool/{tool}', [ToolController::class, 'updateTool'])->name('register-tool.updateTool');
+Route::delete('register-tool/{tool}', [ToolController::class, 'destroy'])->name('register-tool.destroy');
+
+// });
 
 // route view register-line-op
 

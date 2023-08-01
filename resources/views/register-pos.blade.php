@@ -58,7 +58,8 @@
                                                         <input type="checkbox" class="toggle-switch-checkbox" name="status"
                                                             value="active" {{ $pos->status === 'active' ? 'checked' : '' }}
                                                             disabled>
-                                                        <span class="toggle-switch-slider"></span>
+                                                        <span
+                                                            class="toggle-switch-slider {{ $pos->status === 'active' ? 'bg-info' : '' }}"></span>
                                                     </label>
                                                 </td>
                                                 <td>

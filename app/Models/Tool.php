@@ -13,7 +13,7 @@ class Tool extends Model
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;
 
-    
+
     // membaca data pada tabel
     protected $table = 'tbl_register_tool';
 
@@ -27,7 +27,7 @@ class Tool extends Model
         'tool_frequency_std',
         'line',
         'op',
-        'holder_id',
+        'no_drawing_holder',
         'washing_ct',
         'grinding_ct',
         'setting_ct',
@@ -44,10 +44,10 @@ class Tool extends Model
 
         static::updating(function ($holder) {
             $holder->date_modify = Carbon::now('Asia/Jakarta');
-});
-}
+        });
+    }
 
- // relasi ke tbl_register_holder
+    // relasi ke tbl_register_holder
     public function holder()
     {
         return $this->belongsTo(Holder::class, 'holder_id');

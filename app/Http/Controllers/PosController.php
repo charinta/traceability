@@ -14,7 +14,7 @@ class PosController extends Controller
     public function index(): View
     {
         //get data pos
-        $tbl_pos = Pos::oldest('pos_id')->paginate(11);
+        $tbl_pos = Pos::oldest('id')->paginate(11);
 
         //render view with data pos
         return view('register-pos', compact('tbl_pos'));
@@ -54,6 +54,7 @@ class PosController extends Controller
 
         return redirect()->route('register-pos.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
+
     public function getActivePosNames()
     {
         $activePosNames = Pos::where('status', 'active')->pluck('pos_name');
@@ -79,6 +80,4 @@ class PosController extends Controller
         $tbl_pos->delete();
         return redirect()->route('register-pos')->with(['success' => 'Data terhapus!']);
     }
-
-    
 }
