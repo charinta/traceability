@@ -28,21 +28,25 @@
                                         value="{{ old('npk', $user->npk) }}" placeholder="Masukkan NPK">
                                 </div>
                                 <div class="form-group">
-                                   <label for="pos_name" class="form-control-label text-light"
-                                    name="pos_name">Pos</label><br>
-                                    <select class="form-select" name="pos_name">
-                                            @foreach($activePosNames as $posName)
-                                                <option value="{{ $posName }}" @if($user->pos_name === $posName) selected @endif>{{ $posName }}</option>
-                                            @endforeach
+                                    <label for="pos" class="form-control-label text-light" name="pos">Pos</label>
+                                    <select class="form-select" name="pos">
+                                        @foreach ($activePosNames as $posName)
+                                            <option value="{{ $posName }}"
+                                                @if ($user->pos === $posName) selected @endif>
+                                                {{ $posName }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="role" class="form-control-label text-light">Role</label>
                                     <br>
                                     <select class="form-select" name="role">
-                                    <option value="Admin"  @if ($user->role === 'Admin') selected @endif>Admin</option>
-                                    <option value="User"  @if ($user->role === 'User') selected @endif>User</option>
-                                </select>
+                                        <option value="Admin" @if ($user->role === 'Admin') selected @endif>Admin
+                                        </option>
+                                        <option value="User" @if ($user->role === 'User') selected @endif>User
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-password-input"

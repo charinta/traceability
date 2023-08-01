@@ -33,22 +33,21 @@ class HolderController extends Controller
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $holder = Holder::create($data);
 
-
         return redirect()->route('register-holder.index');
     }
 
     // view ke halaman update
-    public function edit($holder_id)
+    public function edit($id)
     {
-        $holder = Holder::findOrFail($holder_id);
+        $holder = Holder::findOrFail($id);
         return view('edit-register-holder', compact('holder'));
     }
 
     // update data
-    public function update(Request $request, Holder $holder, $holder_id)
+    public function update(Request $request, Holder $holder, $id)
     {
 
-        $holder = Holder::findOrFail($holder_id);
+        $holder = Holder::findOrFail($id);
         $validatedData = $request->validate([
             'no_drawing_holder' => 'required',
             'holder_name' => 'required',
@@ -67,9 +66,9 @@ class HolderController extends Controller
     }
 
     // delete data/hapus data
-    public function destroy(Holder $holder, $holder_id)
+    public function destroy(Holder $holder, $id)
     {
-        $holder = Holder::findOrFail($holder_id);
+        $holder = Holder::findOrFail($id);
         $holder->delete();
 
         return redirect()->route('register-holder.index')->with(['success' => 'Data Berhasil Dihapus']);

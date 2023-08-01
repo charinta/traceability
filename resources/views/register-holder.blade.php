@@ -14,8 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-holder.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('register-holder.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="no_drawing_holder" class="form-control-label text-light">No Drawing</label>
@@ -65,13 +64,14 @@
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Register Holder Table</h6>
-                           <form class="form-inline" method="get" action=" ">
+                            <form class="form-inline" method="get" action=" ">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="form-group">
                                             <div class="input-group mb-4">
                                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                                <input class="form-control" placeholder="Search" type="text" name="search" value="{{ request('search') }}">
+                                                <input class="form-control" placeholder="Search" type="text"
+                                                    name="search" value="{{ request('search') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -105,26 +105,29 @@
                                             <td>{{ $hold->date_created }}</td>
                                             <td>{{ $hold->no_drawing_holder }}</td>
                                             <td>{{ $hold->holder_name }}</td>
-                                
-                                                 <td class="text-center">
-                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                        action="{{ route('register-holder.destroy', $hold->holder_id) }}"
-                                                        method="POST">
-                                                        {{-- icon edit --}}
-                                                            <a href="{{ route('register-holder.edit', $hold->holder_id) }}" class="btn btn-sm btn-primary fa fa-edit">
-                                                            </a>
-                                                        {{-- icon delete --}}
 
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
-                                                    </form>
-                                                </td>
+                                            <td class="text-center">
+                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
+                                                    method="POST">
+                                                    {{-- icon edit --}}
+                                                    <a href="{{ route('register-holder.edit', $hold->id) }}"
+                                                        class="btn btn-sm btn-primary fa fa-edit">
+                                                    </a>
+                                                    {{-- icon delete --}}
+
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                </form>
+                                            </td>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+<<<<<<< HEAD
                                 </div>
                     </div>
                 </div>
@@ -175,10 +178,64 @@
                                         @endif
                                     </ul>
                                 </nav>
+=======
+>>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                         </div>
                     </div>
                 </div>
+                <!-- Pagination Section -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        {{-- Previous Page Link --}}
+                        @if ($holder->onFirstPage())
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="fa fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $holder->previousPageUrl() }}" tabindex="-1">
+                                    <i class="fa fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Page Links --}}
+                        @foreach ($holder->getUrlRange(1, $holder->lastPage()) as $page => $url)
+                            @if ($page == $holder->currentPage())
+                                <li class="page-item active"><a class="page-link"
+                                        href="{{ $url }}">{{ $page }}</a></li>
+                            @else
+                                <li class="page-item"><a class="page-link"
+                                        href="{{ $url }}">{{ $page }}</a></li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($holder->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $holder->nextPageUrl() }}">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

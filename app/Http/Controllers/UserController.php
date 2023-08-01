@@ -34,7 +34,7 @@ class UserController extends Controller
         $this->validate($request, [
             'username' => 'required',
             'npk' => 'required',
-            'pos_name' => 'required',
+            'pos' => 'required',
             'role' => 'required',
             'password' => 'required',
         ]);

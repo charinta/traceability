@@ -44,10 +44,4 @@ class Holder extends Model
             $holder->date_modify = Carbon::now('Asia/Jakarta');
         });
     }
-
-    // relasi ke tbl_register_tool
-    public function tool()
-    {
-        return $this->belongsTo(Tool::class, 'holder_id');
-    }
 }
