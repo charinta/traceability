@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Holder;
+use App\Http\Controllers\HolderController;
 use App\Models\Tool;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,8 +16,9 @@ class ToolController extends Controller
     {
         $tool = Tool::paginate(10);
         // agar tabel register holder terbaca di form
-        $holder = Holder::all();
-        return view('register-tool', compact('tool', 'holder'));
+        $HolderController = app(HolderController::class);
+        $noDrawingHold = $HolderController->getNoDraw();
+        return view('register-tool', compact('tool', 'noDrawingHold'));
     }
 
     // menyimpan data/menyimpan insert data 

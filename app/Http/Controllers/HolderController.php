@@ -35,6 +35,11 @@ class HolderController extends Controller
         return redirect()->route('register-holder.index');
     }
 
+    public function getNoDraw(){
+        $activeNoDrawingHold = Holder::where('no_drawing_holder')->pluck('no_drawing_holder');
+        return $activeNoDrawingHold;
+    }
+
     // view ke halaman update
     public function edit($id)
     {
@@ -70,6 +75,6 @@ class HolderController extends Controller
         $holder = Holder::findOrFail($id);
         $holder->delete();
 
-        return redirect()->route('register-holder.index')->with(['success' => 'Data Berhasil Dihapus']);
+        return redirect()->route('register-holder.index');
     }
 }
