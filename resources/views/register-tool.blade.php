@@ -77,11 +77,9 @@
                                 <label for="no_drawing_holder" class="form-control-label text-light"
                                     name="no_drawing_holder">Holder</label>
                                 <select class="form-select" name="no_drawing_holder">
-                                    <option value="">---Pilih Holder---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @foreach ($noDrawingHold as $noHold)
+                                        <option value="{{ $noHold }}">{{ $noHold }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="row">
@@ -166,20 +164,22 @@
                                             <td>{{ $tol->no_drawing_tool }}</td>
                                             <td>{{ $tol->tool_type }}</td>
                                             <td>{{ $tol->tool_lifetime_std }}</td>
-                                             <td class="text-center">
-                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                        action="{{ route('user-account.destroy', $users->id) }}"
-                                                        method="POST">
-                                                        {{-- icon edit --}}
-                                                            <a href="{{ route('user-account.editUser', $users->id) }}" class="btn btn-sm btn-primary fa fa-edit">
-                                                            </a>
-                                                        {{-- icon delete --}}
+                                            <td class="text-center">
+                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                    action="{{ route('user-account.destroy', $users->id) }}"
+                                                    method="POST">
+                                                    {{-- icon edit --}}
+                                                    <a href="{{ route('user-account.editUser', $users->id) }}"
+                                                        class="btn btn-sm btn-primary fa fa-edit">
+                                                    </a>
+                                                    {{-- icon delete --}}
 
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
-                                                    </form>
-                                                </td>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -188,57 +188,59 @@
                         </div>
                     </div>
                 </div>
-                            <!-- Pagination Section -->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        {{-- Previous Page Link --}}
-                                        @if ($tool->onFirstPage())
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $tool->previousPageUrl() }}" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @endif
+                <!-- Pagination Section -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        {{-- Previous Page Link --}}
+                        @if ($tool->onFirstPage())
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="fa fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $tool->previousPageUrl() }}" tabindex="-1">
+                                    <i class="fa fa-angle-left"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        @endif
 
-                                        {{-- Page Links --}}
-                                        @foreach ($tool->getUrlRange(1, $tool->lastPage()) as $page => $url)
-                                            @if ($page == $tool->currentPage())
-                                                <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @else
-                                                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @endif
-                                        @endforeach
+                        {{-- Page Links --}}
+                        @foreach ($tool->getUrlRange(1, $tool->lastPage()) as $page => $url)
+                            @if ($page == $tool->currentPage())
+                                <li class="page-item active"><a class="page-link"
+                                        href="{{ $url }}">{{ $page }}</a></li>
+                            @else
+                                <li class="page-item"><a class="page-link"
+                                        href="{{ $url }}">{{ $page }}</a></li>
+                            @endif
+                        @endforeach
 
-                                        {{-- Next Page Link --}}
-                                        @if ($tool->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $tool->nextPageUrl() }}">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </nav>
-                        </div>
-                    </div>
-                </div>
+                        {{-- Next Page Link --}}
+                        @if ($tool->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $tool->nextPageUrl() }}">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">
+                                    <i class="fa fa-angle-right"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection
