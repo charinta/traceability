@@ -15,6 +15,13 @@ class HomeController extends Controller
         return redirect('login');
     }
 
+    public function dashboard()
+    {
+        // Your logic for the dashboard route here
+        // For example, you can return a view
+        return view('dashboard');
+    }
+
     public function index()
     {
         $year = ['2023'];

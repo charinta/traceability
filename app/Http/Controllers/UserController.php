@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,6 +31,9 @@ class UserController extends Controller
 
 
     // menyimpan data/menyimpan insert data 
+    // app/Http/Controllers/UserController.php
+
+
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
@@ -40,6 +45,7 @@ class UserController extends Controller
         ]);
 
         $data = $request->all();
+        //$data['password'] = Hash::make($request->input('password')); // Hashing password sebelum menyimpannya
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $user = User::create($data);

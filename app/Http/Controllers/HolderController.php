@@ -36,8 +36,9 @@ class HolderController extends Controller
         return redirect()->route('register-holder.index');
     }
 
-    public function getNoDraw(){
-        $activeNoDrawingHold = Holder::where('no_drawing_holder')->pluck('no_drawing_holder');
+    public function getNoDraw()
+    {
+        $activeNoDrawingHold = Holder::pluck('no_drawing_holder');
         return $activeNoDrawingHold;
     }
 

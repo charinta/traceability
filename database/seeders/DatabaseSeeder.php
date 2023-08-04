@@ -4,19 +4,24 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::create([
+            'username' => 'adminuser',
+            'password' => bcrypt('adminpassword'),
+            'role' => User::ROLE_ADMIN,
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::create([
+            'username' => 'regularuser',
+            'password' => bcrypt('userpassword'),
+            'role' => User::ROLE_USER,
+        ]);
+
+        // Tambahkan pengguna lain dengan role yang sesuai
     }
 }

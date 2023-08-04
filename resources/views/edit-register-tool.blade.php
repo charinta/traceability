@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-tool.updateTool', $tool->id) }}" method="POST"
+                        <form action="{{ route('register-tool.update', $tool->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -28,7 +28,7 @@
                                 <label for="tool_type" class="form-control-label text-light" name="tool_type">Type
                                     Tool</label>
                                 <select class="form-select" name="tool_type">
-                                    <option value="">---Pilih Type---</option>
+                                    <option value=""></option>
                                     <option value="drill" @if ($tool->tool_type === 'drill') selected @endif>D</option>
                                     <option value="reamer" @if ($tool->tool_type === 'reamer') selected @endif>R</option>
                                     <option value="tap" @if ($tool->tool_type === 'tap') selected @endif>T</option>
@@ -62,7 +62,6 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="">---Pilih Line---</option>
                                     <option value="1" @if ($tool->line === '1') selected @endif>1</option>
                                     <option value="2" @if ($tool->line === '2') selected @endif>2</option>
                                     <option value="3" @if ($tool->line === '3') selected @endif>3</option>
@@ -72,7 +71,7 @@
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value="">---Pilih OP---</option>
+                                    <option value=""></option>
                                     <option value="1" @if ($tool->op === '1') selected @endif>1</option>
                                     <option value="2" @if ($tool->op === '2') selected @endif>2</option>
                                     <option value="3" @if ($tool->op === '3') selected @endif>3</option>
@@ -83,7 +82,7 @@
                                 <label for="no_drawing_holder" class="form-control-label text-light"
                                     name="no_drawing_holder">Holder</label>
                                 <select class="form-select" name="no_drawing_holder">
-                                    <option value="">---Pilih Holder---</option>
+                                    <option value=""></option>
                                     <option value="1" @if ($tool->no_drawing_holder === '1') selected @endif>1</option>
                                     <option value="2" @if ($tool->no_drawing_holder === '2') selected @endif>2</option>
                                     <option value="3" @if ($tool->no_drawing_holder === '3') selected @endif>3</option>

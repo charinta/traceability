@@ -49,13 +49,15 @@ class StandarController extends Controller
         if ($selectedOption === 'Standard Value') {
             $this->validate($request, [
                 'standard_check' => 'required',
+                'unit-dropdown' => 'required',
                 'batas_atas' => 'required',
                 'batas_bawah' => 'required',
             ]);
 
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
             $statusData = 'int';
-            $remark = $request->input('standard_check');
+            // $remark = $request->input('standard_check');
+
         } elseif ($selectedOption === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
@@ -63,21 +65,8 @@ class StandarController extends Controller
 
             $combinedValue = $request->input('standard_check');
             $statusData = 'string';
-            $remark = $request->input('standard_check');
-        } elseif ($selectedOption === 'Standard Image') {
-            $this->validate($request, [
-                'standard_check' => 'required',
-                'remark' => 'required',
-            ]);
-
-            $combinedValue = $request->input('standard_check');
-            $statusData = 'image';
-        } else {
-
-            $combinedValue = null;
-            $statusData = 'string';
+            // $remark = $request->input('standard_check');
         }
-
 
         $request->merge([
             'batas_atas' => $request->input('batas_atas', 0),
@@ -87,7 +76,7 @@ class StandarController extends Controller
 
 
         $data = $request->all();
-        $data['standard_value'] = $combinedValue;
+        $data['standard_check'] = $combinedValue;
         $data['status_data'] = $statusData;
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
@@ -118,56 +107,49 @@ class StandarController extends Controller
         if ($selectedOption === 'Standard Value') {
             $this->validate($request, [
                 'standard_check' => 'required',
+                'unit-dropdown' => 'required',
                 'batas_atas' => 'required',
                 'batas_bawah' => 'required',
             ]);
 
-
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
             $statusData = 'int';
-            $remark = $request->input('standard_check');
         } elseif ($selectedOption === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
             ]);
 
-
             $combinedValue = $request->input('standard_check');
-            $statusData = 'string';
-            $remark = $request->input('standard_check');
-        } elseif ($selectedOption === 'Standard Image') {
-            $this->validate($request, [
-                'standard_check' => 'required',
-                'remark' => 'required',
-            ]);
-
-            $combinedValue = $request->input('standard_check');
-            $statusData = 'image';
-            $remark = $request->input('remark');
-        } else {
-
-            $combinedValue = null;
             $statusData = 'string';
         }
-
 
         $request->merge([
             'batas_atas' => $request->input('batas_atas', 0),
             'batas_bawah' => $request->input('batas_bawah', 0),
-            //'remark' => $request->input('remark', 0)s
         ]);
-
 
         $standar = Standar::findOrFail($id);
         $data = $request->all();
-        $data['standard_value'] = $combinedValue;
-        $data['status_data'] = $statusData;
+
+        if ($standar->status_data === 'string' && $selectedOption === 'Standard Value') {
+            // Data awalnya adalah "Standard String" dan diubah menjadi "Standard Value"
+            // Update status_data dan combined value
+            $data['status_data'] = 'int';
+            $data['standard_value'] = $combinedValue;
+        } else {
+            // Jika data tidak berubah, atau berubah dari "Standard Value" ke "Standard String"
+            // atau tetap "Standard String", biarkan nilai status_data dan combined value seperti sebelumnya.
+            $data['status_data'] = $standar->status_data;
+            $data['standard_value'] = $standar->standard_value;
+        }
+
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
-        $data['remark'] = $remark;
+
         $standar->update($data);
 
         return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Diperbarui!']);
     }
+
 
     public function destroy(Standar $standar, $id): RedirectResponse
     {

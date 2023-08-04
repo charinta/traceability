@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
@@ -16,12 +16,7 @@
                         {{-- form body --}}
                         <div class="card-body">
 
-<<<<<<< HEAD
-                            <form action="{{ route('user-account.store') }}" method="POST"
-                                enctype="multipart/form-data">
-=======
                             <form action="{{ route('user-account.store') }}" method="POST" enctype="multipart/form-data">
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                                 @csrf
                                 <div class="form-group">
                                     <label for="username" class="form-control-label text-light">Nama</label>
@@ -32,16 +27,6 @@
                                     <input class="form-control" type="text" name="npk" placeholder="Masukkan NPK">
                                 </div>
                                 <div class="form-group">
-<<<<<<< HEAD
-                                <label for="pos_name" class="form-control-label text-light"
-                                    name="pos_name">Pos</label><br>
-                                <select class="form-select" name="pos_name">
-                                    @foreach($activePosNames as $posName)
-                                        <option value="{{ $posName }}">{{ $posName }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-=======
                                     <label for="pos" class="form-control-label text-light"
                                         name="pos">Pos</label><br>
                                     <select class="form-select" name="pos">
@@ -50,7 +35,6 @@
                                         @endforeach
                                     </select>
                                 </div>
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                                 <div class="form-group">
                                     <label for="role" class="form-control-label text-light" name="role">Role</label>
                                     <br>
@@ -121,10 +105,10 @@
                                                 class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
                                                 Role</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7"  style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                                 Password</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 " >
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -135,95 +119,29 @@
                                                 <td>{{ $users->id }}</td>
                                                 <td>{{ $users->username }}</td>
                                                 <td>{{ $users->npk }}</td>
-<<<<<<< HEAD
-                                                <td>{{ $users->pos_name }}</td>
-=======
                                                 <td>{{ $users->pos }}</td>
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                                                 <td>{{ $users->role }}</td>
-                                                <td>{{ $users->password }}</td>
+                                                <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $users->password }}</td>
                                                 <td class="text-center">
                                                     <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                         action="{{ route('user-account.destroy', $users->id) }}"
                                                         method="POST">
                                                         {{-- icon edit --}}
-<<<<<<< HEAD
-                                                            <a href="{{ route('user-account.edit', $users->id) }}" class="btn btn-sm btn-primary fa fa-edit">
-                                                            </a>
-=======
                                                         <a href="{{ route('user-account.edit', $users->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit">
                                                         </a>
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                                                         {{-- icon delete --}}
 
                                                         @csrf
                                                         @method('DELETE')
-<<<<<<< HEAD
-                                                        <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
-=======
                                                         <button type="submit"
                                                             class="btn btn-sm btn-danger fa fa-trash"></button>
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                                                     </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
-<<<<<<< HEAD
-                        </div>
-                    </div>
-                </div>
-                                <!-- Pagination Section -->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        {{-- Previous Page Link --}}
-                                        @if ($user->onFirstPage())
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $user->previousPageUrl() }}" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @endif
-
-                                        {{-- Page Links --}}
-                                        @foreach ($user->getUrlRange(1, $user->lastPage()) as $page => $url)
-                                            @if ($page == $user->currentPage())
-                                                <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @else
-                                                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @endif
-                                        @endforeach
-
-                                        {{-- Next Page Link --}}
-                                        @if ($user->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $user->nextPageUrl() }}">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </nav>
-=======
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -108,10 +108,9 @@
 
                                             <td class="text-center">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
-                                                    method="POST">
+                                                    action="{{route('register-holder.destroy', $hold->holder_id)}}" method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('register-holder.edit', $hold->id) }}"
+                                                    <a href="{{ route('register-holder.edit', $hold->holder_id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
                                                     </a>
                                                     {{-- icon delete --}}
@@ -127,59 +126,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-<<<<<<< HEAD
-                                </div>
-                    </div>
-                </div>
-                                <!-- Pagination Section -->
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination justify-content-end">
-                                        {{-- Previous Page Link --}}
-                                        @if ($holder->onFirstPage())
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $holder->previousPageUrl() }}" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                        @endif
-
-                                        {{-- Page Links --}}
-                                        @foreach ($holder->getUrlRange(1, $holder->lastPage()) as $page => $url)
-                                            @if ($page == $holder->currentPage())
-                                                <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @else
-                                                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                            @endif
-                                        @endforeach
-
-                                        {{-- Next Page Link --}}
-                                        @if ($holder->hasMorePages())
-                                            <li class="page-item">
-                                                <a class="page-link" href="{{ $holder->nextPageUrl() }}">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @else
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </nav>
-=======
->>>>>>> a8a1fd3960702d6c3586f20d60d8e9380ef78205
                         </div>
                     </div>
                 </div>

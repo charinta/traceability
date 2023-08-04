@@ -47,9 +47,29 @@
             </div>
             <div class="mt-3 margin-left:10">
                 <small>{{ __("Don't have an account?") }}</small>
-                <a href="{{ route('sign-up') }}" class="text-warning text-sm font-semibold">{{ __('Sign up') }}</a>
+                <a href="" class="text-warning text-sm font-semibold">{{ __('Sign up') }}</a>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
+    };
+  },
+  methods: {
+    login() {
+      // Logic untuk mengirim data login menggunakan username dan password
+      this.$inertia.post(route('login'), {
+        username: this.username,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>
 @endsection

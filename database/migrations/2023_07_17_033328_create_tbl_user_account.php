@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('npk')->nullable();
             $table->string('pos_name', 50)->nullable();
             $table->string('role', 50)->nullable();
-            $table->string('password', 50)->nullable();
+            $table->string('password', 255)->nullable();
         });
     }
 

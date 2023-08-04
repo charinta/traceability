@@ -1,4 +1,6 @@
 @extends('layouts.app')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
 
 @section('guest')
     {{-- @if (\Request::is('login/forgot-password'))
@@ -15,6 +17,9 @@
     @yield('content')
     @include('layouts.footers.guest.footer')
     @endif --}}
+    <!-- Validation Errors -->
+<x-auth-validation-errors class="mb-4" :errors="$errors" />
+
     @if (\Request::is('rtl'))
         @include('layouts.navbars.guest.sidebar-rtl')
         <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg overflow-hidden">

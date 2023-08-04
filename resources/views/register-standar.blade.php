@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -50,13 +50,6 @@
                                             Standard String
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="check" value="Standard Image"
-                                            id="opt-standard-image">
-                                        <label class="form-check-label text-light" for="opt-standard-image">
-                                            Standard Image
-                                        </label>
-                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -102,25 +95,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="standard-image" class="form-control-label text-light">Standard
-                                        Image</label>
-                                    <input class="form-control" type="file" name="standard_check" id="standard-image"
-                                        accept="image/*" disabled>
-                                    <input type="hidden" name="selected_option" value="Standard Image">
-
-                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
-                                        hidden
-                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="remark" class="form-control-label text-light">Remark</label>
-                                    <input class="form-control" type="text" name="remark" id="remark" disabled>
-                                </div>
-
-
-                                <div class="form-group">
                                     <label for="status" class="form-control-label text-light"
                                         name="status">Status</label><br>
                                     <select class="form-select" name="status">
@@ -136,9 +110,7 @@
                                     const batasAtas = document.getElementById('batas_atas');
                                     const batasBawah = document.getElementById('batas_bawah');
                                     const standardStringInput = document.getElementById('standard-string');
-                                    const standardImageInput = document.getElementById('standard-image');
-                                    const remarkImage = document.getElementById('remark');
-                                    const statusImage = document.getElementById('status-image');
+                                   // const remarkImage = document.getElementById('remark');
 
                                     radioButtons.forEach((radioButton) => {
                                         radioButton.addEventListener('change', function() {
@@ -147,44 +119,16 @@
                                             batasAtas.disabled = this.value !== 'Standard Value';
                                             batasBawah.disabled = this.value !== 'Standard Value';
                                             standardStringInput.disabled = this.value !== 'Standard String';
-                                            standardImageInput.disabled = this.value !== 'Standard Image';
-                                            remarkImage.disabled = this.value !== 'Standard Image';
-                                            statusImage.disabled = this.value !== 'Standard Image';
+                                        //    remarkImage.disabled = this.value !== 'Standard Image';
 
                                             standardValueInput.required = this.value === 'Standard Value';
                                             unitDropdown.required = this.value === 'Standard Value';
                                             batasAtas.required = this.value === 'Standard Value';
                                             batasBawah.required = this.value === 'Standard Value';
                                             standardStringInput.required = this.value === 'Standard String';
-                                            standardImageInput.required = this.value === 'Standard Image';
-                                            remarkImage.required = this.value === 'Standard Image';
-                                            statusImage.required = this.value === 'Standard Image';
+                                         //   remarkImage.required = this.value === 'Standard Image';
                                         });
                                     });
-
-                                    // Function to handle image preview
-                                    function previewImage(event) {
-                                        const input = event.target;
-                                        const previewImage = document.getElementById('uploaded-image');
-
-                                        if (input.files && input.files[0]) {
-                                            const reader = new FileReader();
-
-                                            reader.onload = function(e) {
-                                                previewImage.src = e.target.result;
-                                                previewImage.hidden = false;
-                                            };
-
-                                            reader.readAsDataURL(input.files[0]);
-                                        } else {
-                                            previewImage.src = '#';
-                                            previewImage.hidden = true;
-                                        }
-                                    }
-
-                                    // Add an event listener to the file input
-                                    const fileInput = document.getElementById('standard-image');
-                                    fileInput.addEventListener('change', previewImage);
                                 </script>
 
 
@@ -243,17 +187,22 @@
                                             <td>{{ $standard->item_check }}</td>
                                             <td>{{ $standard->standard_check }}</td>
                                             <td>{{ $standard->status }}</td>
-                                            <td>
-                                                <form action="{{ route('register-standar.destroy', $standard->id) }}"
-                                                    method="POST">
-                                                    <a href="{{ route('register-standar.edit', $standard->id) }}"
-                                                        class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-sm btn-danger fa fa-trash remove-user "></button>
-                                                </form>
-                                            </td>
+                                             <td class="text-center">
+                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                        action="{{ route('register-standar.destroy', $standard->id) }}"
+                                                        method="POST">
+                                                        {{-- icon edit --}}
+                                                        <a href="{{ route('register-standar.edit', $standard->id) }}"
+                                                            class="btn btn-sm btn-primary fa fa-edit">
+                                                        </a>
+                                                        {{-- icon delete --}}
+
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                    </form>
+                                                </td>
                                     @endforeach
                                     </tr>
 

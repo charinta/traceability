@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('line', 50)->nullable();
             $table->string('op', 50)->nullable();
             $table->string('no_drawing_holder', 50)->nullable();
+            $table->integer('washing_ct')->nullable();
+            $table->integer('grinding_ct')->nullable();
+            $table->integer('setting_ct')->nullable();
+            $table->string('image_check')->nullable();
+            $table->string('remark')->nullable();
         });
     }
 

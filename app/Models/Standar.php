@@ -19,7 +19,7 @@ class Standar extends Model
         'batas_atas',
         'batas_bawah',
         'status_data',
-        'remark',
+        //   'remark',
         'status',
     ];
 
