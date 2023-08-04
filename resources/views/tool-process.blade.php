@@ -6,8 +6,8 @@
 
             {{-- button back --}}
             <div class="card card-plain col-1">
-                <a href="{{ url('register-line') }}" class="btn btn-primary active fa fa-arrow-left" role="button"
-                    aria-pressed="true"></a>
+                <a href="{{ route('register-op.line', ['id' => $OP->id]) }}" class="btn btn-primary active fa fa-arrow-left"
+                    role="button" aria-pressed="true"></a>
             </div>
 
             {{-- container --}}
@@ -17,19 +17,19 @@
                 <div class="col-12 col-xl-3">
                     <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                         <div class="card-header pb-0 p-3 bg-gradient-dark">
-                            <h4 class="mb-0 text-light"> <b>Register OP </b></h4>
+                            <h4 class="mb-0 text-light"> <b>Register Tool Process </b></h4>
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('register-op.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('tool-process.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="OP" class="form-control-label text-light">OP</label>
-                                    <input class="form-control" type="OP" name="OP" id="OP">
+                                    <label for="tool_process" class="form-control-label text-light">Tool Process</label>
+                                    <input class="form-control" type="tool_process" name="tool_process" id="Tool Process">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
-                                        OP</button>
+                                        Tool Process</button>
                                 </div>
                                 <br>
                             </form>
@@ -42,7 +42,7 @@
                 <div class="col-12 col-xl-9">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0">
-                            <h6>OP Table for Line: {{ $line->line }}</h6>
+                            <h6>OP Table for OP: {{ $OP->op }}</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
@@ -59,23 +59,24 @@
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder OPacity-7">
                                                 OP</th>
                                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder OPacity-7">
+                                                Tool</th>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder OPacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
-                                        @foreach ($OP as $op)
+                                        @foreach ($tool_process as $tp)
                                             <tr>
-                                                <td>{{ $op->id }}</td>
-                                                <td>{{ $op->date_created }}</td>
-                                                <td>{{ $op->line }}</td>
-                                                <td>{{ $op->OP }}</td>
+                                                <td>{{ $tp->id }}</td>
+                                                <td>{{ $tp->date_created }}</td>
+                                                <td>{{ $tp->line }}</td>
+                                                <td>{{ $tp->OP }}</td>
+                                                <td>{{ $tp->tool_process }}</td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('register-op.destroy', $op->id) }}"
+                                                    <form action="{{ route('tool-process.destroy', $tp->id) }}"
                                                         method="POST">
-                                                        <a href="{{ route('register-op.index', $op->id) }}"
+                                                        <a href="{{ route('tool-process.index', $tp->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                        <a href="{{ route('tool-process.op', ['id' => $op->id]) }}" }}"
-                                                            class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
@@ -94,7 +95,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             {{-- Previous Page Link --}}
-                            @if ($OP->onFirstPage())
+                            @if ($tool_process->onFirstPage())
                                 <li class="page-item disabled">
                                     <a class="page-link" href="#" tabindex="-1">
                                         <i class="fa fa-angle-left"></i>
@@ -103,7 +104,7 @@
                                 </li>
                             @else
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $OP->previousPageUrl() }}" tabindex="-1">
+                                    <a class="page-link" href="{{ $tool_process->previousPageUrl() }}" tabindex="-1">
                                         <i class="fa fa-angle-left"></i>
                                         <span class="sr-only">Previous</span>
                                     </a>
@@ -111,8 +112,8 @@
                             @endif
 
                             {{-- Page Links --}}
-                            @foreach ($OP->getUrlRange(1, $OP->lastPage()) as $page => $url)
-                                @if ($page == $OP->currentPage())
+                            @foreach ($tool_process->getUrlRange(1, $tool_process->lastPage()) as $page => $url)
+                                @if ($page == $tool_process->currentPage())
                                     <li class="page-item active"><a class="page-link"
                                             href="{{ $url }}">{{ $page }}</a></li>
                                 @else
@@ -122,9 +123,9 @@
                             @endforeach
 
                             {{-- Next Page Link --}}
-                            @if ($OP->hasMorePages())
+                            @if ($tool_process->hasMorePages())
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $OP->nextPageUrl() }}">
+                                    <a class="page-link" href="{{ $tool_process->nextPageUrl() }}">
                                         <i class="fa fa-angle-right"></i>
                                         <span class="sr-only">Next</span>
                                     </a>

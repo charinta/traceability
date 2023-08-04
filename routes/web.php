@@ -9,6 +9,8 @@ use App\Http\Controllers\StandarController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OPController;
+use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\ToolProcessController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -45,7 +47,6 @@ Route::get('register-item.search', [ItemController::class, 'search'])->name('reg
 Route::resource('register-item', ItemController::class);
 
 Route::resource('register-line', \App\Http\Controllers\LineController::class);
-
 Route::get('register-op/{id}', '\App\Http\Controllers\LineController@showOpData')->name('register-op.line');
 
 Route::resource('register-standar', StandarController::class);
@@ -65,10 +66,19 @@ Route::resource('register-holder', HolderController::class);
 Route::get('register-op', [OpController::class, 'index'])->name('register-op.index');
 Route::post('register-op', [OpController::class, 'store'])->name('register-op.store');
 Route::delete('register-op/{item}', [OpController::class, 'destroy'])->name('register-op.destroy');
+Route::get('tool-process/{id}', '\App\Http\Controllers\OpController@showTPData')->name('tool-process.op');
+
 
 Route::resource('register-pos', \App\Http\Controllers\PosController::class);
 Route::get('register-pos.search', [PosController::class, 'search'])->name('register-pos.search');
 Route::resource('register-pos', \App\Http\Controllers\PosController::class);
+
+Route::resource('shift', ShiftController::class);
+Route::resource('shift', ShiftController::class);
+
+Route::resource('tool-process', ToolProcessController::class);
+//Route::get('tool-process.search', [ToolProcessController::class, 'search'])->name('tool-process.search');
+Route::resource('tool-process', ToolProcessController::class);
 
 //Route::get('register-item', [ItemController::class, 'index'])->name('register-item.index');
 //Route::post('register-item', [ItemController::class, 'store'])->name('register-item.store');

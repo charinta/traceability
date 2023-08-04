@@ -11,7 +11,7 @@
             @elseif(Request::is('register-pos'))
                 Register Pos
             @elseif(Request::is('register-line'))
-                Register Line 
+                Register Line
             @elseif(Request::is('register-op'))
                 Register OP
             @elseif(Request::is('register-tool'))
@@ -28,6 +28,10 @@
                 Overview Resume Dashboard
             @elseif(Request::is('register-item'))
                 Register Item
+            @elseif(Request::is('historical-data'))
+                Historical Data
+            @elseif(Request::is('shift'))
+                Shift
             @endif
         </a>
         <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

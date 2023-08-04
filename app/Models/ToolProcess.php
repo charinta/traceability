@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
-class OP extends Model
+class ToolProcess extends Model
 {
     use HasFactory;
 
@@ -19,7 +19,7 @@ class OP extends Model
 
     // menentukan variabel yang diisi
     protected $fillable = [
-        'OP',
+        'ToolProcess',
     ];
 
     // agar date_created bisa terisi, bukan pake created_at
@@ -27,12 +27,12 @@ class OP extends Model
     {
         parent::boot();
 
-        static::creating(function ($OP) {
-            $OP->date_created = Carbon::now('Asia/Jakarta');
+        static::creating(function ($toolprocess) {
+            $toolprocess->date_created = Carbon::now('Asia/Jakarta');
         });
 
-        static::updating(function ($OP) {
-            $OP->date_modify = Carbon::now('Asia/Jakarta');
+        static::updating(function ($toolprocess) {
+            $toolprocess->date_modify = Carbon::now('Asia/Jakarta');
         });
     }
 }

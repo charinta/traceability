@@ -36,7 +36,7 @@ class HolderController extends Controller
     }
 
     public function getNoDraw(){
-        $activeNoDrawingHold = Holder::where('no_drawing_holder')->pluck('no_drawing_holder');
+        $activeNoDrawingHold = Holder::pluck('no_drawing_holder');
         return $activeNoDrawingHold;
     }
 

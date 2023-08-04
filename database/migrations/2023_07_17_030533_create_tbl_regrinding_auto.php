@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('judgment', 50)->nullable();
             $table->string('status_check', 50)->nullable();
             $table->string('pic', 50)->nullable();
+            $table->string('shift1', 50)->nullable();
+            $table->string('shift2', 50)->nullable();
         });
     }
 

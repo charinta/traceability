@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use App\Models\OP;
 use App\Models\Line;
+use App\Models\ToolProcess;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -16,6 +17,14 @@ class OPController extends Controller
     {
         $OP = OP::paginate(10);
         return view('register-op')->with('OP', $OP);
+    }
+
+    public function showTPData($id)
+    {
+        $OP = OP::findOrFail($id);
+        $tool_process = ToolProcess::where('id', $id)->paginate(10); 
+
+        return view('tool-process', ['OP' => $OP, 'tool_process' => $tool_process]);
     }
 
     public function store(Request $request): RedirectResponse

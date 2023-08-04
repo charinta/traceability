@@ -3,7 +3,7 @@
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
 
-        {{-- <!--FORM USER ACCOUNT --> ini setelah diupdate belum mau redirect ke view sebelumnya --}}
+        {{-- FORM USER ACCOUNT --}}
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-12 col-xl-3 pr-15">
@@ -119,17 +119,44 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table> --}}
+                                </table>
+                            </div>
+                        </div> --}}
             </div>
         </div>
     </div>
     </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 @endsection
+
+
+
+<script>
+    function updateUser(event, userId) {
+        event.preventDefault();
+
+        var form = event.target;
+        var formData = new FormData(form);
+        var _token = formData.get('_token');
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('user-account.update', ':id') }}".replace(':id', userId),
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': _token
+            },
+            success: function(response) {
+                // Handle success response (if needed)
+                console.log(response);
+                // Optionally, you can update the UI here without a page reload
+            },
+            error: function(xhr, status, error) {
+                // Handle error response (if needed)
+                console.log(xhr.responseText);
+            },
+        });
+    }
+</script>

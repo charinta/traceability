@@ -321,20 +321,24 @@
         </div>
     </div>
 @endsection
-@extends('layouts.user_type.guest')
 
 @push('dashboard')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script>
-        var year = <?php echo json_encode($year, JSON_NUMERIC_CHECK); ?>;
-        var user = <?php echo json_encode($user, JSON_NUMERIC_CHECK); ?>;
+        var months = <?php echo json_encode($months, JSON_NUMERIC_CHECK); ?>;
+        var shift1 = <?php echo json_encode($shift1, JSON_NUMERIC_CHECK); ?>;
+        var shift2 = <?php echo json_encode($shift2, JSON_NUMERIC_CHECK); ?>;
 
         var barChartData = {
-            labels: year,
+            labels: months,
             datasets: [{
-                label: 'User',
+                label: 'Shift 1',
                 backgroundColor: "pink",
-                data: user
+                data: shift1
+            }, {
+                label: 'Shift 2',
+                backgroundColor: "blue",
+                data: shift2
             }]
         };
 
@@ -354,11 +358,18 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Yearly User Joined'
+                        text: 'Regrinding Auto'
+                    },
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true
+                        }
                     }
                 }
             });
-
         };
     </script>
 @endpush

@@ -16,57 +16,48 @@ class HomeController extends Controller
     }
 
     public function index()
-    {
-        $year = ['2023'];
+{
+    // Replace 'RegrindingAuto' with your actual model class
+    $regrindingAutos = RegrindingAuto::all();
 
-        $user = [];
-        foreach ($year as $value) {
-            $user[] = RegrindingAuto::where(FacadesDB::raw("FORMAT(date_created, 'yyyy')"), $value)->count();
+    $months = [];
+    $shift1Duration = [];
+    $shift2Duration = [];
+
+    foreach ($regrindingAutos as $regrindingAuto) {
+        $month = date('d', strtotime($regrindingAuto->date_scan)); // Extract the year and month
+        $time = date('H:i:s', strtotime($regrindingAuto->shift)); // Extract the time component
+
+        // Count the occurrences of the month in the data
+        if (!isset($months[$month])) {
+            $months[$month] = 1;
+        } else {
+            $months[$month]++;
         }
 
-        return view('dashboard', compact('year', 'user'));
+        // Calculate the duration of each shift and update the shift duration arrays
+        if ($time >= '07:30:00' && $time < '16:30:00') {
+            if (!isset($shift1Duration[$month])) {
+                $shift1Duration[$month] = 0;
+            }
+            $shift1Duration[$month]++;
+        } elseif ($time >= '21:00:00' || $time < '05:00:00') {
+            if (!isset($shift2Duration[$month])) {
+                $shift2Duration[$month] = 0;
+            }
+            $shift2Duration[$month]++;
+        }
     }
 
+    // Extract the keys (months) as an array
+    $months = array_keys($months);
+    // Extract the value (shift durations) as an array
+    $shift1 = array_values($shift1Duration);
+    $shift2 = array_values($shift2Duration);
 
-    // public function createChart(){
-    //     $regrinding_auto = RegrindingAuto::select('date_scan')->get();
-    //     $datasets = [];
-    //     foreach($regrinding_auto as $sub){
-    //         $dataset = $this->createDataset($sub->id,2022);
-    //         $datasets[] = $dataset;
-    //     }
-    //     // dd($datasets);
-    //     $labels = [
-    //         1, 2, 3, 4, 5, 6, 7, 8, 9
-    //     ];
-    //     return [
-    //         'type'=>'bar',
-    //         'data'=>[
-    //             'labels'=>$labels,
-    //             'datasets'=>$datasets
-    //         ]
-    //     ];
-    // }
+    // dd($months, $shift1, $shift2);
 
-    //  public function createDataset($regrinding_auto,$year){
-    //     $year_month = [
-    //         '2022-01','2022-02','2022-03','2022-04','2022-05','2002-06','2022-07','2022-08','2022-09','2022-10','2022-11','2022-12'
-    //     ];
-    //     $label = RegrindingAuto::findOrFail($regrinding_auto);
-    //     $data = [];
-    //     foreach($year_month as $y){
-    //         $result = EntrySpj::where('regrinding_auto',$regrinding_auto)->where('tanggal','like',$y.'%')->sum('nominal');
-    //         $data[] = $result;
-    //     }
+    return view('dashboard', compact('months', 'shift1', 'shift2'));
+}
 
-    //     $randomColor ='rgb('. rand(1,255). ',' .rand(1,255). ','. rand(1,255) .')';
-
-    //     return [
-    //         'label'=> $label->kode_sub. ' - '.$label->nama_sub_kegiatan,
-    //         'data'=>$data,
-    //         'fill'=>false,
-    //         'borderColor' => $randomColor,
-    //         'tension' => 0.1
-    //     ];
-    // }
 }
