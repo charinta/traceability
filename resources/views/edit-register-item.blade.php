@@ -19,7 +19,8 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="item_check" class="form-control-label text-light">Item</label>
-                                    <input class="form-control" name="item_check" type="item_check" id="item_check"  value="{{ old('item', $item->item_check) }}">
+                                    <input class="form-control" name="item_check" type="item_check" id="item_check"
+                                        value="{{ old('item', $item->item_check) }}">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
@@ -30,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                         
-                
-                
+            </div>
+        </div>
+    </div>
 @endsection

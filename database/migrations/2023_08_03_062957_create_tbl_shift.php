@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_register_line_op', function (Blueprint $table) {
+        Schema::create('tbl_shift', function (Blueprint $table) {
             $table->id();
+            $table->string('shift')->nullable();
+            $table->time('start')->nullable();
+            $table->time('finish')->nullable();
             $table->timestamp('date_created', 7)->nullable();
             $table->timestamp('date_modify', 7)->nullable();
-            $table->string('line', 50)->nullable();
-            $table->string('op', 50)->nullable();
-            $table->string('tool_process', 50)->nullable();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_register_line_op');
+        Schema::dropIfExists('table_shift');
     }
 };

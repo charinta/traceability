@@ -16,7 +16,8 @@
                         {{-- form body --}}
                         <div class="card-body">
 
-                            <form action="{{ route('user-account.store') }}" method="POST" enctype="multipart/form-data">
+                            <form id="insert-form" action="{{ route('user-account.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="username" class="form-control-label text-light">Nama</label>
@@ -56,11 +57,10 @@
 
                                 <br>
                             </form>
-
                         </div>
                     </div>
                 </div>
-                {{-- FORM USER ACCOUNT ENDS --}}
+                {{-- FORM USER ACCOUNT END --}}
 
 
                 {{-- Table --}}
@@ -128,14 +128,13 @@
                                                         method="POST">
                                                         {{-- icon edit --}}
                                                         <a href="{{ route('user-account.edit', $users->id) }}"
-                                                            class="btn btn-sm btn-primary fa fa-edit">
+                                                            class="edit_user btn btn-sm btn-primary fa fa-edit">
                                                         </a>
-                                                        {{-- icon delete --}}
 
+                                                        {{-- icon delete --}}
                                                         @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                        @method('DELETE') <button type="submit"
+                                                            class="delete_user btn btn-sm btn-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -197,8 +196,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 @endsection
