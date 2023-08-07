@@ -17,14 +17,15 @@ class HolderController extends Controller
     }
 
     // menyimpan data/menyimpan insert data 
-    public function store(Request $request): RedirectResponse {
+    public function store(Request $request): RedirectResponse
+    {
         $this->validate($request, [
-            'no_drawing_holder' =>'required',
-            'holder_name' =>'required',
-            'holder_spec' =>'required',
-            'holder_diameter' =>'required',
-            'holder_lifetime_std' =>'required',
-            'holder_frequency_std' =>'required',
+            'no_drawing_holder' => 'required',
+            'holder_name' => 'required',
+            'holder_spec' => 'required',
+            'holder_diameter' => 'required',
+            'holder_lifetime_std' => 'required',
+            'holder_frequency_std' => 'required',
         ]);
 
         $data = $request->all();
@@ -35,9 +36,10 @@ class HolderController extends Controller
         return redirect()->route('register-holder.index');
     }
 
-    public function getNoDraw(){
-        $activeNoDrawingHold = Holder::pluck('no_drawing_holder');
-        return $activeNoDrawingHold;
+    public function getNoDraw()
+    {
+        $noDrawingHold = Holder::pluck('no_drawing_holder');
+        return $noDrawingHold;
     }
 
     // view ke halaman update
@@ -63,8 +65,6 @@ class HolderController extends Controller
 
         $data = $request->all();
         $holder->update($data);
-
-        // $holder->update($validatedData);
 
         return redirect()->route('register-holder.index');
     }

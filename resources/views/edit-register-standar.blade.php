@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <div class="col-12 col-xl-3">
                 <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                     <div class="card-header pb-0 p-3 bg-gradient-dark">
-                        <h4 class="mb-0 text-light"> <b>Register Standard</b></h4>
+                        <h4 class="mb-0 text-light"> <b>Update Register Standard</b></h4>
                         <hr class="text-light">
                     </div>
                         <div class="card-body">
@@ -52,13 +52,6 @@
                                             Standard String
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="check" value="Standard Image"
-                                            id="opt-standard-image"  @if ($standar->status_data === 'image' ? $standar->standard_check : '') checked @endif>
-                                        <label class="form-check-label text-light" for="opt-standard-image">
-                                            Standard Image
-                                        </label>
-                                    </div>
                                 </div>
 
                         <div class="form-group">
@@ -98,21 +91,7 @@
                             <input type="hidden" name="selected_option" value="Standard String">
                             </div>
 
-                        <div class="form-group">
-                            <label for="standard-image" class="form-control-label text-light">Standard Image</label>
-                            <input class="form-control" type="file" name="standard_check" id="standard-image" accept="image/*"
-                                @if ($standar->check !== 'Standard Image') disabled @endif>
-                            <img id="uploaded-image" class="uploaded-image" value="{{ old('standard_check', $standar->status_data === 'image' ? $standar->standard_check : '') }}"
-                                alt="Uploaded Image" @if ($standar->check !== 'Standard Image' || empty($standar->standard_check)) hidden @endif
-                                style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="remark" class="form-control-label text-light">Remark</label>
-                            <input class="form-control" type="text" name="remark" id="remark"
-                                value="{{ old('remark', $standar->status_data === 'image' ? $standar->remark : '') }}" @if ($standar->check !== 'Standard Image') disabled @endif>
-                        </div>
+                        
                             <script>
                                 const radioButtons = document.querySelectorAll('input[name="check"]');
                                 const standardValueInput = document.getElementById('standard-value');
@@ -120,10 +99,7 @@
                                 const batasAtas = document.getElementById('batas_atas');
                                 const batasBawah = document.getElementById('batas_bawah');
                                 const standardStringInput = document.getElementById('standard-string');
-                                const standardImageInput = document.getElementById('standard-image');
-                                const remarkImage = document.getElementById('remark');
-                                const statusImage = document.getElementById('status-image');
-
+                               
                                 radioButtons.forEach((radioButton) => {
                                     radioButton.addEventListener('change', function () {
                                         standardValueInput.disabled = this.value !== 'Standard Value';
@@ -131,19 +107,13 @@
                                         batasAtas.disabled = this.value!=='Standard Value';
                                         batasBawah.disabled = this.value!=='Standard Value';
                                         standardStringInput.disabled = this.value !== 'Standard String';
-                                        standardImageInput.disabled = this.value !== 'Standard Image';
-                                        remarkImage.disabled = this.value !== 'Standard Image';
-                                        statusImage.disabled = this.value !== 'Standard Image';
-
+                                       
                                         standardValueInput.required = this.value === 'Standard Value';
                                         unitDropdown.required = this.value === 'Standard Value';
                                         batasAtas.required=this.value==='Standard Value';
                                         batasBawah.required=this.value==='Standard Value';
                                         standardStringInput.required = this.value === 'Standard String';
-                                        standardImageInput.required = this.value === 'Standard Image';
-                                        remarkImage.required = this.value === 'Standard Image';
-                                        statusImage.required = this.value === 'Standard Image';
-                                    });
+                                     });
                                 });
 
                                     function resetFormElements() {
@@ -152,11 +122,7 @@
                                         batasAtas.value = '';
                                         batasBawah.value = '';
                                         standardStringInput.value = '';
-                                        standardImageInput.value = '';
-                                        remarkImage.value = '';
                                         statusImage.value = '';
-                                        uploadedImage.src = '#';
-                                        uploadedImage.hidden = true;
                                     }
 
                                     radioButtons.forEach((radioButton) => {
@@ -169,47 +135,16 @@
                                             batasAtas.disabled = selectedOption !== 'Standard Value';
                                             batasBawah.disabled = selectedOption !== 'Standard Value';
                                             standardStringInput.disabled = selectedOption !== 'Standard String';
-                                            standardImageInput.disabled = selectedOption !== 'Standard Image';
-                                            remarkImage.disabled = selectedOption !== 'Standard Image';
+                                     //       remarkImage.disabled = selectedOption !== 'Standard Image';
 
                                             standardValueInput.required = selectedOption === 'Standard Value';
                                             unitDropdown.required = selectedOption === 'Standard Value';
                                             batasAtas.required = selectedOption === 'Standard Value';
                                             batasBawah.required = selectedOption === 'Standard Value';
                                             standardStringInput.required = selectedOption === 'Standard String';
-                                            standardImageInput.required = selectedOption === 'Standard Image';
-                                            remarkImage.required = selectedOption === 'Standard Image';
+                                       //     remarkImage.required = selectedOption === 'Standard Image';
                                         });
                                     });
-
-                                     // Function to handle image preview
-                                    function previewImage(event) {
-                                    const input = event.target;
-                                    const previewImage = document.getElementById('uploaded-image');
-
-                                    if (input.files && input.files[0]) {
-                                        const reader = new FileReader();
-
-                                        reader.onload = function (e) {
-                                            previewImage.src = e.target.result;
-                                            previewImage.hidden = false;
-                                        };
-
-                                        reader.readAsDataURL(input.files[0]);
-                                    } else {
-                                        previewImage.src = '#';
-                                        previewImage.hidden = true;
-                                    }
-                                }
-
-                                // Add an event listener to the file input
-                                const fileInput = document.getElementById('standard-image');
-                                fileInput.addEventListener('change', previewImage);
-
-                                // Show the uploaded image if it exists
-                                @if ($standar->check === 'Standard Image' && !empty($standar->standard_check))
-                                uploadedImage.hidden = false;
-                                @endif
                             </script>
 
                             <div class="form-group">

@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-tool.updateTool', $tool->id) }}" method="POST"
+                        <form action="{{route('register-tool.update', $tool -> id)}}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -28,7 +28,7 @@
                                 <label for="tool_type" class="form-control-label text-light" name="tool_type">Type
                                     Tool</label>
                                 <select class="form-select" name="tool_type">
-                                    <option value="">---Pilih Type---</option>
+                                    <option value=""></option>
                                     <option value="drill" @if ($tool->tool_type === 'drill') selected @endif>D</option>
                                     <option value="reamer" @if ($tool->tool_type === 'reamer') selected @endif>R</option>
                                     <option value="tap" @if ($tool->tool_type === 'tap') selected @endif>T</option>
@@ -62,7 +62,6 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="">---Pilih Line---</option>
                                     <option value="1" @if ($tool->line === '1') selected @endif>1</option>
                                     <option value="2" @if ($tool->line === '2') selected @endif>2</option>
                                     <option value="3" @if ($tool->line === '3') selected @endif>3</option>
@@ -72,7 +71,7 @@
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value="">---Pilih OP---</option>
+                                    <option value=""></option>
                                     <option value="1" @if ($tool->op === '1') selected @endif>1</option>
                                     <option value="2" @if ($tool->op === '2') selected @endif>2</option>
                                     <option value="3" @if ($tool->op === '3') selected @endif>3</option>
@@ -83,12 +82,13 @@
                                 <label for="no_drawing_holder" class="form-control-label text-light"
                                     name="no_drawing_holder">Holder</label>
                                 <select class="form-select" name="no_drawing_holder">
-                                    <option value="">---Pilih Holder---</option>
-                                    <option value="1" @if ($tool->no_drawing_holder === '1') selected @endif>1</option>
-                                    <option value="2" @if ($tool->no_drawing_holder === '2') selected @endif>2</option>
-                                    <option value="3" @if ($tool->no_drawing_holder === '3') selected @endif>3</option>
-                                    <option value="4" @if ($tool->no_drawing_holder === '4') selected @endif>4</option>
-                                </select>
+                                    @foreach($noDrawingHold as $noHold)
+                                            <option value="{{ $noHold }}" 
+                                                @if($tool->no_drawing_holder === $noHold) selected @endif>
+                                                {{ $noHold }}
+                                            </option>
+                                            @endforeach
+                                    </select>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
@@ -129,6 +129,24 @@
                                     <p class="text-light" style="color: white">Sec</p>
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                    <label for="image_check" class="form-control-label text-light">
+                                        Image Check</label>
+                                    <input class="form-control" type="file" name="image_check" id="image_check"
+                                        accept="image/*" >
+                                    <input type="hidden" name="selected_option" value="Image Check">
+
+                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
+                                        hidden
+                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+                                </div>
+
+                                 <div class="form-group">
+                                    <label for="remark" class="form-control-label text-light">Remark</label>
+                                    <input class="form-control" type="text" name="remark" id="remark" >
+                                </div>
+
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                     Tool</button>
@@ -227,27 +245,6 @@
                                 </tbody>
 
                             </table> --}}
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="javascript:;" tabindex="-1">
-                            <i class="fa fa-angle-left"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">1</a></li>
-                    <li class="page-item "><a class="page-link" href="javascript:;">2</a></li>
-                    <li class="page-item active"><a class="page-link" href="javascript:;">3</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
-                    <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="javascript:;">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
     </div>

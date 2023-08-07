@@ -1,5 +1,4 @@
-@extends('layouts.user_type.guest')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+@extends('layouts.user_type.auth')
 
 
 @section('content')
@@ -323,7 +322,8 @@
 @endsection
 
 @push('dashboard')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
     <script>
         var months = <?php echo json_encode($months, JSON_NUMERIC_CHECK); ?>;
         var shift1 = <?php echo json_encode($shift1, JSON_NUMERIC_CHECK); ?>;

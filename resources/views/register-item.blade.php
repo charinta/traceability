@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
@@ -6,7 +6,7 @@
             <div class="row">
 
                 {{-- form --}}
-                <div class="col-12 col-xl-3">
+                <div class="col-12 col-xl-3 ">
                     <div class="card h-100 w-100 mt-n4 bg-gradient-dark">
                         <div class="card-header pb-0 p-3 bg-gradient-dark">
                             <h4 class="mb-0 text-light"> <b>Register Item </b></h4>
@@ -52,7 +52,7 @@
                     </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-item-center">
+                                <table class="table align-items-center justify-content-center mb-0 table-striped">
 
                                     <thead class="text-center">
                                         <tr>
@@ -69,10 +69,10 @@
                                     <tbody class="text-center">
                                         @foreach($item as $items)
                                         <tr class = "text-center">
-                                            <td>{{ $items->id }}</td>
-                                            <td>{{ $items->date_created }}</td>
-                                            <td>{{ $items->item_check }}</td>
-                                            <td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $items->id }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $items->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $items->item_check }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
                                                 <form action="{{ route('register-item.destroy', $items->id) }}" method="POST">
                                                     <a href="{{ route('register-item.edit', $items->id) }}"
                                                     class="btn btn-sm btn-primary fa fa-edit"></a>
@@ -88,6 +88,9 @@
                                      
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                </div>
                                  <!-- Pagination Section -->
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-end">

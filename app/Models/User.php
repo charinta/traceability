@@ -11,7 +11,11 @@ use Carbon\Carbon;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
+    //use HasApiTokens, HasFactory, Notifiable;
+    //const ROLE_USER = 'user';
+    //const ROLE_ADMIN = 'admin';
+
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;
     protected $table = 'tbl_user_account';

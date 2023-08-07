@@ -38,6 +38,7 @@
     <link href="<?= url('') ?>/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= url('') ?>/assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+    
 </head>
 
 <body
@@ -62,6 +63,7 @@
     <script src="<?= url('') ?>/assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="<?= url('') ?>/assets/js/plugins/fullcalendar.min.js"></script>
     <script src="<?= url('') ?>/assets/js/plugins/chartjs.min.js"></script>
+    
     @stack('rtl')
     @stack('dashboard')
     <script>

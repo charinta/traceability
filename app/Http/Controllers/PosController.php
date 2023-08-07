@@ -64,13 +64,10 @@ class PosController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $status = $request->input('status');
-        // Lakukan proses untuk memperbarui status pada tabel tbl_pos dengan ID yang sesuai
-        // Contoh:
         $pos = Pos::findOrFail($id);
         $pos->status = $status;
         $pos->save();
 
-        // Beri respon sukses atau sebaliknya jika ada error
         return response()->json(['message' => 'Status berhasil diperbarui!']);
     }
 

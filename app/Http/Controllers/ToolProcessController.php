@@ -22,7 +22,7 @@ class ToolProcessController extends Controller
     public function showOpData($id)
     {
         $line = Line::findOrFail($id);
-        $OP = OP::where('id', $id)->paginate(10); 
+        $OP = OP::where('id', $id)->paginate(10);
 
         return view('register-op.line', ['line' => $line, 'OP' => $OP]);
     }

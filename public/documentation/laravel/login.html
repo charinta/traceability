@@ -580,7 +580,7 @@
                 public function store()
                 {
                     $attributes = request()->validate([
-                        'email'=>'required|email',
+                        'username'=>'required',
                         'password'=>'required'
                     ]);
 
@@ -591,7 +591,7 @@
                     }
                     else{
 
-                        return back()->withErrors(['email'=>'Email or password invalid.']);
+                        return back()->withErrors(['username'=>'Username or password invalid.']);
                     }
                 }
               </code>

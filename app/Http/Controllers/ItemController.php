@@ -54,18 +54,13 @@ class ItemController extends Controller
     // update data
     public function update(Request $request, Item $item, $id)
     {
-
-        // Retrieve the existing Standard record from the database
         $item = Item::findOrFail($id);
 
         $validatedData = $request->validate([
             'item_check' => 'required',
         ]);
 
-
-        // Update the Standard record based on the user input
         $item->item_check = $request->input('item_check');
-        // Save the updated Standard record to the database
         $item->save();
         $item->update($validatedData);
 

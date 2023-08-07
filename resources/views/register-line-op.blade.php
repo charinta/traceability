@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
@@ -41,7 +41,7 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table">
+                                <table class="table align-items-center justify-content-center mb-0 table-striped">
                                     {{-- table header --}}
                                     <thead class="text-center">
                                         <tr>
@@ -59,9 +59,9 @@
                                     <tbody class="text-center">
                                         @foreach ($line as $lin)
                                             <tr>
-                                                <td>{{ $lin->id }}</td>
-                                                <td>{{ $lin->date_created }}</td>
-                                                <td>{{ $lin->line }}</td>
+                                                <td class="text-xs font-weight-bold mb-0">{{ $lin->id }}</td>
+                                                <td class="text-xs font-weight-bold mb-0">{{ $lin->date_created }}</td>
+                                                <td class="text-xs font-weight-bold mb-0">{{ $lin->line }}</td>
                                                 <td class="text-center">
                                                 <form action="{{ route('register-line.destroy', $lin->id) }}" method="POST">
                                                     <a href="{{ route('register-line.edit', $lin->id) }}"

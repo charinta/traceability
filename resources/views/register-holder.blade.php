@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -59,7 +59,7 @@
 
 
             {{-- table --}}
-            <div class="col-12 col-xl-9">
+             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-item-center">
+                            <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 {{-- table header --}}
                                 <thead class="text-center">
                                     <tr>
@@ -101,17 +101,16 @@
                                 <tbody class="text-center">
                                     @foreach ($holder as $hold)
                                         <tr>
-                                            <td>{{ $hold->id }}</td>
-                                            <td>{{ $hold->date_created }}</td>
-                                            <td>{{ $hold->no_drawing_holder }}</td>
-                                            <td>{{ $hold->holder_name }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->holder_id }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->no_drawing_holder }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->holder_name }}</td>
 
-                                            <td class="text-center">
+                                            <td class="text-xs font-weight-bold mb-0">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
-                                                    method="POST">
+                                                    action="{{route('register-holder.destroy', $hold->holder_id)}}" method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('register-holder.edit', $hold->id) }}"
+                                                    <a href="{{ route('register-holder.edit', $hold->holder_id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
                                                     </a>
                                                     {{-- icon delete --}}

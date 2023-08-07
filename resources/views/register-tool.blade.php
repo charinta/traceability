@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="container-fluid py-4">
@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{ route('register-tool.storeTool') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('register-tool.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="no_drawing_tool" class="form-control-label text-light">No Drawing</label>
@@ -25,7 +25,6 @@
                                 <label for="tool_type" class="form-control-label text-light" name="tool_type">Type
                                     Tool</label>
                                 <select class="form-select" name="tool_type">
-                                    <option value="">---Pilih Type---</option>
                                     <option value="drill">D</option>
                                     <option value="reamer">R</option>
                                     <option value="tap">T</option>
@@ -56,7 +55,6 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="">---Pilih Line---</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -66,7 +64,6 @@
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value="">---Pilih OP---</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -118,6 +115,50 @@
                                     <p class="text-light" style="color: white">Sec</p>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                    <label for="image_check" class="form-control-label text-light">
+                                        Image Check</label>
+                                    <input class="form-control" type="file" name="image_check" id="image_check"
+                                        accept="image/*" >
+                                    <input type="hidden" name="selected_option" value="Image Check">
+
+                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
+                                        hidden
+                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="remark" class="form-control-label text-light">Remark</label>
+                                    <input class="form-control" type="text" name="remark" id="remark" >
+                                </div>
+
+                                <script>
+                                    const ImageInput = document.getElementById('image_check');
+                                    // Function to handle image preview
+                                    function previewImage(event) {
+                                        const input = event.target;
+                                        const previewImage = document.getElementById('uploaded-image');
+
+                                        if (input.files && input.files[0]) {
+                                            const reader = new FileReader();
+
+                                            reader.onload = function(e) {
+                                                previewImage.src = e.target.result;
+                                                previewImage.hidden = false;
+                                            };
+
+                                            reader.readAsDataURL(input.files[0]);
+                                        } else {
+                                            previewImage.src = '#';
+                                            previewImage.hidden = true;
+                                        }
+                                    }
+
+                                    // Add an event listener to the file input
+                                    const fileInput = document.getElementById('image_check');
+                                    fileInput.addEventListener('change', previewImage);
+                                </script>
+
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
                                     Tool</button>
@@ -137,9 +178,9 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table">
+                            <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 {{-- table header --}}
-                                <thead align="center">
+                                <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             ID</th>
@@ -156,20 +197,20 @@
                                     </tr>
                                 </thead>
                                 {{-- table body --}}
-                                <tbody align="center">
+                                <tbody class="text-center">
                                     @foreach ($tool as $tol)
                                         <tr>
-                                            <td>{{ $tol->id }}</td>
-                                            <td>{{ $tol->date_created }}</td>
-                                            <td>{{ $tol->no_drawing_tool }}</td>
-                                            <td>{{ $tol->tool_type }}</td>
-                                            <td>{{ $tol->tool_lifetime_std }}</td>
-                                            <td class="text-center">
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->id }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->no_drawing_tool }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_type }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_lifetime_std }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('user-account.destroy', $users->id) }}"
+                                                    action="{{ route('register-tool.destroy', $tol->id) }}"
                                                     method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('user-account.editUser', $users->id) }}"
+                                                    <a href="{{ route('register-tool.edit', $tol->id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
                                                     </a>
                                                     {{-- icon delete --}}

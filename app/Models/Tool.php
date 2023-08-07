@@ -31,6 +31,8 @@ class Tool extends Model
         'washing_ct',
         'grinding_ct',
         'setting_ct',
+        'image_check',
+        'remark',
     ];
 
     // agar date_created bisa terisi, bukan pake created_at

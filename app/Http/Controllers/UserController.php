@@ -8,11 +8,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     // melihat data tabel
-    public function index()
+    public function index(PosController $PosController)
     {
         $PosController = app(PosController::class);
         // agar tabel pos terbaca di form
@@ -21,14 +23,25 @@ class UserController extends Controller
         return view('user-account', compact('user', 'activePosNames'));
     }
 
-    public function createUser()
+    public function show(User $user, $id)
     {
-
         return view('user-account', compact('user'));
     }
 
-
     // menyimpan data/menyimpan insert data 
+    // app/Http/Controllers/UserController.php
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $user = User::where('username', 'like', "%" . $keyword . "%")
+            ->orWhere('npk', 'like', "%" . $keyword . "%")
+            ->orWhere('pos', 'like', "%" . $keyword . "%")
+            ->orWhere('role', 'like', "%" . $keyword . "%")
+            ->paginate(10);
+        return view('user-account', compact('user'))->with('i', ($user->currentPage() - 1) * $user->perPage());
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $this->validate($request, [
@@ -40,6 +53,7 @@ class UserController extends Controller
         ]);
 
         $data = $request->all();
+        $data['password'] = Hash::make($request->input('password'));
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $user = User::create($data);
@@ -58,11 +72,10 @@ class UserController extends Controller
     }
 
     // update data
-    public function update(Request $request, User $user, $id)
+    public function update(Request $request, $id)
     {
-        // dd($request->input());
-
         $user = User::findOrFail($id);
+
         $validatedData = $request->validate([
             'username' => 'required',
             'npk' => 'required',
@@ -71,13 +84,10 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $data = $request->all();
-        $user->update($data);
+        $validatedData['password'] = Hash::make($request->input('password'));
+        $user->update($validatedData);
 
-        // $user->update($validatedData);
-
-
-        return redirect()->route('user-account.index');
+        return redirect()->route('user-account.index')->with('success', 'User account updated successfully.');
     }
 
     // hapus data

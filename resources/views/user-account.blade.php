@@ -1,4 +1,4 @@
-@extends('layouts.user_type.guest')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
@@ -85,64 +85,53 @@
                             </div>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-0">
-                                <table class="table align-item-center">
-                                    {{-- table header --}}
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                ID</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                                Nama Karyawan</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                NPK</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                Station</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                Role</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                Password</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
-                                                Action</th>
-                                        </tr>
-                                    </thead>
-                                    {{-- table body --}}
-                                    <tbody class="text-center">
-                                        @foreach ($user as $users)
-                                            <tr>
-                                                <td>{{ $users->id }}</td>
-                                                <td>{{ $users->username }}</td>
-                                                <td>{{ $users->npk }}</td>
-                                                <td>{{ $users->pos }}</td>
-                                                <td>{{ $users->role }}</td>
-                                                <td>{{ $users->password }}</td>
-                                                <td class="text-center">
-                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                        action="{{ route('user-account.destroy', $users->id) }}"
-                                                        method="POST">
-                                                        {{-- icon edit --}}
-                                                        <a href="{{ route('user-account.edit', $users->id) }}"
-                                                            class="edit_user btn btn-sm btn-primary fa fa-edit">
-                                                        </a>
+    <div class="table-responsive p-0">
+        <table class="table table-striped align-items-center justify-content-center mb-0">
+            {{-- table header --}}
+            <thead>
+                <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        ID</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        Nama Karyawan</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        NPK</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        Station</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        Role</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        Password</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                        Action</th>
+                </tr>
+            </thead>
+            {{-- table body --}}
+            <tbody>
+                @foreach ($user as $users)
+                <tr>
+                    <td class="text-xs font-weight-bold mb-0 text-center">{{ $users->id }}</td>
+                    <td class="text-xs font-weight-bold mb-0 text-center">{{ $users->username }}</td>
+                    <td class="text-xs font-weight-bold mb-0 text-center">{{ $users->npk }}</td>
+                    <td class="text-xs font-weight-bold mb-0 text-center">{{ $users->pos }}</td>
+                    <td class="text-xs font-weight-bold mb-0 text-center">{{ $users->role }}</td>
+                    <td class="text-xs font-weight-bold mb-0 text-center" style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $users->password }}</td>
+                    <td class="text-center">
+                        <form onsubmit="return confirm ('Apakah Anda Yakin?');" action="{{ route('user-account.destroy', $users->id) }}" method="POST">
+                            {{-- icon edit --}}
+                            <a href="{{ route('user-account.edit', $users->id) }}" class="edit_user btn btn-sm btn-primary fa fa-edit"></a>
 
-                                                        {{-- icon delete --}}
-                                                        @csrf
-                                                        @method('DELETE') <button type="submit"
-                                                            class="delete_user btn btn-sm btn-danger fa fa-trash"></button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            {{-- icon delete --}}
+                            @csrf
+                            @method('DELETE') <button type="submit" class="delete_user btn btn-sm btn-danger fa fa-trash"></button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
                     </div>
                     <!-- Pagination Section -->
                     <nav aria-label="Page navigation example">
