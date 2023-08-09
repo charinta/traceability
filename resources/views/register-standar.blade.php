@@ -165,7 +165,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-item-center">
+                           <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -183,11 +183,11 @@
                                 <tbody class="text-center">
                                     @foreach ($standar as $standard)
                                         <tr class="text-center">
-                                            <td>{{ $standard->pos_name }}</td>
-                                            <td>{{ $standard->item_check }}</td>
-                                            <td>{{ $standard->standard_check }}</td>
-                                            <td>{{ $standard->status }}</td>
-                                             <td class="text-center">
+                                            <td class="text-xs font-weight-bold mb-0">{{ $standard->pos_name }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $standard->item_check }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $standard->standard_check }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $standard->status }}</td>
+                                             <td class="text-xs font-weight-bold mb-0">
                                                     <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                         action="{{ route('register-standar.destroy', $standard->id) }}"
                                                         method="POST">

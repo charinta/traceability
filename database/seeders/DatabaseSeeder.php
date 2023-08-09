@@ -10,18 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run()
     {
-        User::create([
-            'username' => 'adminuser',
-            'password' => bcrypt('adminpassword'),
-            'role' => User::ROLE_ADMIN,
-        ]);
-
-        User::create([
-            'username' => 'regularuser',
-            'password' => bcrypt('userpassword'),
-            'role' => User::ROLE_USER,
-        ]);
-
+        $this->call(RoleSeeder::class);
+        $this->call(UserSeeder::class);
         // Tambahkan pengguna lain dengan role yang sesuai
     }
 }

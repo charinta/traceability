@@ -30,28 +30,28 @@
 
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-item-center">
+                                <table class="table align-items-center justify-content-center mb-0 table-striped">
 
                                     <thead>
                                         <tr class="text-center">
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 ID</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Date</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Pos</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Status</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($tbl_pos as $pos)
                                             <tr class="text-center">
-                                                <td>{{ $pos->id }}</td>
-                                                <td>{{ $pos->date_created }}</td>
-                                                <td>{{ $pos->pos_name }} </td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->id }}</td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->date_created }}</td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->pos_name }} </td>
                                                 <td>
                                                     {{-- toggle switch dinamis --}}
                                                     <label class="toggle-switch">

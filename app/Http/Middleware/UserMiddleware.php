@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->role == User::admin) {
+        if ($request->user()->role == User::user) {
             return $next($request);
         }
 

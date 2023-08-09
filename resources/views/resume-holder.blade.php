@@ -1,4 +1,4 @@
-@extends('layouts.user_type.auth')
+@extends(Auth::user()->hasRole('admin') ? 'layouts.user_type.auth' : 'layouts.user_type.auth-user')
 
 @section('content')
     <div class="row">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
-                        <table class="table align-item-center">
+                        <table class="table align-items-center justify-content-center mb-0 table-striped">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

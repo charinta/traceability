@@ -23,30 +23,36 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login');
     }
+
+    // public function authenticated(Request $request, $user)
+    // {
+    //    if ($user->hasRole('admin')) {
+    //         return redirect()->route('dashboard');
+    //     } else {
+    //         return redirect()->route('dashboard');
+    //     }
+    // }
+
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate([
-            'username' => $request->username, // Use 'username' field for login
-            'password' => $request->password,
-        ]);
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Cek role pengguna dan arahkan ke halaman sesuai
-            if (auth()->user()->role === User::ROLE_ADMIN) {
-                return redirect()->intended('/admin/dashboard');
-            } elseif (auth()->user()->role === User::ROLE_USER) {
-                return redirect()->intended('/user/dashboard');
-            }
+            session()->regenerate();
+            $user = Auth::user();
+            return redirect()->route('dashboard.index');
+        } else {
+            // Jika autentikasi gagal
+            return redirect()->back()->withInput()->withErrors([
+                'login' => 'The provided credentials do not match our records.',
+            ]);
         }
-
-        $request->session()->regenerate();
-        Auth::attempt();
-        return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+
 
     /**
      * Destroy an authenticated session.

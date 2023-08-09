@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class ToolController extends Controller
 {
     // melihat data Tool
-    public function index()
+    public function index(HolderController $HolderController)
     {
         $tool = Tool::paginate(10);
         // agar tabel register holder terbaca di form
@@ -54,12 +54,15 @@ class ToolController extends Controller
     public function edit($id)
     {
         $tool = Tool::findOrFail($id);
-        return view('edit-register-tool', compact('tool'));
+        $HolderController = app(HolderController::class);
+        $noDrawingHold = $HolderController->getNoDraw();
+        return view('edit-register-tool', compact('tool', 'noDrawingHold'));
     }
 
     // update data
-    public function update(Request $request, Tool $tool)
+    public function update(Request $request, Tool $tool, $id)
     {
+        $tool = Tool::findOrFail($id);
         $validatedData = $request->validate([
             'no_drawing_tool' => 'required',
             'tool_type' => 'required',
@@ -73,6 +76,8 @@ class ToolController extends Controller
             'washing_ct' => 'required',
             'grinding_ct' => 'required',
             'setting_ct' => 'required',
+            'image_check' => 'required',
+            'remark' => 'required',
         ]);
 
         $tool->update($validatedData);

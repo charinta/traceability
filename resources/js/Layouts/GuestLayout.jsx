@@ -1,18 +1,13 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
+import './Guest.css'; // Import your custom CSS file
 
-export default function Guest({ children }) {
+export default function Guest({ children, title }) {
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-
-            </div>
-
-            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <div className="min-h-screen soft-ui-gradient flex items-center justify-center">
+            <div className="w-full sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                <h1 className="text-2xl font-semibold mb-4">{title}</h1>
                 {children}
             </div>
         </div>
     );
 }
-
-<style src="./Pages/Auth/Login.css" lang="css" />

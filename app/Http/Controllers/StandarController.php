@@ -27,12 +27,14 @@ class StandarController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('search');
+        $PosController = app(PosController::class);
+        $activePosNames = $PosController->getActivePosNames();
         $standar = Standar::where('pos_name', 'like', "%" . $keyword . "%")
             ->orWhere('item_check', 'like', "%" . $keyword . "%")
             ->orWhere('standard_check', 'like', "%" . $keyword . "%")
             ->orWhere('status', 'like', "%" . $keyword . "%")
             ->paginate(10);
-        return view('register-standar', compact('standar'))->with('i', ($standar->currentPage() - 1) * $standar->perPage());
+        return view('register-standar', compact('standar', 'activePosNames'))->with('i', ($standar->currentPage() - 1) * $standar->perPage());
     }
 
 
@@ -113,14 +115,16 @@ class StandarController extends Controller
             ]);
 
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
-            $statusData = 'int';
+            $request->merge(['status_data' => 'int']);
+            //$statusData = 'int';
         } elseif ($selectedOption === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
             ]);
 
             $combinedValue = $request->input('standard_check');
-            $statusData = 'string';
+            //$statusData = 'string';
+            $request->merge(['status_data' => 'string']);
         }
 
         $request->merge([
@@ -130,21 +134,7 @@ class StandarController extends Controller
 
         $standar = Standar::findOrFail($id);
         $data = $request->all();
-
-        if ($standar->status_data === 'string' && $selectedOption === 'Standard Value') {
-            // Data awalnya adalah "Standard String" dan diubah menjadi "Standard Value"
-            // Update status_data dan combined value
-            $data['status_data'] = 'int';
-            $data['standard_value'] = $combinedValue;
-        } else {
-            // Jika data tidak berubah, atau berubah dari "Standard Value" ke "Standard String"
-            // atau tetap "Standard String", biarkan nilai status_data dan combined value seperti sebelumnya.
-            $data['status_data'] = $standar->status_data;
-            $data['standard_value'] = $standar->standard_value;
-        }
-
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
-
         $standar->update($data);
 
         return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Diperbarui!']);

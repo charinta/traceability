@@ -74,7 +74,7 @@
                                                         method="POST">
                                                         <a href="{{ route('register-op.index', $op->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                        <a href="{{ route('tool-process.op', ['id' => $op->id]) }}" }}"
+                                                        <a href="{{route('tool-process.op', ['id' => $op->id])}}"
                                                             class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')

@@ -38,8 +38,23 @@ class HolderController extends Controller
 
     public function getNoDraw()
     {
-        $activeNoDrawingHold = Holder::pluck('no_drawing_holder');
-        return $activeNoDrawingHold;
+        $noDrawingHold = Holder::pluck('no_drawing_holder');
+        return $noDrawingHold;
+    }
+
+    public function show(Holder $holder, $id)
+    {
+        return view('register-holder', compact('holder'));
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $holder = Holder::where('holder_name', 'like', "%" . $keyword . "%")
+            ->orWhere('holder_spec', 'like', "%" . $keyword . "%")
+            ->orWhere('no_drawing_holder', 'like', "%" . $keyword . "%")
+            ->paginate(10);
+        return view('register-holder', compact('holder'))->with('i', ($holder->currentPage() - 1) * $holder->perPage());
     }
 
     // view ke halaman update
@@ -65,8 +80,6 @@ class HolderController extends Controller
 
         $data = $request->all();
         $holder->update($data);
-
-        // $holder->update($validatedData);
 
         return redirect()->route('register-holder.index');
     }

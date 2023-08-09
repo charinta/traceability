@@ -2,34 +2,16 @@
 <nav class="navbar navbar-expand-sm shadow-none">
     <div class="container-fluid {{ Request::is('static-sign-up') ? 'container' : 'container-fluid' }}">
         <a class="font-weight-bolder navbar-brand">
-            @if (Request::is('dashboard'))
+            @if (Request::is('user-dashboard'))
                 Dashboard
-            @elseif(Request::is('user-account'))
-                User Account
-            @elseif(Request::is('register-pos'))
-                Register Pos
-            @elseif(Request::is('register-line'))
-                Register Line
-            @elseif(Request::is('register-op'))
-                Register OP
-            @elseif(Request::is('register-tool'))
-                Register Tool
-            @elseif(Request::is('register-holder'))
-                Register Holder
-            @elseif(Request::is('register-standar'))
-                Register Standar
             @elseif(Request::is('resume-dashboard'))
                 Overview Resume Dashboard
             @elseif(Request::is('resume-tool'))
-                Overview Resume Dashboard
+                Overview Resume Tool
             @elseif(Request::is('resume-holder'))
-                Overview Resume Dashboard
-            @elseif(Request::is('register-item'))
-                Register Item
+                Overview Resume Holder
             @elseif(Request::is('historical-data'))
                 Historical Data
-            @elseif(Request::is('shift'))
-                Shift
             @endif
         </a>
         <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

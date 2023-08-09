@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import './Login.css';
 
 
 export default function Login({ status, canResetPassword }) {
@@ -30,11 +31,12 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <h1><b>{Login}</b></h1>
-
-            <div>
-
-                <form onSubmit={submit}>
+            <div className="login-container">
+                <div className="text-center mb-6">
+                    <img src="../assets/img/astra.png" alt="Daihatsu Logo" className="mx-auto mb-2 login-logo" />
+                </div>
+                <h1 className="login-title">Login</h1>
+                <form onSubmit={submit} className="login-form">
                     <div>
                         <InputLabel htmlFor="username" value="Username" />
                         <TextInput
@@ -75,24 +77,19 @@ export default function Login({ status, canResetPassword }) {
                         </label>
                     </div>
 
-                    <div className="flex items-center justify-end mt-4 mb-4">
-                        <PrimaryButton className="ml-4 soft-ui-button" disabled={processing}>
+                    <div className="flex items-center justify-between mt-6">
+                        <PrimaryButton className="login-button" disabled={processing}>
                             Log in
                         </PrimaryButton>
                     </div>
-                    <div className="flex justify-end">
-                        Don't have an account?
-                        <Link
-                            href={route('register')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
-                            &nbsp;Register
+                    <div className="login-link-container">
+                        Don't have an account?{' '}
+                        <Link href={route('register')} className="login-link">
+                            Register
                         </Link>
                     </div>
-
                 </form>
             </div>
         </GuestLayout>
     );
-
 }

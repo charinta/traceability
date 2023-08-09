@@ -178,7 +178,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table">
+                            <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 {{-- table header --}}
                                 <thead class="text-center">
                                     <tr>
@@ -200,12 +200,12 @@
                                 <tbody class="text-center">
                                     @foreach ($tool as $tol)
                                         <tr>
-                                            <td>{{ $tol->id }}</td>
-                                            <td>{{ $tol->date_created }}</td>
-                                            <td>{{ $tol->no_drawing_tool }}</td>
-                                            <td>{{ $tol->tool_type }}</td>
-                                            <td>{{ $tol->tool_lifetime_std }}</td>
-                                            <td class="text-center">
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->id }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->no_drawing_tool }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_type }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_lifetime_std }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                     action="{{ route('register-tool.destroy', $tol->id) }}"
                                                     method="POST">

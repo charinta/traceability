@@ -13,7 +13,7 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('user-account.update', $user->id) }}" method="POST"
+                            <form action="{{route('user-account.update', $user->id)}}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
@@ -58,7 +58,6 @@
                                     <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                         User</button>
                                 </div>
-
                                 <br>
                             </form>
                         </div>
