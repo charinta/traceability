@@ -10,7 +10,6 @@ export default function VerifyEmail({ status }) {
 
         post(route('verification.send'));
     };
-    t
     return (
         <GuestLayout>
             <Head title="Email Verification" />

@@ -1,4 +1,4 @@
-@extends(Auth::user()->hasRole('admin') ? 'layouts.user_type.auth' : 'layouts.user_type.auth-user')
+@extends('layouts.user_type.auth')
 
 @section('content')
     <div class="row">

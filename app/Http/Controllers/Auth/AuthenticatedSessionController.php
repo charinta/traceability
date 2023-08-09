@@ -23,16 +23,6 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login');
     }
-
-    // public function authenticated(Request $request, $user)
-    // {
-    //    if ($user->hasRole('admin')) {
-    //         return redirect()->route('dashboard');
-    //     } else {
-    //         return redirect()->route('dashboard');
-    //     }
-    // }
-
     /**
      * Handle an incoming authentication request.
      */

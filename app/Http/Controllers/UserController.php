@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserController extends Controller
 {
     // melihat data tabel
