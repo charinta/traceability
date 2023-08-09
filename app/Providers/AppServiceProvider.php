@@ -19,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-<<<<<<< HEAD
     public function boot()
     {
         Blade::directive('role', function ($roleName) {
@@ -34,11 +33,6 @@ class AppServiceProvider extends ServiceProvider
             return "<?php endif; ?>";
         });
 
-=======
-
-    public function boot()
-    {
->>>>>>> ccbfd28f4f97e3757ae2fb5a31b80331c4d0b181
 
         Blade::component('auth-validation-errors', \App\View\Components\AuthValidationErrors::class);
         Blade::component('label', \App\View\Components\Label::class);
