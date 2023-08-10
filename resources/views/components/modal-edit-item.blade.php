@@ -29,8 +29,7 @@
 <script>
     $(document).ready(function() {
         $('body').on('click', '#btn-edit-item', function() {
-            let id = $(this).data('id'); // INI IDNYA SBNRYA UDH DPT TINGGAL DIBAWA KE MODALNYA
-            // wktu diklik tombol EDIT apakah consolenya keluar coba
+            let id = $(this).data('id');
             console.log(id);
 
             //fetch detail post with ajax
@@ -56,22 +55,13 @@
 
             //define variable
             let id = $('#id').val();
-            console.log("id clicked: ", id);
             if (!id) {
                 console.log('id is not defined');
             }
             let item_check = $('#item-edit').val();
-            console.log("item:", item_check);
+            // console.log("item:", item_check);
             let token = $("meta[name='csrf-token']").attr("content");
-            console.log(token);
-
-            // console.log("Request URL:", `/register-item/${id}`);
-            // console.log("Request Data:", {
-            //     "_method": 'PUT',
-            //     "item_check": item_check,
-            //     "id": id,
-            //     "_token": token
-            // });
+            // console.log(token);
 
             $.ajax({
                 url: `/register-item/${id}`,
@@ -96,7 +86,7 @@
                           </tr>
                       `;
 
-                    // //append to post data
+                    //append to post data
                     $(`#index_${response.data.id}`).replaceWith(item);
 
                     //close modal

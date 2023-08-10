@@ -54,8 +54,7 @@
 <script>
     $(document).ready(function() {
         $('body').on('click', '#btn-edit-holder', function() {
-            let id = $(this).data('id'); // INI IDNYA SBNRYA UDH DPT TINGGAL DIBAWA KE MODALNYA
-            // wktu diklik tombol EDIT apakah consolenya keluar coba
+            let id = $(this).data('id');
             console.log(id);
 
             //fetch detail post with ajax

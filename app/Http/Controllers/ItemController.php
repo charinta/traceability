@@ -17,12 +17,6 @@ class ItemController extends Controller
         return view('register-item')->with('item', $item);
     }
 
-    // public function show(Item $item, $id)
-    // {
-    //     $item = Item::findOrFail($id);
-    //     return view('register-item', compact('item'));
-    // }
-
     public function show($id)
     {
         $item = Item::findOrFail($id);
@@ -64,23 +58,8 @@ class ItemController extends Controller
     }
 
     // update data
-    // public function update(Request $request, Item $item, $id)
-    // {
-    //     $item = Item::findOrFail($id);
-
-    //     $validatedData = $request->validate([
-    //         'item_check' => 'required',
-    //     ]);
-
-    //     $item->item_check = $request->input('item_check');
-    //     $item->save();
-    //     $item->update($validatedData);
-
-    //     return redirect()->route('register-item.index');
-    // }
-
     public function update(Request $request, $id)
-  {
+    {
     // Find Item
     $item = Item::findOrFail($id);
 
@@ -100,7 +79,7 @@ class ItemController extends Controller
       'message' => 'Data Berhasil Diudapte!',
       'data'    => $item
     ]);
-  }
+    }
 
     public function destroy(Item $item, $id): RedirectResponse
     {

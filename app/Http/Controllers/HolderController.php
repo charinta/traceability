@@ -60,25 +60,6 @@ class HolderController extends Controller
     }
 
     // update data
-    // public function update(Request $request, Holder $holder, $id)
-    // {
-
-    //     $holder = Holder::findOrFail($id);
-    //     $validatedData = $request->validate([
-    //         'no_drawing_holder' => 'required',
-    //         'holder_name' => 'required',
-    //         'holder_spec' => 'required',
-    //         'holder_diameter' => 'required',
-    //         'holder_lifetime_std' => 'required',
-    //         'holder_frequency_std' => 'required',
-    //     ]);
-
-    //     $data = $request->all();
-    //     $holder->update($data);
-
-    //     return redirect()->route('register-holder.index');
-    // }
-
     public function update(Request $request, $id)
     {
     // Find Holder

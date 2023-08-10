@@ -111,17 +111,9 @@
                                                     action="{{ route('register-holder.destroy', $hold->id) }}"
                                                     method="POST">
                                                     {{-- icon edit --}}
-                                                    {{-- <a href="{{ route('register-holder.edit', $hold->id) }}"
-                                                        class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a> --}}
                                                     <a href="javascript:void(0)" id="btn-edit-holder"
                                                         data-id="{{ $hold->id }}"
                                                         class="btn btn-edit-holder btn-primary btn-sm fa fa-edit"></a>
-                                                    <script>
-                                                        var id_edit = <?php echo json_encode($hold->id); ?>;
-
-                                                        console.log("ID:", <?php echo json_encode($hold->id); ?>);
-                                                    </script>
                                                     {{-- icon delete --}}
 
                                                     @csrf

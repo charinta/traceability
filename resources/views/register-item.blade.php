@@ -77,8 +77,7 @@
                                                 <td class="text-xs font-weight-bold mb-0">
                                                     <form action="{{ route('register-item.destroy', $items->id) }}"
                                                         method="POST">
-                                                        {{-- <a href="{{ route('register-item.edit', $items->id) }}"
-                                                    class="btn btn-sm btn-primary fa fa-edit"></a> --}}
+                                                        {{-- icon edit --}}
                                                         <a href="javascript:void(0)" id="btn-edit-item"
                                                             data-id="{{ $items->id }}"
                                                             class="btn btn-edit-item btn-primary btn-sm fa fa-edit"></a>
