@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -6,8 +6,10 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
-import './Login.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+import './Login.css';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -15,6 +17,9 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: false,
     });
+
+    const [showPassword, setShowPassword] = useState("");
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -24,10 +29,8 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('login'));
     };
-
 
     return (
         <GuestLayout>
@@ -41,7 +44,7 @@ export default function Login({ status, canResetPassword }) {
                         <InputLabel htmlFor="username" value="Username" />
                         <TextInput
                             id="username"
-                            type="text" // Ganti dengan "text"
+                            type="text"
                             name="username"
                             value={data.username}
                             className="mt-1 block w-full"
@@ -54,15 +57,20 @@ export default function Login({ status, canResetPassword }) {
 
                     <div className="mt-4">
                         <InputLabel htmlFor="password" value="Password" />
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            className="mt-1 block w-full"
-                            autoComplete="current-password"
-                            onChange={(e) => setData('password', e.target.value)}
-                        />
+                        <div className="flex justify-between items-center relative">
+                            <TextInput
+                                id="password"
+                                type={visible ? 'text' : 'password'}
+                                name="password"
+                                value={data.password}  // Use the actual password value here
+                                className="mt-1 block w-full"
+                                autoComplete="current-password"
+                                onChange={(e) => setData('password', e.target.value)}  // Update the password value
+                            />
+                            <div className="p-2" onClick={() => setVisible(!visible)}>
+                                {visible ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
+                            </div>
+                        </div>
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 

@@ -23,7 +23,7 @@
                                     <input class="form-control" type="text" name="line" placeholder="Masukkan Line">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         Line</button>
                                 </div>
                                 <br>
@@ -70,7 +70,7 @@
                                                     class="btn btn-sm btn-info fa fa-eye"></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
+                                            <button type="submit" class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                         </form>
                                         </td>
                                         @endforeach

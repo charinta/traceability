@@ -28,7 +28,7 @@
                                     <input class="form-control" type="tool_process" name="tool_process" id="Tool Process">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         Tool Process</button>
                                 </div>
                                 <br>
@@ -42,7 +42,7 @@
                 <div class="col-12 col-xl-9">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0">
-                            <h6>OP Table for OP: {{ $OP->op }}</h6>
+                            <h6>Tool Process for OP: {{ $OP->op }}</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
@@ -80,7 +80,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                         @endforeach

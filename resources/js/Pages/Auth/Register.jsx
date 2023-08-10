@@ -110,7 +110,7 @@ export default function Register() {
                         </PrimaryButton>
                     </div>
                     <div className="login-link-container">
-                        Don't have an account?{' '}
+                        Already have an account?{' '}
                         <Link href={route('login')} className="login-link">
                             Login
                         </Link>

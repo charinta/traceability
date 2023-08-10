@@ -20,7 +20,7 @@
                                     <input class="form-control" name="item_check" type="item_check" id="item_check">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         Item</button>
                                 </div>
                                 <br>
@@ -52,7 +52,7 @@
                     </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-items-center justify-content-center mb-0 table-striped">
+                                <table class="table align-items-center justify-content-center mb-0">
 
                                     <thead class="text-center">
                                         <tr>
@@ -78,7 +78,7 @@
                                                     class="btn btn-sm btn-primary fa fa-edit"></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                             </form>
                                             </td>
                                             </form>

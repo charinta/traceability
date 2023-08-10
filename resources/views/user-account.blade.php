@@ -51,7 +51,7 @@
                                         placeholder="Masukkan Password">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         User</button>
                                 </div>
 
@@ -86,7 +86,7 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
     <div class="table-responsive p-0">
-        <table class="table table-striped align-items-center justify-content-center mb-0">
+        <table class="table align-items-center justify-content-center mb-0">
             {{-- table header --}}
             <thead>
                 <tr>
@@ -123,7 +123,7 @@
 
                             {{-- icon delete --}}
                             @csrf
-                            @method('DELETE') <button type="submit" class="delete_user btn btn-sm btn-danger fa fa-trash"></button>
+                            @method('DELETE') <button type="submit" class="delete_user btn btn-sm btn-outline-danger fa fa-trash"></button>
                         </form>
                     </td>
                 </tr>

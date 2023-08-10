@@ -28,7 +28,7 @@
                                 <input class="form-control" type="time" name="finish" placeholder="Masukkan Finish">
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                     Shift</button>
                             </div>
                             <br>

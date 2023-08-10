@@ -47,13 +47,35 @@
                                         <option value="User" @if ($user->role === 'User') selected @endif>User
                                         </option>
                                     </select>
-                                </div>
                                 <div class="form-group">
-                                    <label for="example-password-input"
-                                        class="form-control-label text-light">Password</label>
-                                    <input class="form-control" type="password" name="password"
-                                        value="{{ old('password', $user->password) }}" placeholder="Masukkan Password">
-                                </div>
+                            <label for="example-password-input" class="form-control-label text-light">Password</label>
+                            <div class="input-group">
+                                <input class="form-control" type="password" name="password"
+                                    value="{{ old('password', $user->password) }}" placeholder="Masukkan Password" id="password-input">
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="show-password-toggle">
+                                <label class="form-check-label text-light" for="show-password-toggle">Show Password</label>
+                            </div>
+                        </div>
+                        <script>
+                            const passwordInput = document.getElementById('password-input');
+                            const showPasswordToggle = document.getElementById('show-password-toggle');
+
+                            showPasswordToggle.addEventListener('change', function () {
+                                if (showPasswordToggle.checked) {
+                                    passwordInput.type = 'text';
+                                } else {
+                                    passwordInput.type = 'password';
+                                }
+                            });
+                        </script>
+
+
+
+
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
                                         User</button>

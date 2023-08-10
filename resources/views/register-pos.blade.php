@@ -53,13 +53,12 @@
                                                 <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->date_created }}</td>
                                                 <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->pos_name }} </td>
                                                 <td>
-                                                    {{-- toggle switch dinamis --}}
                                                     <label class="toggle-switch">
                                                         <input type="checkbox" class="toggle-switch-checkbox" name="status"
                                                             value="active" {{ $pos->status === 'active' ? 'checked' : '' }}
                                                             disabled>
                                                         <span
-                                                            class="toggle-switch-slider {{ $pos->status === 'active' ? 'bg-info' : '' }}"></span>
+                                                            class="toggle-switch-slider {{ $pos->status === 'active' ? 'bg-primary' : '' }}"></span>
                                                     </label>
                                                 </td>
                                                 <td>

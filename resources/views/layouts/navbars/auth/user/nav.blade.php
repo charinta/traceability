@@ -1,8 +1,8 @@
 
 <nav class="navbar navbar-expand-sm shadow-none">
     <div class="container-fluid {{ Request::is('static-sign-up') ? 'container' : 'container-fluid' }}">
-        <a class="font-weight-bolder navbar-brand">
-            @if (Request::is('user-dashboard'))
+        <a class="font-weight-bolder navbar-brand text-gradient text-primary">
+            @if (Request::is('dashboard'))
                 Dashboard
             @elseif(Request::is('resume-dashboard'))
                 Overview Resume Dashboard

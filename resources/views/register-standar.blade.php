@@ -133,7 +133,7 @@
 
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         Standard</button>
                                 </div>
                                 <br>
@@ -186,7 +186,12 @@
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->pos_name }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->item_check }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->standard_check }}</td>
-                                            <td class="text-xs font-weight-bold mb-0">{{ $standard->status }}</td>
+                                           <td class="text-xs font-weight-bold mb-0">
+                                                <span class="badge badge-sm {{ $standard->status === 'active' ? 'bg-info' : 'bg-secondary' }}">
+                                                    {{ $standard->status === 'active' ? 'Active' : 'Inactive' }}
+                                                </span>
+                                            </td>
+
                                              <td class="text-xs font-weight-bold mb-0">
                                                     <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                         action="{{ route('register-standar.destroy', $standard->id) }}"

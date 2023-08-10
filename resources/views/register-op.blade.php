@@ -28,7 +28,7 @@
                                     <input class="form-control" type="OP" name="OP" id="OP">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                    <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                         OP</button>
                                 </div>
                                 <br>
@@ -72,14 +72,14 @@
                                                 <td class="text-center">
                                                     <form action="{{ route('register-op.destroy', $op->id) }}"
                                                         method="POST">
-                                                        <a href="{{ route('register-op.index', $op->id) }}"
+                                                        <a href="{{ route('register-op.edit', $op->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit"></a>
                                                         <a href="{{route('tool-process.op', ['id' => $op->id])}}"
                                                             class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                         @endforeach

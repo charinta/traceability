@@ -22,7 +22,7 @@ class OPController extends Controller
     public function showTPData($id)
     {
         $OP = OP::findOrFail($id);
-        $tool_process = ToolProcess::where('id', $id)->paginate(10); 
+        $tool_process = ToolProcess::where('id', $id)->paginate(10);
 
         return view('tool-process', ['OP' => $OP, 'tool_process' => $tool_process]);
     }
@@ -39,6 +39,26 @@ class OPController extends Controller
         $OP = OP::create($data);
 
         return redirect()->route('register-op.index');
+    }
+    // view ke halaman update
+    public function edit($id)
+    {
+        $OP = OP::findOrFail($id);
+        return view('edit-register-op', compact('OP'));
+    }
+
+    // update data
+    public function update(Request $request, OP $OP, $id)
+    {
+        $OP = OP::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'op' => 'required',
+        ]);
+
+        $OP->update($validatedData);
+
+        return redirect()->route('register-OP.index');
     }
 
     public function destroy(OP $OP)

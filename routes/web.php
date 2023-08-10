@@ -45,9 +45,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::resource('register-holder', HolderController::class);
 
 
-    Route::get('register-op', [OpController::class, 'index'])->name('register-op.index');
-    Route::post('register-op', [OpController::class, 'store'])->name('register-op.store');
-    Route::delete('register-op/{item}', [OpController::class, 'destroy'])->name('register-op.destroy');
+    Route::resource('register-op', OpController::class);
     Route::get('tool-process/{id}', '\App\Http\Controllers\OPController@showTPData')->name('tool-process.op');
 
     Route::resource('register-pos', \App\Http\Controllers\PosController::class);

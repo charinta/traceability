@@ -48,7 +48,7 @@
                                     placeholder="Masukkan Standard Frekuensi">
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Insert
+                                <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
                                     Holder</button>
                             </div>
                             <br>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0 table-striped">
+                            <table class="table align-items-center justify-content-center mb-0">
                                 {{-- table header --}}
                                 <thead class="text-center">
                                     <tr>
@@ -118,7 +118,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                        class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                 </form>
                                             </td>
                                             </td>
