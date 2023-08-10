@@ -322,8 +322,8 @@
 @endsection
 
 @push('dashboard')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
     <script>
         var months = <?php echo json_encode($months, JSON_NUMERIC_CHECK); ?>;
         var shift1 = <?php echo json_encode($shift1, JSON_NUMERIC_CHECK); ?>;
@@ -342,34 +342,133 @@
             }]
         };
 
+        //     window.onload = function() {
+        //         var ctx = document.getElementById("myChart").getContext("2d");
+        //         window.myBar = new Chart(ctx, {
+        //             type: 'bar',
+        //             data: barChartData,
+        //             options: {
+        //                 elements: {
+        //                     rectangle: {
+        //                         borderWidth: 2,
+        //                         borderColor: '#c1c1c1',
+        //                         borderSkipped: 'bottom'
+        //                     }
+        //                 },
+        //                 responsive: true,
+        //                 title: {
+        //                     display: true,
+        //                     text: 'Regrinding Auto'
+        //                 },
+        //                 scales: {
+        //                     x: {
+        //                         stacked: true
+        //                     },
+        //                     y: {
+        //                         stacked: true
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     };
+        // 
+
         window.onload = function() {
-            var ctx = document.getElementById("myChart").getContext("2d");
+            var ctx = document.getElementById('myChart').getContext('2d');
             window.myBar = new Chart(ctx, {
                 type: 'bar',
                 data: barChartData,
                 options: {
-                    elements: {
-                        rectangle: {
-                            borderWidth: 2,
-                            borderColor: '#c1c1c1',
-                            borderSkipped: 'bottom'
-                        }
-                    },
-                    responsive: true,
                     title: {
                         display: true,
                         text: 'Regrinding Auto'
                     },
-                    scales: {
-                        x: {
-                            stacked: true
-                        },
-                        y: {
-                            stacked: true
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: true,
+                        custom: function(tooltipModel) {
+                            // Custom tooltip function (if needed)
                         }
+                    },
+                    animation: {
+                        duration: 1000,
+                        currentStep: 1,
+                        onComplete: function() {
+                            var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+                            var stackGroup = [];
+                            var stackIndex = [];
+                            for (index = 0; index < this.data.datasets.length; index++) {
+                                var stackName = this.data.datasets[index].label;
+                                var stack = {
+                                    Name: stackName,
+                                    stackIndex: index
+                                };
+                                var result = stackGroup.filter(obj => {
+                                    return obj.Name === stackName;
+                                });
+                                if (result.length > 0) {
+                                    var sliceCount = stackGroup.findIndex(x => x.Name == stackName);
+                                    stackGroup.splice(sliceCount, true);
+                                    stackIndex.splice(sliceCount, true);
+                                    stackGroup.push(stack);
+                                    stackIndex.push(stack.stackIndex);
+                                } else {
+                                    stackGroup.push(stack);
+                                    stackIndex.push(stack.stackIndex);
+                                }
+                            }
+                            this.data.datasets.forEach(function(dataset, i) {
+                                var meta = chartInstance.controller.getDatasetMeta(i);
+                                meta.data.forEach(function(bar, index) {
+                                    var data = dataset.data[index];
+                                    var result = stackGroup.filter(obj => {
+                                        return obj.stackIndex === i;
+                                    });
+                                    if (result.length > 0) {
+                                        if (result[0].Name == 'Shift 1') {
+                                            ctx.fillText('Completed', bar._model.x, bar
+                                                ._model.y - 5);
+                                        }
+                                        if (result[0].Name == 'Shift 2') {
+                                            var str = 'Not<br />Completed';
+                                            var html = $.parseHTML(str);
+                                            ctx.fillText('Not Completed', bar._model.x, bar
+                                                ._model.y - 5);
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            stacked: true
+                        }],
+                        yAxes: [{
+                            stacked: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Shift Count'
+                            }
+                        }]
                     }
                 }
             });
         };
+
+        document.getElementById('myChart').addEventListener('click', function() {
+            barChartData.datasets.forEach(function(dataset) {
+                dataset.data = dataset.data.map(function() {
+                    return randomScalingFactor();
+                });
+            });
+            window.myBar.update();
+        });
     </script>
 @endpush
