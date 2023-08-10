@@ -100,7 +100,7 @@
                                 {{-- table body --}}
                                 <tbody class="text-center">
                                     @foreach ($holder as $hold)
-                                        <tr>
+                                        <tr id="{{ 'index_' . $hold->id }}">
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->id }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->date_created }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->no_drawing_holder }}</td>
@@ -111,9 +111,17 @@
                                                     action="{{ route('register-holder.destroy', $hold->id) }}"
                                                     method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('register-holder.edit', $hold->id) }}"
+                                                    {{-- <a href="{{ route('register-holder.edit', $hold->id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a>
+                                                    </a> --}}
+                                                    <a href="javascript:void(0)" id="btn-edit-holder"
+                                                        data-id="{{ $hold->id }}"
+                                                        class="btn btn-edit-holder btn-primary btn-sm fa fa-edit"></a>
+                                                    <script>
+                                                        var id_edit = <?php echo json_encode($hold->id); ?>;
+
+                                                        console.log("ID:", <?php echo json_encode($hold->id); ?>);
+                                                    </script>
                                                     {{-- icon delete --}}
 
                                                     @csrf
@@ -130,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+                @include('components.modal-edit-holder')
                 <!-- Pagination Section -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
@@ -181,8 +190,5 @@
                 </nav>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 @endsection

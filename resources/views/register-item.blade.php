@@ -81,7 +81,7 @@
                                                     class="btn btn-sm btn-primary fa fa-edit"></a> --}}
                                                         <a href="javascript:void(0)" id="btn-edit-item"
                                                             data-id="{{ $items->id }}"
-                                                            class="btn btn-edit-item btn-primary btn-sm">EDIT</a>
+                                                            class="btn btn-edit-item btn-primary btn-sm fa fa-edit"></a>
                                                         <script>
                                                             var id_edit = <?php echo json_encode($items->id); ?>;
 
