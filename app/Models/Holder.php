@@ -16,8 +16,7 @@ class Holder extends Model
 
     // membaca data pada tabel
     protected $table = 'tbl_register_holder';
-    protected $primaryKey = 'holder_id';
-
+    protected $primaryKey = 'id';
 
     // menentukan variabel yang diisi
     protected $fillable = [

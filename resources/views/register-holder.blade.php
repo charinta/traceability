@@ -59,7 +59,7 @@
 
 
             {{-- table --}}
-             <div class="col-12 col-xl-9">
+            <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
@@ -100,19 +100,20 @@
                                 {{-- table body --}}
                                 <tbody class="text-center">
                                     @foreach ($holder as $hold)
-                                        <tr>
-                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->holder_id }}</td>
+                                        <tr id="{{ 'index_' . $hold->id }}">
+                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->id }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->date_created }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->no_drawing_holder }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->holder_name }}</td>
 
                                             <td class="text-xs font-weight-bold mb-0">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{route('register-holder.destroy', $hold->holder_id)}}" method="POST">
+                                                    action="{{ route('register-holder.destroy', $hold->id) }}"
+                                                    method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('register-holder.edit', $hold->holder_id) }}"
-                                                        class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a>
+                                                    <a href="javascript:void(0)" id="btn-edit-holder"
+                                                        data-id="{{ $hold->id }}"
+                                                        class="btn btn-edit-holder btn-primary btn-sm fa fa-edit"></a>
                                                     {{-- icon delete --}}
 
                                                     @csrf
@@ -129,6 +130,7 @@
                         </div>
                     </div>
                 </div>
+                @include('components.modal-edit-holder')
                 <!-- Pagination Section -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
@@ -180,8 +182,5 @@
                 </nav>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 @endsection

@@ -7,6 +7,7 @@ use App\Models\Item;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
 {
@@ -16,12 +17,17 @@ class ItemController extends Controller
         return view('register-item')->with('item', $item);
     }
 
-    public function show(Item $item, $id)
+    public function show($id)
     {
         $item = Item::findOrFail($id);
-        return view('register-item', compact('item'));
+        // dd($item);
+        //return response
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Item',
+            'data'    => $item  
+        ]); 
     }
-
     public function search(Request $request)
     {
         $keyword = $request->input('search');
@@ -52,19 +58,27 @@ class ItemController extends Controller
     }
 
     // update data
-    public function update(Request $request, Item $item, $id)
+    public function update(Request $request, $id)
     {
-        $item = Item::findOrFail($id);
+    // Find Item
+    $item = Item::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'item_check' => 'required',
-        ]);
+    // Validate
+    $validate = $request->validate([
+      'item_check' => ['required'],
+    ]);
 
-        $item->item_check = $request->input('item_check');
-        $item->save();
-        $item->update($validatedData);
+    // Updating
+    $item->update([
+      'item_check' => $request->item_check,
+    ]);
 
-        return redirect()->route('register-item.index');
+    // Response
+    return response()->json([
+      'success' => true,
+      'message' => 'Data Berhasil Diudapte!',
+      'data'    => $item
+    ]);
     }
 
     public function destroy(Item $item, $id): RedirectResponse

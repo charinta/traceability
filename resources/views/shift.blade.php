@@ -78,7 +78,7 @@
                                 {{-- table body --}}
                                 <tbody class="text-center">
                                     @foreach ($shift as $shi)
-                                        <tr>
+                                        <tr id="{{ 'index_' . $shi->id }}">
                                             <td>{{ $shi->shift }}</td>
                                             <td>{{ $shi->start }}</td>
                                             <td>{{ $shi->finish }}</td>
@@ -87,9 +87,9 @@
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"
                                                     action="{{ route('shift.destroy', $shi->id) }}" method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('shift.edit', $shi->id) }}"
-                                                        class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a>
+                                                    <a href="javascript:void(0)" id="btn-edit-shift"
+                                                        data-id="{{ $shi->id }}"
+                                                        class="btn btn-edit-shift btn-primary btn-sm fa fa-edit"></a>
                                                     {{-- icon delete --}}
 
                                                     @csrf
@@ -104,6 +104,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        @include('components.modal-edit-shift')
                     </div>
                 </div>
             </div>
