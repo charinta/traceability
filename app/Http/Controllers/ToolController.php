@@ -21,8 +21,12 @@ class ToolController extends Controller
         return view('register-tool', compact('tool', 'noDrawingHold'));
     }
 
+    public function show(Tool $tool, $id)
+    {
+        return view('register-tool', compact('tool'));
+    }
     // menyimpan data/menyimpan insert data 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, Tool $tool): RedirectResponse
     {
         $this->validate($request, [
             'no_drawing_tool' => 'required',
@@ -37,11 +41,20 @@ class ToolController extends Controller
             'washing_ct' => 'required',
             'grinding_ct' => 'required',
             'setting_ct' => 'required',
-            'image_check' => 'required',
+            'image_check' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'remark' => 'required',
         ]);
 
         $data = $request->all();
+        if ($request->hasFile('image_check')) {
+            $uploadedImage = $request->file('image_check');
+            // Menyimpan file ke direktori public/assets/img/
+            $imagePath = 'assets/img/';
+            $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
+            $uploadedImage->move(public_path($imagePath), $imageName);
+            // Menyimpan path gambar dalam data yang akan disimpan
+            $data['image_check'] = $imagePath . $imageName; // Ubah 'image_path' menjadi 'image_check'
+        }
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
         $tool = Tool::create($data);
@@ -76,18 +89,30 @@ class ToolController extends Controller
             'washing_ct' => 'required',
             'grinding_ct' => 'required',
             'setting_ct' => 'required',
-            'image_check' => 'required',
-            'remark' => 'required',
+            'image_check' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'remark' => 'required' // Aturan validasi gambar
         ]);
 
-        $tool->update($validatedData);
+        if ($request->hasFile('image_check')) {
+            $uploadedImage = $request->file('image_check');
+            $imagePath = public_path('assets/img/'); // Tentukan folder penyimpanan gambar
+
+            $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
+            $uploadedImage->move($imagePath, $imageName);
+
+
+            $tool->image_check = 'assets/img/' . $imageName;
+        }
+
+        $tool->update();
 
         return redirect()->route('register-tool.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     // delete data/hapus data
-    public function destroy(Tool $tool)
+    public function destroy(Tool $tool, $id)
     {
+        $tool = Tool::findOrFail($id);
         $tool->delete();
 
         return redirect()->route('register-tool.index')->with(['success' => 'Data Berhasil Dihapus']);

@@ -29,7 +29,8 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::resource('register-item', ItemController::class);
 
     Route::resource('register-line', \App\Http\Controllers\LineController::class);
-    Route::get('register-op/{id}', '\App\Http\Controllers\LineController@showOpData')->name('register-op.line');
+    // Route::get('register-op/{line}', '\App\Http\Controllers\LineController@showOpData')->name('register-op.line');
+    Route::get('register-op/{line}', 'OPController@index')->name('register-op.index');
 
     Route::resource('register-standar', StandarController::class);
     Route::get('register-standar.search', [StandarController::class, 'search'])->name('register-standar.search');
@@ -52,8 +53,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('register-pos.search', [PosController::class, 'search'])->name('register-pos.search');
     Route::resource('register-pos', \App\Http\Controllers\PosController::class);
 
-    Route::resource('register-line', \App\Http\Controllers\LineController::class);
-    Route::get('register-op/{id}', '\App\Http\Controllers\LineController@showOpData')->name('register-op.line');
+
 
     Route::resource('shift', ShiftController::class);
     Route::resource('shift', ShiftController::class);
@@ -64,7 +64,7 @@ Route::middleware('auth', 'admin')->group(function () {
 
     Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
     Route::get('register-tool.search', [ToolController::class, 'search'])->name('register-tool.search');
-    //Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
+    Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
 });
 
 Route::middleware('auth')->group(function () {

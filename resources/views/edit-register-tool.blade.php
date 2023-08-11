@@ -131,20 +131,52 @@
                             </div>
                             
                             <div class="form-group">
-                                    <label for="image_check" class="form-control-label text-light">
-                                        Image Check</label>
-                                    <input class="form-control" type="file" name="image_check" id="image_check"
-                                        accept="image/*" >
-                                    <input type="hidden" name="selected_option" value="Image Check">
+    <label for="image_check" class="form-control-label text-light">
+        Image Check</label>
+    <input class="form-control" type="file" name="image_check" id="image_check" accept="image/*">
+    <input type="hidden" name="selected_option" value="Image Check">
 
-                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
-                                        hidden
-                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                                </div>
+    @if($tool->image_check)
+        <img id="uploaded-image" class="uploaded-image" src="{{ asset($tool->image_check) }}" alt="Uploaded Image" 
+             style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+    @else
+        <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image" hidden
+             style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+    @endif
+</div>
+
+<script>
+    const ImageInput = document.getElementById('image_check');
+    // Function to handle image preview
+    function previewImage(event) {
+        const input = event.target;
+        const previewImage = document.getElementById('uploaded-image');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                previewImage.hidden = false;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewImage.src = '#';
+            previewImage.hidden = true;
+        }
+    }
+
+    // Add an event listener to the file input
+    const fileInput = document.getElementById('image_check');
+    fileInput.addEventListener('change', previewImage);
+</script>
+
+
 
                                  <div class="form-group">
                                     <label for="remark" class="form-control-label text-light">Remark</label>
-                                    <input class="form-control" type="text" name="remark" id="remark" >
+                                    <input class="form-control" type="text" name="remark" id="remark" value="{{ old('remark', $tool->remark) }}" >
                                 </div>
 
                             <div class="text-center">

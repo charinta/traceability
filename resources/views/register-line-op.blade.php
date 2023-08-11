@@ -62,17 +62,24 @@
                                                 <td class="text-xs font-weight-bold mb-0">{{ $lin->id }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">{{ $lin->date_created }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">{{ $lin->line }}</td>
-                                                <td class="text-center">
-                                                <form action="{{ route('register-line.destroy', $lin->id) }}" method="POST">
+                                                <td class="text-xs font-weight-bold mb-0">
+                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                    action="{{ route('register-line.destroy', $lin->id) }}"
+                                                    method="POST">
+                                                    {{-- icon edit --}}
                                                     <a href="{{ route('register-line.edit', $lin->id) }}"
-                                                    class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                    <a href="{{ route('register-op.line', ['id' => $lin->id]) }}"  }}"
+                                                        class="btn btn-sm btn-primary fa fa-edit">
+                                                    </a>
+                                                     <a href="{{ route('register-op.index', $lin->line) }}"  }}"
                                                     class="btn btn-sm btn-info fa fa-eye"></a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger fa fa-trash"></button>
-                                        </form>
-                                        </td>
+                                                    {{-- icon delete --}}
+
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger fa fa-trash"></button>
+                                                </form>
+                                            </td>
                                         @endforeach
                                     </tr>
                                     </tbody>

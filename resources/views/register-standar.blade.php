@@ -205,7 +205,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-danger fa fa-trash"></button>
+                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                     @endforeach

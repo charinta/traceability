@@ -13,10 +13,24 @@ use Carbon\Carbon;
 class OPController extends Controller
 {
     // melihat data OP
-    public function index(): View
+    public function index(Line $line)
     {
-        $OP = OP::paginate(10);
-        return view('register-op')->with('OP', $OP);
+        $OP = OP::where('line', $line->line)->paginate(10);
+        return view('register-op', compact('OP', 'line'));
+    }
+
+    public function store(Request $request, Line $line): RedirectResponse
+    {
+        $this->validate($request, [
+            'line' => 'required | exists:line,id',
+            'OP' => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['line'] = $line->line;
+        $OP = OP::create($data);
+
+        return redirect()->route('register-op.index', $line->id);
     }
 
     public function showTPData($id)
@@ -27,19 +41,6 @@ class OPController extends Controller
         return view('tool-process', ['OP' => $OP, 'tool_process' => $tool_process]);
     }
 
-    public function store(Request $request): RedirectResponse
-    {
-        $this->validate($request, [
-            'OP' => 'required',
-        ]);
-
-        $data = $request->all();
-        $data['date_created'] = Carbon::now('Asia/Jakarta');
-        $data['date_modify'] = Carbon::now('Asia/Jakarta');
-        $OP = OP::create($data);
-
-        return redirect()->route('register-op.index');
-    }
     // view ke halaman update
     public function edit($id)
     {

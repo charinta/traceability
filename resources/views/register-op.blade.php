@@ -21,11 +21,12 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('register-op.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                           <form action="{{ route('register-op.store', $line->id) }}" method="POST">
+                          @csrf
                                 <div class="form-group">
+                                     <input type="hidden" name="line" value="{{ $line->id }}">
                                     <label for="OP" class="form-control-label text-light">OP</label>
-                                    <input class="form-control" type="OP" name="OP" id="OP">
+                                    <input class="form-control" type="text" name="OP" id="OP">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
@@ -36,7 +37,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 {{-- table --}}
                 <div class="col-12 col-xl-9">
@@ -68,13 +68,13 @@
                                                 <td>{{ $op->id }}</td>
                                                 <td>{{ $op->date_created }}</td>
                                                 <td>{{ $op->line }}</td>
-                                                <td>{{ $op->OP }}</td>
+                                                <td>{{ $op->op }}</td>
                                                 <td class="text-center">
                                                     <form action="{{ route('register-op.destroy', $op->id) }}"
                                                         method="POST">
                                                         <a href="{{ route('register-op.edit', $op->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                        <a href="{{route('tool-process.op', ['id' => $op->id])}}"
+                                                        <a href="{{ route('tool-process.op', ['id' => $op->id]) }}"
                                                             class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')
@@ -82,63 +82,13 @@
                                                             class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
+                                            </tr>
                                         @endforeach
-                                        </tr>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
-                    <!-- Pagination Section -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            {{-- Previous Page Link --}}
-                            @if ($OP->onFirstPage())
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">
-                                        <i class="fa fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $OP->previousPageUrl() }}" tabindex="-1">
-                                        <i class="fa fa-angle-left"></i>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                            @endif
-
-                            {{-- Page Links --}}
-                            @foreach ($OP->getUrlRange(1, $OP->lastPage()) as $page => $url)
-                                @if ($page == $OP->currentPage())
-                                    <li class="page-item active"><a class="page-link"
-                                            href="{{ $url }}">{{ $page }}</a></li>
-                                @else
-                                    <li class="page-item"><a class="page-link"
-                                            href="{{ $url }}">{{ $page }}</a></li>
-                                @endif
-                            @endforeach
-
-                            {{-- Next Page Link --}}
-                            @if ($OP->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $OP->nextPageUrl() }}">
-                                        <i class="fa fa-angle-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">
-                                        <i class="fa fa-angle-right"></i>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>

@@ -14,9 +14,11 @@ class LineController extends Controller
     // melihat data Line
     public function index()
     {
+        $line = Line::select('id', 'line')->distinct()->get();
         $line = Line::paginate(10);
-        return view('register-line-op')->with('line', $line);
+        return view('register-line-op', compact('line'));
     }
+
 
     // menyimpan data/menyimpan insert data 
     public function store(Request $request): RedirectResponse
