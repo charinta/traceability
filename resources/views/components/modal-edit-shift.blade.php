@@ -146,10 +146,9 @@
                     }
                 }
             });
-            $('[data-dismiss="modal"]').click(function() {
-                // Hide the modal with ID "modal-edit-shift"
-                $('#modal-edit-shift').modal('hide');
-            });
+        });
+        $('[data-dismiss="modal"]').click(function() {
+            $('#modal-edit-shift').modal('hide');
         });
     });
 </script>
