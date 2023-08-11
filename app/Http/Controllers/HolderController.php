@@ -22,8 +22,8 @@ class HolderController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Detail Data Item',
-            'data'    => $holder  
-        ]); 
+            'data'    => $holder
+        ]);
     }
 
     // menyimpan data/menyimpan insert data 
@@ -52,10 +52,6 @@ class HolderController extends Controller
         return $noDrawingHold;
     }
 
-    public function show(Holder $holder, $id)
-    {
-        return view('register-holder', compact('holder'));
-    }
 
     public function search(Request $request)
     {
@@ -77,35 +73,35 @@ class HolderController extends Controller
     // update data
     public function update(Request $request, $id)
     {
-    // Find Holder
-    $holder = Holder::findOrFail($id);
+        // Find Holder
+        $holder = Holder::findOrFail($id);
 
-    // Validate
-    $validate = $request->validate([
-      'no_drawing_holder' => ['required'],
-      'holder_name' => ['required'],
-      'holder_spec' => ['required'],
-      'holder_diameter' => ['required'],
-      'holder_lifetime_std' => ['required'],
-      'holder_frequency_std' => ['required'],
-    ]);
+        // Validate
+        $validate = $request->validate([
+            'no_drawing_holder' => ['required'],
+            'holder_name' => ['required'],
+            'holder_spec' => ['required'],
+            'holder_diameter' => ['required'],
+            'holder_lifetime_std' => ['required'],
+            'holder_frequency_std' => ['required'],
+        ]);
 
-    // Updating
-    $holder->update([
-      'no_drawing_holder' => $request->no_drawing_holder,
-      'holder_name' => $request->holder_name,
-      'holder_spec' => $request->holder_spec,
-      'holder_diameter' => $request->holder_diameter,
-      'holder_lifetime_std' => $request->holder_lifetime_std,
-      'holder_frequency_std' => $request->holder_frequency_std,
-    ]);
+        // Updating
+        $holder->update([
+            'no_drawing_holder' => $request->no_drawing_holder,
+            'holder_name' => $request->holder_name,
+            'holder_spec' => $request->holder_spec,
+            'holder_diameter' => $request->holder_diameter,
+            'holder_lifetime_std' => $request->holder_lifetime_std,
+            'holder_frequency_std' => $request->holder_frequency_std,
+        ]);
 
-    // Response
-    return response()->json([
-      'success' => true,
-      'message' => 'Data Berhasil Diudapte!',
-      'data'    => $holder
-    ]);
+        // Response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Diudapte!',
+            'data'    => $holder
+        ]);
     }
 
     // delete data/hapus data
