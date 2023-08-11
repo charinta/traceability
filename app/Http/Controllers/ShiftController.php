@@ -15,6 +15,16 @@ class ShiftController extends Controller
         return view('shift')->with('shift', $shift);
     }
 
+    public function show($id)
+    {
+        $shift = Shift::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Item',
+            'data'    => $shift  
+        ]); 
+    }
+
     // menyimpan data/menyimpan insert data 
     public function store(Request $request): RedirectResponse {
         $this->validate($request, [
@@ -30,30 +40,42 @@ class ShiftController extends Controller
     }
 
     // view ke halaman update
-    public function edit($id)
-    {
-        $shift = Shift::findOrFail($id);
+    // public function edit($id)
+    // {
+    //     $shift = Shift::findOrFail($id);
 
 
-        return view('edit-shift', compact('shift'));
-    }
+    //     return view('edit-shift', compact('shift'));
+    // }
 
     // update data
+
     public function update(Request $request, $id)
     {
+    // Find Holder
+    $shift = Shift::findOrFail($id);
 
-        $shift = Shift::findOrFail($id);
-        $validatedData = $request->validate([
-            'shift' =>'required',
-            'start' =>'required',
-            'finish' =>'required',
-        ]);
+    // Validate
+    $validate = $request->validate([
+      'shift' => ['required'],
+      'start' => ['required'],
+      'finish' => ['required'],
+    ]);
 
-        $data = $request->all();
-        $shift->update($data);
+    // Updating
+    $shift->update([
+      'shift' => $request->shift,
+      'start' => $request->start,
+      'finish' => $request->finish,
+    ]);
+    // dd($request);
 
-        // dd($request->input());
-        return redirect()->route('shift.index');
+    // Response
+    return response()->json([
+      'success' => true,
+      'message' => 'Data Berhasil Diudapte!',
+      'data'    => $shift
+    ]);
     }
 
     // delete data/hapus data
