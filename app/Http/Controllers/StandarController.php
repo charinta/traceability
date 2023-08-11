@@ -105,8 +105,12 @@ class StandarController extends Controller
             'status' => 'required',
         ]);
 
-        $selectedOption = $request->input('check');
-        if ($selectedOption === 'Standard Value') {
+        $standar = Standar::findOrFail($id);
+
+        // Fetch the current status_data from the database
+        $currentStatusData = $standar->status_data;
+
+        if ($request->input('check') === 'Standard Value') {
             $this->validate($request, [
                 'standard_check' => 'required',
                 'unit-dropdown' => 'required',
@@ -115,16 +119,19 @@ class StandarController extends Controller
             ]);
 
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
-            $request->merge(['status_data' => 'int']);
-            //$statusData = 'int';
-        } elseif ($selectedOption === 'Standard String') {
+            $statusData = 'int';
+        } elseif ($request->input('check') === 'Standard String') {
             $this->validate($request, [
                 'standard_check' => 'required',
             ]);
 
             $combinedValue = $request->input('standard_check');
-            //$statusData = 'string';
-            $request->merge(['status_data' => 'string']);
+            $statusData = 'string';
+        }
+
+        // Update the status_data only if it's different from the current value
+        if ($statusData !== $currentStatusData) {
+            $standar->status_data = $statusData;
         }
 
         $request->merge([
@@ -132,13 +139,15 @@ class StandarController extends Controller
             'batas_bawah' => $request->input('batas_bawah', 0),
         ]);
 
-        $standar = Standar::findOrFail($id);
         $data = $request->all();
+        $data['standard_check'] = $combinedValue;
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
+
         $standar->update($data);
 
         return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Diperbarui!']);
     }
+
 
 
     public function destroy(Standar $standar, $id): RedirectResponse

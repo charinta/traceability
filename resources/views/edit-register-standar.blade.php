@@ -156,8 +156,6 @@
                                 </select>
                             </div>
 
-                        <input type="hidden" name="check" value="{{ $standar->status_data === 'int' ? 'Standard Value' : ($standar->status_data === 'string' ? 'Standard String' : 'Standard Image') }}">
-
                         <div class="text-center">
                             <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update Standard</button>
                         </div>
