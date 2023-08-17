@@ -15,13 +15,10 @@ use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasFactory, HasRoles;
-    //use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
     const user = 'user';
     const admin = 'admin';
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
-    }
+   
 
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;

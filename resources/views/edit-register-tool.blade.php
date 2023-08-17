@@ -14,7 +14,7 @@
                     </div>
                     {{-- form body --}}
                     <div class="card-body">
-                        <form action="{{route('register-tool.update', $tool -> id)}}" method="POST"
+                        <form action="{{ route('register-tool.update', $tool->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -82,13 +82,13 @@
                                 <label for="no_drawing_holder" class="form-control-label text-light"
                                     name="no_drawing_holder">Holder</label>
                                 <select class="form-select" name="no_drawing_holder">
-                                    @foreach($noDrawingHold as $noHold)
-                                            <option value="{{ $noHold }}" 
-                                                @if($tool->no_drawing_holder === $noHold) selected @endif>
-                                                {{ $noHold }}
-                                            </option>
-                                            @endforeach
-                                    </select>
+                                    @foreach ($noDrawingHold as $noHold)
+                                        <option value="{{ $noHold }}"
+                                            @if ($tool->no_drawing_holder === $noHold) selected @endif>
+                                            {{ $noHold }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="row">
                                 <div class="col-md-8">
@@ -129,55 +129,59 @@
                                     <p class="text-light" style="color: white">Sec</p>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
-    <label for="image_check" class="form-control-label text-light">
-        Image Check</label>
-    <input class="form-control" type="file" name="image_check" id="image_check" accept="image/*">
-    <input type="hidden" name="selected_option" value="Image Check">
+                                <label for="image_check" class="form-control-label text-light">
+                                    Image Check</label>
+                                <input class="form-control" type="file" name="image_check" id="image_check"
+                                    accept="image/*">
+                                <input type="hidden" name="selected_option" value="Image Check">
 
-    @if($tool->image_check)
-        <img id="uploaded-image" class="uploaded-image" src="{{ asset($tool->image_check) }}" alt="Uploaded Image" 
-             style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-    @else
-        <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image" hidden
-             style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-    @endif
-</div>
+                                @if ($tool->image_check)
+                                    <img id="uploaded-image" class="uploaded-image"
+                                        src="{{ asset($tool->image_check) }}" alt="Uploaded Image"
+                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+                                @else
+                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
+                                        hidden
+                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+                                @endif
+                            </div>
 
-<script>
-    const ImageInput = document.getElementById('image_check');
-    // Function to handle image preview
-    function previewImage(event) {
-        const input = event.target;
-        const previewImage = document.getElementById('uploaded-image');
+                            <script>
+                                const ImageInput = document.getElementById('image_check');
+                                // Function to handle image preview
+                                function previewImage(event) {
+                                    const input = event.target;
+                                    const previewImage = document.getElementById('uploaded-image');
 
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
+                                    if (input.files && input.files[0]) {
+                                        const reader = new FileReader();
 
-            reader.onload = function(e) {
-                previewImage.src = e.target.result;
-                previewImage.hidden = false;
-            };
+                                        reader.onload = function(e) {
+                                            previewImage.src = e.target.result;
+                                            previewImage.hidden = false;
+                                        };
 
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            previewImage.src = '#';
-            previewImage.hidden = true;
-        }
-    }
+                                        reader.readAsDataURL(input.files[0]);
+                                    } else {
+                                        previewImage.src = '#';
+                                        previewImage.hidden = true;
+                                    }
+                                }
 
-    // Add an event listener to the file input
-    const fileInput = document.getElementById('image_check');
-    fileInput.addEventListener('change', previewImage);
-</script>
+                                // Add an event listener to the file input
+                                const fileInput = document.getElementById('image_check');
+                                fileInput.addEventListener('change', previewImage);
+                            </script>
 
 
 
-                                 <div class="form-group">
-                                    <label for="remark" class="form-control-label text-light">Remark</label>
-                                    <input class="form-control" type="text" name="remark" id="remark" value="{{ old('remark', $tool->remark) }}" >
-                                </div>
+                            <div class="form-group">
+                                <label for="remark" class="form-control-label text-light">Remark</label>
+                                <input class="form-control" type="text" name="remark" id="remark"
+                                    value="{{ old('remark', $tool->remark) }}">
+                            </div>
 
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-warning w-100 my-4 mb-2">Update
