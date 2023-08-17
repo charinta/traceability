@@ -60,7 +60,7 @@ class ToolController extends Controller
         if ($request->hasFile('image_check')) {
             $uploadedImage = $request->file('image_check');
             // Menyimpan file ke direktori public/assets/img/
-            $imagePath = 'assets/img/image_check';
+            $imagePath = 'assets/img/image_check/';
             $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
             $uploadedImage->move(public_path($imagePath), $imageName);
             // Menyimpan path gambar dalam data yang akan disimpan
@@ -144,6 +144,16 @@ class ToolController extends Controller
             'remark' => ['required'],
         ]);
 
+        if ($request->hasFile('image_check')) {
+            $uploadedImage = $request->file('image_check');
+            $imagePath = public_path('assets/img/image_check/'); // Tentukan folder penyimpanan gambar
+
+            $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
+            $uploadedImage->move($imagePath, $imageName);
+
+
+            $tool->image_check = 'assets/img/image_check/' . $imageName;
+        }
         // Updating
         $tool->update([
             'no_drawing_tool' => $request->no_drawing_tool,
@@ -162,16 +172,6 @@ class ToolController extends Controller
             'remark' => $request->remark,
         ]);
 
-        if ($request->hasFile('image_check')) {
-            $uploadedImage = $request->file('image_check');
-            $imagePath = public_path('assets/img/image_check/'); // Tentukan folder penyimpanan gambar
-
-            $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
-            $uploadedImage->move($imagePath, $imageName);
-
-
-            $tool->image_check = 'assets/img/image_check/' . $imageName;
-        }
 
         // Response
         return response()->json([

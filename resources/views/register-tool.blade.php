@@ -122,8 +122,8 @@
                                     accept="image/*">
                                 <input type="hidden" name="selected_option" value="Image Check">
 
-                                <img id="uploaded-image" class="uploaded-image" src="public/assets/img/image_check"
-                                    alt="Uploaded Image" hidden
+                                <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
+                                    hidden
                                     style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
                             </div>
 

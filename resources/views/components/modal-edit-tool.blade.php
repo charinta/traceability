@@ -96,9 +96,9 @@
 
                     {{-- <img id="image-edit" class="uploaded-image" src="#" alt="Uploaded Image" hidden
                         style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;"> --}}
-                    @foreach ($tool as $tol)
-                        @if ($tol->image_check)
-                            <img id="image-edit" class="uploaded-image" src="{{ asset($tol->image_check) }}"
+                    @foreach ($tool as $img)
+                        @if ($img->image_check)
+                            <img id="image-edit" class="uploaded-image" src="{{ asset($img->image_check) }}"
                                 alt="Uploaded Image"
                                 style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
                         @else
@@ -107,7 +107,32 @@
                         @endif
                         {{-- <div class="alert alert-danger mt-2 d-none" id="alert-image-edit" role="alert"></div> --}}
                     @endforeach
+                    {{-- <script>
+                        const ImageInput1 = document.getElementById('image_check');
+                        // Function to handle image preview
+                        function previewImage1(event) {
+                            const input1 = event.target;
+                            const previewImage1 = document.getElementById('uploaded-image');
 
+                            if (input.files && input.files[0]) {
+                                const reader1 = new FileReader();
+
+                                reader1.onload = function(e) {
+                                    previewImage1.src = e.target.result;
+                                    previewImage1.hidden = false;
+                                };
+
+                                reader1.readAsDataURL(input.files[0]);
+                            } else {
+                                previewImage1.src = '#';
+                                previewImage1.hidden = true;
+                            }
+                        }
+
+                        // Add an event listener to the file input
+                        const fileInput1 = document.getElementById('image_check');
+                        fileInput1.addEventListener('change', previewImage);
+                    </script> --}}
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">Remark</label>
@@ -184,9 +209,33 @@
             let grinding_ct = $('#grinding-edit').val();
             let setting_ct = $('#setting-edit').val();
             let image_check = $('#image-edit').val();
+
+            // var input = document.getElementById("image-edit");
+            // var fReader = new FileReader();
+            // fReader.readAsDataURL(input.files[0]);
+            // fReader.onloadend = function(event) {
+            //     var img = document.getElementById("image-edit");
+            //     img.src = event.target.result;
+            // }
+
+            // var imgpath = document.getElementById("image-input").value;
+            // var newPath = imgpath.replace("C:\\fakepath\\", "")
+
+            let imageInput = $('#image-edit')[0];
+            let imageFile = imageInput.files[0];
+            let formData = new FormData();
+            // ... (append other form data)
+            if (imageInput.files.length > 0) {
+                let imgpath = imageInput.value;
+                let newPath = 'assets/img/image_check/' + imgpath.replace('C:\\fakepath\\', '');
+                formData.append('image_check', imageFile,
+                    newPath); // Append the image with the new path
+            }
+
             let remark = $('#remark-edit').val();
             let token = $("meta[name='csrf-token']").attr("content");
             // console.log(token);
+
 
             $.ajax({
                 url: `/register-tool/${id}`,
@@ -213,6 +262,9 @@
                 },
                 success: function(response) {
                     location.reload();
+                    $('#image-edit').attr('src', 'assets/img/image_check/' + imageInput
+                        .dataset.filename);
+                    $('#image-edit').removeAttr('hidden'); // Show the image
 
                     let tool = `
                           <tr id="index_${response.data.id}">
@@ -254,8 +306,9 @@
                         $('#alert-no-draw-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-no-draw-edit').html(error.responseJSON.no_drawing_tool[
-                            0]);
+                        $('#alert-no-draw-edit').html(error.responseJSON
+                            .no_drawing_tool[
+                                0]);
                     }
                     if (error.responseJSON.tool_type[0]) {
 
@@ -282,7 +335,8 @@
                         $('#alert-diameter-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-diameter-edit').html(error.responseJSON.tool_diameter[0]);
+                        $('#alert-diameter-edit').html(error.responseJSON.tool_diameter[
+                            0]);
                     }
                     if (error.responseJSON.tool_lifetime_std[0]) {
 
@@ -291,8 +345,9 @@
                         $('#alert-lifetime-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-lifetime-edit').html(error.responseJSON.tool_lifetime_std[
-                            0]);
+                        $('#alert-lifetime-edit').html(error.responseJSON
+                            .tool_lifetime_std[
+                                0]);
                     }
                     if (error.responseJSON.tool_frequency_std[0]) {
 
@@ -329,8 +384,9 @@
                         $('#alert-holder-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-holder-edit').html(error.responseJSON.no_drawing_holder[
-                            0]);
+                        $('#alert-holder-edit').html(error.responseJSON
+                            .no_drawing_holder[
+                                0]);
                     }
                     if (error.responseJSON.washing_ct[0]) {
 
@@ -348,7 +404,8 @@
                         $('#alert-grinding-edit').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-grinding-edit').html(error.responseJSON.grinding_ct[0]);
+                        $('#alert-grinding-edit').html(error.responseJSON.grinding_ct[
+                            0]);
                     }
                     if (error.responseJSON.setting_ct[0]) {
 

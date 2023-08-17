@@ -110,7 +110,7 @@
                                     const batasAtas = document.getElementById('batas_atas');
                                     const batasBawah = document.getElementById('batas_bawah');
                                     const standardStringInput = document.getElementById('standard-string');
-                                   // const remarkImage = document.getElementById('remark');
+                                    // const remarkImage = document.getElementById('remark');
 
                                     radioButtons.forEach((radioButton) => {
                                         radioButton.addEventListener('change', function() {
@@ -119,14 +119,14 @@
                                             batasAtas.disabled = this.value !== 'Standard Value';
                                             batasBawah.disabled = this.value !== 'Standard Value';
                                             standardStringInput.disabled = this.value !== 'Standard String';
-                                        //    remarkImage.disabled = this.value !== 'Standard Image';
+                                            //    remarkImage.disabled = this.value !== 'Standard Image';
 
                                             standardValueInput.required = this.value === 'Standard Value';
                                             unitDropdown.required = this.value === 'Standard Value';
                                             batasAtas.required = this.value === 'Standard Value';
                                             batasBawah.required = this.value === 'Standard Value';
                                             standardStringInput.required = this.value === 'Standard String';
-                                         //   remarkImage.required = this.value === 'Standard Image';
+                                            //   remarkImage.required = this.value === 'Standard Image';
                                         });
                                     });
                                 </script>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                           <table class="table align-items-center justify-content-center mb-0 table-striped">
+                            <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -182,32 +182,36 @@
                                 </thead>
                                 <tbody class="text-center">
                                     @foreach ($standar as $standard)
-                                        <tr class="text-center">
+                                        <tr class="text-center" id="{{ 'index_' . $standard->id }}">
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->pos_name }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->item_check }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $standard->standard_check }}</td>
-                                           <td class="text-xs font-weight-bold mb-0">
-                                                <span class="badge badge-sm {{ $standard->status === 'active' ? 'bg-info' : 'bg-secondary' }}">
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                <span
+                                                    class="badge badge-sm {{ $standard->status === 'active' ? 'bg-info' : 'bg-secondary' }}">
                                                     {{ $standard->status === 'active' ? 'Active' : 'Inactive' }}
                                                 </span>
                                             </td>
 
-                                             <td class="text-xs font-weight-bold mb-0">
-                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                        action="{{ route('register-standar.destroy', $standard->id) }}"
-                                                        method="POST">
-                                                        {{-- icon edit --}}
-                                                        <a href="{{ route('register-standar.edit', $standard->id) }}"
-                                                            class="btn btn-sm btn-primary fa fa-edit">
-                                                        </a>
-                                                        {{-- icon delete --}}
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                    action="{{ route('register-standar.destroy', $standard->id) }}"
+                                                    method="POST">
+                                                    {{-- icon edit --}}
+                                                    {{-- <a href="{{ route('register-standar.edit', $standard->id) }}"
+                                                        class="btn btn-sm btn-primary fa fa-edit">
+                                                    </a> --}}
+                                                    <a href="javascript:void(0)" id="btn-edit-standar"
+                                                        data-id="{{ $standard->id }}"
+                                                        class="btn btn-edit-standar btn-primary btn-sm fa fa-edit"></a>
+                                                    {{-- icon delete --}}
 
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
-                                                    </form>
-                                                </td>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger fa fa-trash"></button>
+                                                </form>
+                                            </td>
                                     @endforeach
                                     </tr>
 
@@ -219,7 +223,7 @@
                         </div>
                     </div>
                 </div>
-
+                @include('components.modal-edit-standar')
                 <!-- Pagination Section -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
