@@ -55,19 +55,17 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @foreach ($getLineNames as $getLine)
+                                        <option value="{{ $getLine }}">{{ $getLine }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @foreach ($getOPNames as $getOP)
+                                        <option value="{{ $getOP }}">{{ $getOP }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">

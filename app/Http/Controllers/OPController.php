@@ -37,6 +37,11 @@ class OPController extends Controller
     }
 
 
+    public function getOP()
+    {
+        $getOPNames = OP::pluck('op');
+        return $getOPNames;
+    }
 
     public function showTPData($id)
     {

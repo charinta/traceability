@@ -62,20 +62,23 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="1" @if ($tool->line === '1') selected @endif>1</option>
-                                    <option value="2" @if ($tool->line === '2') selected @endif>2</option>
-                                    <option value="3" @if ($tool->line === '3') selected @endif>3</option>
-                                    <option value="4" @if ($tool->line === '4') selected @endif>4</option>
+                                    @foreach ($getLineNames as $getLine)
+                                            <option value="{{ $getLine }}"
+                                                @if ($tool->line === $getLine) selected @endif>
+                                                {{ $getLine }}
+                                            </option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value=""></option>
-                                    <option value="1" @if ($tool->op === '1') selected @endif>1</option>
-                                    <option value="2" @if ($tool->op === '2') selected @endif>2</option>
-                                    <option value="3" @if ($tool->op === '3') selected @endif>3</option>
-                                    <option value="4" @if ($tool->op === '4') selected @endif>4</option>
+                                    @foreach ($getOPNames as $getOP)
+                                            <option value="{{ $getOP }}"
+                                                @if ($tool->OP === $getOP) selected @endif>
+                                                {{ $getOP }}
+                                            </option>
+                                        @endforeach
                                 </select>
                             </div>
                             <div class="form-group">

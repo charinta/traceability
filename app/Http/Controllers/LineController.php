@@ -35,6 +35,12 @@ class LineController extends Controller
         return redirect()->route('register-line.index');
     }
 
+    public function getLine()
+    {
+        $getLineNames = Line::pluck('line');
+        return $getLineNames;
+    }
+
     public function showOpData($id)
     {
         $line = Line::findOrFail($id);

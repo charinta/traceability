@@ -48,20 +48,23 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Line</label>
                     <select class="form-select" id="line-edit">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                        @foreach ($getLineNames as $getLine)
+                                            <option value="{{ $getLine }}" >
+                                                {{ $getLine }}
+                                            </option>
+                                        @endforeach
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-line-edit" role="alert"></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">OP</label>
                     <select class="form-select" id="op-edit">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                       @foreach ($getOPNames as $getOP)
+                                            <option value="{{ $getOP }}">
+                                                {{ $getOP }}
+                                            </option>
+                                        @endforeach
+                    </select>
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-op-edit" role="alert"></div>
                 </div>
