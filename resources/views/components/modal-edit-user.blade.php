@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Role</label>
                     <select class="form-select" name="role" id="role-edit">
-                        <option value="Admin">Admin
+                        <option value="admin">Admin
                         </option>
                         <option value="User">User
                         </option>
