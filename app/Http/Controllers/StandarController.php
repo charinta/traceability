@@ -21,7 +21,12 @@ class StandarController extends Controller
 
     public function show(Standar $standar, $id)
     {
-        return view('register-standar', compact('standar'));
+        $standar = Standar::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Item',
+            'data'    => $standar
+        ]);
     }
 
     public function search(Request $request)
@@ -99,31 +104,43 @@ class StandarController extends Controller
     // update data
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'pos_name' => 'required',
-            'item_check' => 'required',
-            'status' => 'required',
-        ]);
-
         $standar = Standar::findOrFail($id);
+
+        $validate = $request->validate([
+            'pos_name' => ['required'],
+            'item_check' => ['required'],
+            'status' => ['required'],
+        ]);
+        
+        // $this->validate($request, [
+        //     'pos_name' => 'required',
+        //     'item_check' => 'required',
+        //     'status' => 'required',
+        // ]);
 
         // Fetch the current status_data from the database
         $currentStatusData = $standar->status_data;
 
         if ($request->input('check') === 'Standard Value') {
-            $this->validate($request, [
-                'standard_check' => 'required',
-                'unit-dropdown' => 'required',
-                'batas_atas' => 'required',
-                'batas_bawah' => 'required',
+            $validate = $request->validate([
+                'standard_check' => ['required'],
+                'unit-dropdown' => ['required'],
+                'batas_atas' => ['required'],
+                'batas_bawah' => ['required'],
+
             ]);
+            // $this->validate($request, [
+            // ]);
 
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
             $statusData = 'int';
+
         } elseif ($request->input('check') === 'Standard String') {
-            $this->validate($request, [
-                'standard_check' => 'required',
+            $validate = $request->validate([
+                'standard_check' => ['required'],
             ]);
+            // $this->validate($request, [
+            // ]);
 
             $combinedValue = $request->input('standard_check');
             $statusData = 'string';
@@ -139,13 +156,26 @@ class StandarController extends Controller
             'batas_bawah' => $request->input('batas_bawah', 0),
         ]);
 
-        $data = $request->all();
-        $data['standard_check'] = $combinedValue;
-        $data['date_modify'] = Carbon::now('Asia/Jakarta');
+        // $data = $request->all();
+        // $data['standard_check'] = $combinedValue;
+        // $data['date_modify'] = Carbon::now('Asia/Jakarta');
 
-        $standar->update($data);
+        $standar->update([
+            'pos_name' => $request->pos_name,
+            'item_check' => $request->item_check,
+            'status' => $request->status,
+            'standard_check' => $request->standard_check,
+            'batas_atas' => $request->batas_atas,
+            'batas_bawah' => $request->batas_bawah,
+            'status_data' => $request->status_data,
+            'remark' => $request->remark,
+        ]);
 
-        return redirect()->route('register-standar.index')->with(['success' => 'Data Berhasil Diperbarui!']);
+         return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Diudapte!',
+            'data'    => $standar
+        ]);
     }
 
 

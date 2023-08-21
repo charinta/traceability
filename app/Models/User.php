@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class User extends Authenticatable
 {
     use HasFactory, HasRoles;
-    //use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
     const user = 'user';
     const admin = 'admin';
 

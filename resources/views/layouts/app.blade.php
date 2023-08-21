@@ -38,6 +38,9 @@
     <link href="<?= url('') ?>/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="<?= url('') ?>/assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    </style>
 
 </head>
 

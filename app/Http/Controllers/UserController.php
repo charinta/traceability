@@ -25,7 +25,12 @@ class UserController extends Controller
 
     public function show(User $user, $id)
     {
-        return view('user-account', compact('user'));
+        $user = User::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Detail Data Item',
+            'data'    => $user
+        ]);
     }
 
     // menyimpan data/menyimpan insert data 
@@ -84,23 +89,58 @@ class UserController extends Controller
     }
 
     // update data
+    // public function update(Request $request, $id)
+    // {
+    //     $user = User::findOrFail($id);
+
+    //     $validatedData = $request->validate([
+    //         'username' => 'required',
+    //         'npk' => 'required',
+    //         'pos' => 'required',
+    //         'role' => 'required',
+    //         'password' => 'required',
+    //     ]);
+
+    //     $validatedData['password'] = Hash::make($request->input('password'));
+    //     $user->update($validatedData);
+
+    //     return redirect()->route('user-account.index')->with('success', 'User account updated successfully.');
+    // }
+
     public function update(Request $request, $id)
     {
+        // Find Holder
         $user = User::findOrFail($id);
 
-        $validatedData = $request->validate([
-            'username' => 'required',
-            'npk' => 'required',
-            'pos' => 'required',
-            'role' => 'required',
-            'password' => 'required',
+        // Validate
+        $validate = $request->validate([
+            'username' => ['required'],
+            'npk' => ['required'],
+            'pos' => ['required'],
+            'role' => ['required'],
+            'password' => ['required'],
         ]);
 
-        $validatedData['password'] = Hash::make($request->input('password'));
-        $user->update($validatedData);
+        // Updating
+        $user->update([
+            'username' => $request->username,
+            'npk' => $request->npk,
+            'pos' => $request->pos,
+            'role' => $request->role,
+            'password' => $request->password,
+        ]);
 
-        return redirect()->route('user-account.index')->with('success', 'User account updated successfully.');
+        $validate['password'] = Hash::make($request->input('password'));
+        $user->update($validate);
+
+        // Response
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Berhasil Diudapte!',
+            'data'    => $user
+        ]);
     }
+
 
     // hapus data
     public function destroy(User $user, $id)

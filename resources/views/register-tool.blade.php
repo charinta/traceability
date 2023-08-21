@@ -116,48 +116,48 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                    <label for="image_check" class="form-control-label text-light">
-                                        Image Check</label>
-                                    <input class="form-control" type="file" name="image_check" id="image_check"
-                                        accept="image/*" >
-                                    <input type="hidden" name="selected_option" value="Image Check">
+                                <label for="image_check" class="form-control-label text-light">
+                                    Image Check</label>
+                                <input class="form-control" type="file" name="image_check" id="image_check"
+                                    accept="image/*">
+                                <input type="hidden" name="selected_option" value="Image Check">
 
-                                    <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
-                                        hidden
-                                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="remark" class="form-control-label text-light">Remark</label>
-                                    <input class="form-control" type="text" name="remark" id="remark" >
-                                </div>
+                                <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
+                                    hidden
+                                    style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
+                            </div>
 
-                                <script>
-                                    const ImageInput = document.getElementById('image_check');
-                                    // Function to handle image preview
-                                    function previewImage(event) {
-                                        const input = event.target;
-                                        const previewImage = document.getElementById('uploaded-image');
+                            <div class="form-group">
+                                <label for="remark" class="form-control-label text-light">Remark</label>
+                                <input class="form-control" type="text" name="remark" id="remark">
+                            </div>
 
-                                        if (input.files && input.files[0]) {
-                                            const reader = new FileReader();
+                            <script>
+                                const ImageInput = document.getElementById('image_check');
+                                // Function to handle image preview
+                                function previewImage(event) {
+                                    const input = event.target;
+                                    const previewImage = document.getElementById('uploaded-image');
 
-                                            reader.onload = function(e) {
-                                                previewImage.src = e.target.result;
-                                                previewImage.hidden = false;
-                                            };
+                                    if (input.files && input.files[0]) {
+                                        const reader = new FileReader();
 
-                                            reader.readAsDataURL(input.files[0]);
-                                        } else {
-                                            previewImage.src = '#';
-                                            previewImage.hidden = true;
-                                        }
+                                        reader.onload = function(e) {
+                                            previewImage.src = e.target.result;
+                                            previewImage.hidden = false;
+                                        };
+
+                                        reader.readAsDataURL(input.files[0]);
+                                    } else {
+                                        previewImage.src = '#';
+                                        previewImage.hidden = true;
                                     }
+                                }
 
-                                    // Add an event listener to the file input
-                                    const fileInput = document.getElementById('image_check');
-                                    fileInput.addEventListener('change', previewImage);
-                                </script>
+                                // Add an event listener to the file input
+                                const fileInput = document.getElementById('image_check');
+                                fileInput.addEventListener('change', previewImage);
+                            </script>
 
                             <div class="text-center">
                                 <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
@@ -213,7 +213,7 @@
                                 {{-- table body --}}
                                 <tbody class="text-center">
                                     @foreach ($tool as $tol)
-                                        <tr>
+                                        <tr id="{{ 'index_' . $tol->id }}">
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->id }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->date_created }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->no_drawing_tool }}</td>
@@ -224,9 +224,12 @@
                                                     action="{{ route('register-tool.destroy', $tol->id) }}"
                                                     method="POST">
                                                     {{-- icon edit --}}
-                                                    <a href="{{ route('register-tool.edit', $tol->id) }}"
+                                                    {{-- <a href="{{ route('register-tool.edit', $tol->id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a>
+                                                    </a> --}}
+                                                    <a href="javascript:void(0)" id="btn-edit-tool"
+                                                        data-id="{{ $tol->id }}"
+                                                        class="btn btn-edit-tool btn-primary btn-sm fa fa-edit"></a>
                                                     {{-- icon delete --}}
 
                                                     @csrf
@@ -243,6 +246,7 @@
                         </div>
                     </div>
                 </div>
+                @include('components.modal-edit-tool')
                 <!-- Pagination Section -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
