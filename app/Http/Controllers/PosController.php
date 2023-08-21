@@ -75,6 +75,6 @@ class PosController extends Controller
     {
         $tbl_pos = Pos::findOrFail($id);
         $tbl_pos->delete();
-        return redirect()->route('register-pos');
+        return redirect()->route('register-pos.index');
     }
 }

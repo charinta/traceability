@@ -58,15 +58,25 @@ class UserController extends Controller
             'role' => 'required',
             'password' => 'required',
         ]);
+        $insertedRole = $request->input('role');
+
+        // Pengecekan dan assign role
+        if ($insertedRole === "Admin") {
+            $assignRole = "admin";
+        } else {
+            $assignRole = "user";
+        }
 
         $data = $request->all();
         $data['password'] = Hash::make($request->input('password'));
         $data['date_created'] = Carbon::now('Asia/Jakarta');
         $data['date_modify'] = Carbon::now('Asia/Jakarta');
+        $data['role'] = $assignRole;
         $user = User::create($data);
 
         return redirect()->route('user-account.index');
     }
+
 
     // view ke halaman edit
     public function edit($id)

@@ -24,9 +24,9 @@
                            <form action="{{ route('register-op.store', $line->id) }}" method="POST">
                           @csrf
                                 <div class="form-group">
-                                     <input type="hidden" name="line" value="{{ $line->id }}">
-                                    <label for="OP" class="form-control-label text-light">OP</label>
-                                    <input class="form-control" type="text" name="OP" id="OP">
+                                  
+                                    <label for="op" class="form-control-label text-light">OP</label>
+                                    <input class="form-control" type="text" name="op" id="op">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Insert
@@ -42,7 +42,7 @@
                 <div class="col-12 col-xl-9">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0">
-                            <h6>OP Table for Line: {{ $line->line }}</h6>
+                            <h6>OP Table for Line: {{ $line->id }}</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
@@ -63,23 +63,19 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
-                                        @foreach ($OP as $op)
+                                        @foreach ($ops as $op)
                                             <tr>
                                                 <td>{{ $op->id }}</td>
                                                 <td>{{ $op->date_created }}</td>
-                                                <td>{{ $op->line }}</td>
+                                                <td>{{ $line->line}}</td>
                                                 <td>{{ $op->op }}</td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('register-op.destroy', $op->id) }}"
-                                                        method="POST">
-                                                        <a href="{{ route('register-op.edit', $op->id) }}"
-                                                            class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                        <a href="{{ route('tool-process.op', ['id' => $op->id]) }}"
-                                                            class="btn btn-sm btn-info fa fa-eye"></a>
+                                                    <form action="{{ route('register-op.destroy', $op->id) }}" method="POST">
+                                                        <a href="{{ route('register-op.edit', $op->id) }}" class="btn btn-sm btn-primary fa fa-edit"></a>
+                                                        <a href="{{ route('tool-process.op', $op->id)}}" class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                             </tr>

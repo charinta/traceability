@@ -35,6 +35,12 @@ class LineController extends Controller
         return redirect()->route('register-line.index');
     }
 
+    public function getLine()
+    {
+        $getLineNames = Line::pluck('line');
+        return $getLineNames;
+    }
+
     public function showOpData($id)
     {
         $line = Line::findOrFail($id);
@@ -51,16 +57,18 @@ class LineController extends Controller
     }
 
     // update data
-    public function update(Request $request, Line $line)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'line' => 'required',
         ]);
 
+        $line = Line::findOrFail($id);
         $line->update($validatedData);
 
         return redirect()->route('register-line.index');
     }
+
 
     // delete data/hapus data
     public function destroy(Line $line)

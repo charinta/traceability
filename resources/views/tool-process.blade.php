@@ -6,7 +6,7 @@
 
             {{-- button back --}}
             <div class="card card-plain col-1">
-                <a href="{{ route('register-op.line', ['id' => $OP->id]) }}" class="btn btn-primary active fa fa-arrow-left"
+                <a href="{{ route('register-op.line', ['line_id' => $ops->line_id]) }}" class="btn btn-primary active fa fa-arrow-left"
                     role="button" aria-pressed="true"></a>
             </div>
 
@@ -21,8 +21,8 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('tool-process.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                           <form action="{{ route('tool-process.store',['line_id' => $line_id, 'op_id' => $ops->id]) }}" method="POST">
+                             @csrf
                                 <div class="form-group">
                                     <label for="tool_process" class="form-control-label text-light">Tool Process</label>
                                     <input class="form-control" type="tool_process" name="tool_process" id="Tool Process">
@@ -42,7 +42,7 @@
                 <div class="col-12 col-xl-9">
                     <div class="card mb-4 mt-n4">
                         <div class="card-header pb-0">
-                            <h6>Tool Process for OP: {{ $OP->op }}</h6>
+                            <h6>Tool Process for OP: {{ $ops->op }}</h6>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
@@ -69,13 +69,13 @@
                                             <tr>
                                                 <td>{{ $tp->id }}</td>
                                                 <td>{{ $tp->date_created }}</td>
-                                                <td>{{ $tp->line }}</td>
-                                                <td>{{ $tp->OP }}</td>
+                                                <td>{{ $line_name}}</td>
+                                                <td>{{ $ops->op }}</td>
                                                 <td>{{ $tp->tool_process }}</td>
                                                 <td class="text-center">
                                                     <form action="{{ route('tool-process.destroy', $tp->id) }}"
                                                         method="POST">
-                                                        <a href="{{ route('tool-process.index', $tp->id) }}"
+                                                        <a href="{{ route('tool-process.edit', $tp->id) }}"
                                                             class="btn btn-sm btn-primary fa fa-edit"></a>
                                                         @csrf
                                                         @method('DELETE')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Holder;
 use App\Http\Controllers\HolderController;
+use App\Http\Controllers\LineController;
 use App\Models\Tool;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,13 +14,19 @@ use Carbon\Carbon;
 class ToolController extends Controller
 {
     // melihat data Tool
-    public function index(HolderController $HolderController)
+    public function index(HolderController $HolderController, LineController $LineController, OPController $OPController)
     {
         $tool = Tool::paginate(10);
         // agar tabel register holder terbaca di form
         $HolderController = app(HolderController::class);
         $noDrawingHold = $HolderController->getNoDraw();
-        return view('register-tool', compact('tool', 'noDrawingHold'));
+
+        $LineController = app(LineController::class);
+        $getLineNames = $LineController->getLine();
+
+        $OPController = app(OPController::class);
+        $getOPNames = $OPController->getOP();
+        return view('register-tool', compact('tool', 'noDrawingHold', 'getLineNames', 'getOPNames'));
     }
 
     // public function show(Tool $tool, $id)
@@ -35,6 +42,19 @@ class ToolController extends Controller
             'message' => 'Detail Data Item',
             'data'    => $tool
         ]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $HolderController = app(HolderController::class);
+        $noDrawingHold = $HolderController->getNoDraw();
+
+        $tool = Tool::where('no_drawing_tool', 'like', "%" . $keyword . "%")
+            ->orWhere('tool_type', 'like', "%" . $keyword . "%")
+            ->orWhere('tool_lifetime_std', 'like', "%" . $keyword . "%")
+            ->paginate(10);
+        return view('register-tool', compact('tool', 'noDrawingHold'))->with('i', ($tool->currentPage() - 1) * $tool->perPage());
     }
 
     // menyimpan data/menyimpan insert data 
@@ -81,7 +101,13 @@ class ToolController extends Controller
         $tool = Tool::findOrFail($id);
         $HolderController = app(HolderController::class);
         $noDrawingHold = $HolderController->getNoDraw();
-        return view('edit-register-tool', compact('tool', 'noDrawingHold'));
+
+        $LineController = app(LineController::class);
+        $getLineNames = $LineController->getLine();
+
+        $OPController = app(OPController::class);
+        $getOPNames = $OPController->getOP();
+        return view('edit-register-tool', compact('tool', 'noDrawingHold', 'getLineNames', 'getOPNames'));
     }
 
     // update data
@@ -121,7 +147,7 @@ class ToolController extends Controller
     //     return redirect()->route('register-tool.index')->with(['success' => 'Data Berhasil Diubah!']);
     // }
 
-    
+
     public function update(Request $request, $id)
     {
         // Find Tool
@@ -145,16 +171,21 @@ class ToolController extends Controller
             'remark' => ['required'],
         ]);
 
+
         if ($request->hasFile('image_check')) {
             $uploadedImage = $request->file('image_check');
-            $imagePath = public_path('assets/img/image_check/'); // Tentukan folder penyimpanan gambar
-
+            $imagePath = public_path('assets/img/image_check/');
             $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
             $uploadedImage->move($imagePath, $imageName);
 
+            // Delete the old image file if it exists
+            if ($tool->image_check) {
+                unlink(public_path($tool->image_check));
+            }
 
             $tool->image_check = 'assets/img/image_check/' . $imageName;
         }
+
         // Updating
         $tool->update([
             'no_drawing_tool' => $request->no_drawing_tool,

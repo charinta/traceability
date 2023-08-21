@@ -8,31 +8,33 @@ use Carbon\Carbon;
 
 class OP extends Model
 {
-    use HasFactory;
-
-    // agar date_created bisa terbaca, bukan pake created_at
     protected $createdAtColumn = 'date_created';
+    use HasFactory;
     public $timestamps = false;
-
-    // membaca data pada tabel
-    protected $table = 'tbl_register_line_op';
-
-    // menentukan variabel yang diisi
+    protected $table = 'tbl_op';
     protected $fillable = [
-        'OP',
+        'line_id',
+        'op',
     ];
+
+    // app/Models/OP.php
+
+    public function ToolProcess()
+    {
+        return $this->hasMany(ToolProcess::class, 'op_id');
+    }
 
     // agar date_created bisa terisi, bukan pake created_at
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($OP) {
-            $OP->date_created = Carbon::now('Asia/Jakarta');
+        static::creating(function ($ops) {
+            $ops->date_created = Carbon::now('Asia/Jakarta');
         });
 
-        static::updating(function ($OP) {
-            $OP->date_modify = Carbon::now('Asia/Jakarta');
+        static::updating(function ($ops) {
+            $ops->date_modify = Carbon::now('Asia/Jakarta');
         });
     }
 }

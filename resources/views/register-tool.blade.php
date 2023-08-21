@@ -55,19 +55,17 @@
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
                                 <select class="form-select" name="line">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @foreach ($getLineNames as $getLine)
+                                        <option value="{{ $getLine }}">{{ $getLine }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
                                 <select class="form-select" name="op">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
+                                    @foreach ($getOPNames as $getOP)
+                                        <option value="{{ $getOP }}">{{ $getOP }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -174,12 +172,26 @@
             <div class="col-12 col-xl-9">
                 <div class="card mb-4 mt-n4">
                     <div class="card-header pb-0">
-                        <h6>Tool Table</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">Tool Table</h6>
+                            <form class="form-inline" method="get" action="{{ route('register-tool.search') }}">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <div class="input-group mb-4">
+                                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                <input class="form-control" placeholder="Search" type="text"
+                                                    name="search" value="{{ request('search') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0">
-                                {{-- table header --}}
+                           <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">

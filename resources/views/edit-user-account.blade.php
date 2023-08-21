@@ -42,9 +42,9 @@
                                     <label for="role" class="form-control-label text-light">Role</label>
                                     <br>
                                     <select class="form-select" name="role">
-                                        <option value="Admin" @if ($user->role === 'Admin') selected @endif>Admin
+                                        <option value="Admin" @if ($user->role === 'admin') selected @endif>Admin
                                         </option>
-                                        <option value="User" @if ($user->role === 'User') selected @endif>User
+                                        <option value="User" @if ($user->role === 'user') selected @endif>User
                                         </option>
                                     </select>
                                 <div class="form-group">

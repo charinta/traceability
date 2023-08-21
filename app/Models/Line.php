@@ -15,12 +15,17 @@ class Line extends Model
     public $timestamps = false;
 
     // membaca data pada tabel
-    protected $table = 'tbl_register_line_op';
+    protected $table = 'tbl_line';
 
     // menentukan variabel yang diisi
     protected $fillable = [
         'line',
     ];
+
+    public function ops()
+    {
+        return $this->hasMany(OP::class, 'line_id');
+    }
 
     // agar date_created bisa terisi, bukan pake created_at
     protected static function boot()
@@ -33,7 +38,6 @@ class Line extends Model
 
         static::updating(function ($line) {
             $line->date_modify = Carbon::now('Asia/Jakarta');
-});
-}
-
+        });
+    }
 }

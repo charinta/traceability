@@ -70,7 +70,7 @@
                                                     <a href="{{ route('register-line.edit', $lin->id) }}"
                                                         class="btn btn-sm btn-primary fa fa-edit">
                                                     </a>
-                                                     <a href="{{ route('register-op.index', $lin->line) }}"  }}"
+                                                     <a href="{{ route('register-op.line', $lin->id) }}"  }}"
                                                     class="btn btn-sm btn-info fa fa-eye"></a>
                                                     {{-- icon delete --}}
 

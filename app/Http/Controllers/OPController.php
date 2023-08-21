@@ -13,59 +13,70 @@ use Carbon\Carbon;
 class OPController extends Controller
 {
     // melihat data OP
-    public function index(Line $line)
+    public function index($line_id)
     {
-        $OP = OP::where('line', $line->line)->paginate(10);
-        return view('register-op', compact('OP', 'line'));
+        $line = Line::findOrFail($line_id);
+        $ops = $line->ops()->paginate(10);
+        return view('register-op', compact('ops', 'line'));
     }
 
-    public function store(Request $request, Line $line): RedirectResponse
+
+    public function store(Request $request, $line_id): RedirectResponse
     {
         $this->validate($request, [
-            'line' => 'required | exists:line,id',
-            'OP' => 'required',
+            'op' => 'required',
         ]);
 
         $data = $request->all();
-        $data['line'] = $line->line;
-        $OP = OP::create($data);
+        $data['line_id'] = $line_id; // Mengambil nilai dari URL
+        $data['date_created'] = Carbon::now('Asia/Jakarta');
+        $data['date_modify'] = Carbon::now('Asia/Jakarta');
+        $ops = OP::create($data);
 
-        return redirect()->route('register-op.index', $line->id);
+        return redirect()->route('register-op.line', $line_id);
+    }
+
+
+    public function getOP()
+    {
+        $getOPNames = OP::pluck('op');
+        return $getOPNames;
     }
 
     public function showTPData($id)
     {
-        $OP = OP::findOrFail($id);
+        $ops = OP::findOrFail($id);
         $tool_process = ToolProcess::where('id', $id)->paginate(10);
 
-        return view('tool-process', ['OP' => $OP, 'tool_process' => $tool_process]);
+        return view('tool-process', ['ops' => $ops, 'tool_process' => $tool_process]);
     }
 
     // view ke halaman update
     public function edit($id)
     {
-        $OP = OP::findOrFail($id);
-        return view('edit-register-op', compact('OP'));
+        $ops = OP::findOrFail($id);
+        return view('edit-register-op', compact('ops'));
     }
 
     // update data
-    public function update(Request $request, OP $OP, $id)
+    public function update(Request $request, $id)
     {
-        $OP = OP::findOrFail($id);
+        $ops = OP::findOrFail($id);
 
         $validatedData = $request->validate([
             'op' => 'required',
         ]);
 
-        $OP->update($validatedData);
+        $ops->update($validatedData);
 
-        return redirect()->route('register-OP.index');
+        return redirect()->route('register-op.line', $ops->line_id); // Redirect back to where you want to go
     }
 
-    public function destroy(OP $OP)
-    {
-        $OP->delete();
 
-        return redirect()->route('register-op.index');
+    public function destroy(OP $ops)
+    {
+        $ops->delete();
+
+        return redirect()->route('register-op.line');
     }
 }

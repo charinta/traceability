@@ -18,7 +18,6 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     const user = 'user';
     const admin = 'admin';
-   
 
     protected $createdAtColumn = 'date_created';
     public $timestamps = false;

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\HistoricalDataController;
+use App\Http\Controllers\ToolPositionController;
+use App\Http\Controllers\HolderPositionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Inertia\Inertia;
@@ -30,7 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('register-line', \App\Http\Controllers\LineController::class);
     // Route::get('register-op/{line}', '\App\Http\Controllers\LineController@showOpData')->name('register-op.line');
-    Route::get('register-op/{line}', 'OPController@index')->name('register-op.line');
+    Route::get('register-op/{line_id}', '\App\Http\Controllers\OPController@index')->name('register-op.line');
 
     Route::resource('register-standar', StandarController::class);
     Route::get('register-standar.search', [StandarController::class, 'search'])->name('register-standar.search');
@@ -46,8 +49,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('register-holder', HolderController::class);
 
 
-    Route::resource('register-op', OpController::class);
-    Route::get('tool-process/{id}', '\App\Http\Controllers\OPController@showTPData')->name('tool-process.op');
+    Route::post('register-op/{line_id}', '\App\Http\Controllers\OPController@store')->name('register-op.store');
+    Route::delete('register-op/{id}', '\App\Http\Controllers\OPController@destroy')->name('register-op.destroy');
+    Route::get('register-op/{id}/edit', '\App\Http\Controllers\OPController@edit')->name('register-op.edit');
+    Route::put('register-op/{id}/update', '\App\Http\Controllers\OPController@update')->name('register-op.update');
+
+    Route::get('tool-process/{op_id}', '\App\Http\Controllers\ToolProcessController@index')->name('tool-process.op');
+    Route::post('tool-process/{line_id}/{op_id}', '\App\Http\Controllers\ToolProcessController@store')->name('tool-process.store');
+    Route::delete('tool-process/{id}', '\App\Http\Controllers\ToolProcessController@destroy')->name('tool-process.destroy');
+    Route::get('tool-process/{id}/edit', '\App\Http\Controllers\ToolProcessController@edit')->name('tool-process.edit');
+    Route::put('tool-process/{id}/update', '\App\Http\Controllers\ToolProcessController@update')->name('tool-process.update');
 
     Route::resource('register-pos', \App\Http\Controllers\PosController::class);
     Route::get('register-pos.search', [PosController::class, 'search'])->name('register-pos.search');
@@ -58,9 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('shift', ShiftController::class);
     Route::resource('shift', ShiftController::class);
 
-    Route::resource('tool-process', ToolProcessController::class);
-    //Route::get('tool-process.search', [ToolProcessController::class, 'search'])->name('tool-process.search');
-    Route::resource('tool-process', ToolProcessController::class);
 
     Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
     Route::get('register-tool.search', [ToolController::class, 'search'])->name('register-tool.search');
@@ -72,20 +80,16 @@ Route::middleware('auth')->group(function () {
     })->name('resume-dashboard');
 
     // view ke resume tool
-    Route::get('resume-tool', function () {
-        return view('resume-tool');
-    })->name('resume-tool');
+    Route::resource('resume-tool', \App\Http\Controllers\ToolPositionController::class);
+    Route::get('resume-tool.search', [ToolPositionController::class, 'search'])->name('resume-tool.search');
 
     // view ke resume holder
-    Route::get('resume-holder', function () {
-        return view('resume-holder');
-    })->name('resume-holder');
-
+    Route::resource('resume-holder', \App\Http\Controllers\HolderPositionController::class);
+    Route::get('resume-holder.search', [HolderPositionController::class, 'search'])->name('resume-holder.search');
 
     // view ke historical data
-    Route::get('historical-data', function () {
-        return view('historical-data');
-    })->name('historical-data');
+    Route::resource('historical-data', \App\Http\Controllers\HistoricalDataController::class);
+    Route::get('historical-data.search', [HistoricalDataController::class, 'search'])->name('historical-data.search');
 });
 
 require __DIR__ . '/auth.php';
