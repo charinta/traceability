@@ -49,7 +49,7 @@
                     <label class="control-label" for="name">Line</label>
                     <select class="form-select" id="line-edit">
                         @foreach ($getLineNames as $getLine)
-                                            <option value="{{ $getLine }}" >
+                                            <option value="{{ $getLine }}">
                                                 {{ $getLine }}
                                             </option>
                                         @endforeach
@@ -59,9 +59,9 @@
                 <div class="form-group">
                     <label class="control-label" for="name">OP</label>
                     <select class="form-select" id="op-edit">
-                       @foreach ($getOPNames as $getOP)
-                                            <option value="{{ $getOP }}">
-                                                {{ $getOP }}
+                       @foreach ($getLineNames as $getLine)
+                                            <option value="{{ $getLine }}">
+                                                {{ $getLine }}
                                             </option>
                                         @endforeach
                     </select>
