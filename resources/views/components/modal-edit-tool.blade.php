@@ -107,7 +107,7 @@
                         @endif
                         {{-- <div class="alert alert-danger mt-2 d-none" id="alert-image-edit" role="alert"></div> --}}
                     @endforeach
-                    {{-- <script>
+                    <script>
                         const ImageInput1 = document.getElementById('image_check');
                         // Function to handle image preview
                         function previewImage1(event) {
@@ -132,7 +132,7 @@
                         // Add an event listener to the file input
                         const fileInput1 = document.getElementById('image_check');
                         fileInput1.addEventListener('change', previewImage);
-                    </script> --}}
+                    </script>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">Remark</label>
@@ -208,7 +208,7 @@
             let washing_ct = $('#washing-edit').val();
             let grinding_ct = $('#grinding-edit').val();
             let setting_ct = $('#setting-edit').val();
-            let image_check = $('#image-edit').val();
+            let image_check = 'assets/img/image_check/' + $('#image-edit').val();
 
             // var input = document.getElementById("image-edit");
             // var fReader = new FileReader();
@@ -221,16 +221,16 @@
             // var imgpath = document.getElementById("image-input").value;
             // var newPath = imgpath.replace("C:\\fakepath\\", "")
 
-            let imageInput = $('#image-edit')[0];
-            let imageFile = imageInput.files[0];
-            let formData = new FormData();
-            // ... (append other form data)
-            if (imageInput.files.length > 0) {
-                let imgpath = imageInput.value;
-                let newPath = 'assets/img/image_check/' + imgpath.replace('C:\\fakepath\\', '');
-                formData.append('image_check', imageFile,
-                    newPath); // Append the image with the new path
-            }
+            // let imageInput = $('#image-edit')[0];
+            // let imageFile = imageInput.files[0];
+            // let formData = new FormData();
+            // // ... (append other form data)
+            // if (imageInput.files.length > 0) {
+            //     let imgpath = imageInput.value;
+            //     let newPath = 'assets/img/image_check/' + imgpath.replace('C:\\fakepath\\', '');
+            //     formData.append('image_check', imageFile,
+            //         newPath); // Append the image with the new path
+            // }
 
             let remark = $('#remark-edit').val();
             let token = $("meta[name='csrf-token']").attr("content");
@@ -262,9 +262,9 @@
                 },
                 success: function(response) {
                     location.reload();
-                    $('#image-edit').attr('src', 'assets/img/image_check/' + imageInput
-                        .dataset.filename);
-                    $('#image-edit').removeAttr('hidden'); // Show the image
+                    // $('#image-edit').attr('src', 'assets/img/image_check/' + imageInput
+                    //     .dataset.filename);
+                    // $('#image-edit').removeAttr('hidden'); // Show the image
 
                     let tool = `
                           <tr id="index_${response.data.id}">
