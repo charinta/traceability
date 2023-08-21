@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
+
 class ToolController extends Controller
 {
     // melihat data Tool

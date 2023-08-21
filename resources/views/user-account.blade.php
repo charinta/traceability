@@ -41,8 +41,8 @@
                                     <br>
                                     <select class="form-select" name="role">
                                         <option value="">---Pilih Role---</option>
-                                        <option value="Admin">admin</option>
-                                        <option value="User">user</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="User">User</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
