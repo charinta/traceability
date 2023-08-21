@@ -51,16 +51,18 @@ class LineController extends Controller
     }
 
     // update data
-    public function update(Request $request, Line $line)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'line' => 'required',
         ]);
 
+        $line = Line::findOrFail($id);
         $line->update($validatedData);
 
         return redirect()->route('register-line.index');
     }
+
 
     // delete data/hapus data
     public function destroy(Line $line)

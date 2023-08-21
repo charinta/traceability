@@ -4406,7 +4406,8 @@ fieldset:disabled .btn {
 .dropend,
 .dropstart,
 .dropup {
-    position: relative
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-toggle {
@@ -4437,17 +4438,19 @@ fieldset:disabled .btn {
     display: none;
     font-size: .875rem;
     list-style: none;
-    margin: 0;
+    margin-top: 0;
     min-width: 11rem;
-    padding: .5rem 0;
-    position: absolute;
+    padding: .1rem 0;
+    position: relative;
     text-align: left;
     z-index: 1000
 }
 
 .dropdown-menu[data-bs-popper] {
     left: 0;
-    margin-top: 1.625rem;
+    margin-top: 0.2rem;
+    margin-right: 3rem;
+    position: relative;
     top: 100%
 }
 
@@ -19318,7 +19321,7 @@ fieldset:disabled .btn {
 }
 
 .card .card-body {
-    font-family: Open Sans;
+    font-family: Poppins;
     padding: 1.5rem
 }
 
@@ -23116,7 +23119,7 @@ p {
 }
 
 .text-sans-serif {
-    font-family: Open Sans !important
+    font-family: Poppins !important
 }
 
 .text-monospace {

@@ -25,6 +25,18 @@ class ToolController extends Controller
     {
         return view('register-tool', compact('tool'));
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('search');
+        $HolderController = app(HolderController::class);
+        $noDrawingHold = $HolderController->getNoDraw();
+        $tool = Tool::where('no_drawing_tool', 'like', "%" . $keyword . "%")
+            ->orWhere('tool_type', 'like', "%" . $keyword . "%")
+            ->orWhere('tool_lifetime_std', 'like', "%" . $keyword . "%")
+            ->paginate(10);
+        return view('register-tool', compact('tool', 'noDrawingHold'))->with('i', ($tool->currentPage() - 1) * $tool->perPage());
+    }
     // menyimpan data/menyimpan insert data 
     public function store(Request $request, Tool $tool): RedirectResponse
     {
