@@ -44,23 +44,17 @@
                 <div class="form-group standard-input">
                     <label class="control-label" for="name">Standard Value</label>
                     <div class="input-group">
-                        @foreach ($standar as $stand)
-                            <input type="text" class="form-control" name="standard_check" style="margin-right: 7px"
-                                id="value-edit" disabled>
-                            <input type="hidden" name="selected_option" value="Standard Value">
-                            <div class="input-group-append">
-                                <select class="form-select" id="dropdown-edit" name="unit-dropdown" disabled>
-                                    <option value="cm">cm
-                                    </option>
-                                    <option value="inch">inch
-                                    </option>
-                                    <option value="m">m
-                                    </option>
-                                    <option value="ft">ft
-                                    </option>
-                                </select>
-                            </div>
-                        @endforeach
+                        <input type="text" class="form-control" name="standard_check" style="margin-right: 7px"
+                            id="value-edit" disabled>
+                        <input type="hidden" name="selected_option" value="Standard Value">
+                        <div class="input-group-append">
+                            <select class="form-select" id="dropdown-edit" name="unit-dropdown" disabled>
+                                <option value="cm" ${unitDropdown==='cm' ? 'selected' : '' }>cm</option>
+                                <option value="inch" ${unitDropdown==='inch' ? 'selected' : '' }>inch</option>
+                                <option value="m" ${unitDropdown==='m' ? 'selected' : '' }>m</option>
+                                <option value="ft" ${unitDropdown==='ft' ? 'selected' : '' }>ft</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="alert alert-danger mt-2 d-none" id="alert-value-edit" role="alert"></div>
                 </div>
@@ -102,27 +96,33 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
-        const radioButtons = document.querySelectorAll('input[name="check"]');
+
         const formElements = {
-            'Standard Value': [
-                'value-edit',
-                'dropdown-edit',
-                'batas-atas',
-                'batas-bawah'
-            ],
+            'Standard Value': ['value-edit', 'dropdown-edit', 'batas-atas', 'batas-bawah'],
             'Standard String': ['string-edit']
         };
 
-        radioButtons.forEach((radioButton) => {
-            radioButton.addEventListener('change', function() {
-                const selectedOption = this.value;
-                resetFormElements();
+        // Event listener for radio button change
+        // $('input[name="check"]').on('change', function() {
+        //     console.log("Event listener dijalankan")
+        //     const selectedOption = this.value;
+        //     console.log(selectedOption)
+        //     resetFormElements();
+        //     formElements[selectedOption].forEach(elementId => {
+        //         document.getElementById(elementId).disabled = false;
+        //         document.getElementById(elementId).required = true;
+        //     });
+        // });
+        $('input[name="check"]').on('change', function() {
+            const selectedOption = this.value;
+            resetFormElements();
 
+            if (selectedOption === 'Standard Value') {
                 formElements[selectedOption].forEach(elementId => {
                     document.getElementById(elementId).disabled = false;
                     document.getElementById(elementId).required = true;
                 });
-            });
+            }
         });
 
         function resetFormElements() {
@@ -136,25 +136,28 @@
             }
         }
 
-        // AJAX for handling changes in radio buttons
-        radioButtons.forEach((radioButton) => {
-            radioButton.addEventListener('change', function() {
-                const selectedOption = this.value;
-                resetFormElements();
-                formElements[selectedOption].forEach(elementId => {
-                    document.getElementById(elementId).disabled = false;
-                    document.getElementById(elementId).required = true;
-                });
+        // ... kode lainnya ...
+
+        // Ketika halaman dimuat pertama kali, pastikan elemen yang sesuai diaktifkan berdasarkan pilihan radio yang terpilih.
+        const selectedRadio = $('input[name="check"]:checked');
+        if (selectedRadio.length > 0) {
+            const selectedOption = selectedRadio.val();
+            formElements[selectedOption].forEach(elementId => {
+                document.getElementById(elementId).disabled = false;
+                document.getElementById(elementId).required = true;
             });
-        });
+        }
 
-        // AJAX for resetting form elements
-        $('#btn-reset-form').on('click', function() {
-            resetFormElements();
-        });
-    });
-
-    $(document).ready(function() {
+        function resetFormElements() {
+            for (const option in formElements) {
+                formElements[option].forEach(elementId => {
+                    const element = document.getElementById(elementId);
+                    element.disabled = true;
+                    element.required = false;
+                    element.value = '';
+                });
+            }
+        }
 
         $('body').on('click', '#btn-edit-standar', function() {
             let id = $(this).data('id');
@@ -172,6 +175,8 @@
                     //fill data to form
                     const standardCheck = response.data.standard_check;
                     const statusData = response.data.status_data;
+                    const selectedRadio = $('input[name="check"]:checked');
+                    console.log(selectedRadio.val());
 
                     $('#id').val(response.data.id);
                     $('#pos-edit').val(response.data.pos_name);
@@ -180,41 +185,30 @@
                     $('#batas-bawah').val(response.data.batas_bawah);
                     $('#status-edit').val(response.data.status);
 
-                    // Set the selected radio button based on status_data
-                    // $('#opt-standard-value-int').prop('checked', response.data.status_data === 'int');
-                    // $('#opt-standard-string-string').prop('checked', response.data.status_data === 'string');
-
                     // Set values for dropdown and standard value based on the response data
                     if (response.data.status_data === 'int') {
-                        $('#opt-standard-value-int').prop('checked', true);
-                        $('#value-edit').val(response.data.standard_check);
-                        $('#dropdown-edit').val(response.data.unit_dropdown);
-                        $('#string-edit').val('');
+                        const parts = standardCheck.split(' '); //split "11 inch"
+                        const valueInput = parts[0]; // "11"
+                        const unitDropdown = parts[1]; // "inch"
 
-                        // Show input and dropdown, and hide string input
-                        $('#value-edit').prop('hidden', false);
-                        $('#dropdown-edit').prop('hidden', false);
-                        $('#string-edit').prop('hidden', true);
+                        $('#opt-standard-value-int').prop('checked', true);
+                        $('#value-edit').val(valueInput);
+                        $('#dropdown-edit').val(unitDropdown);
+                        $('#string-edit').val(''); // Reset nilai input Standard String
                     } else if (response.data.status_data === 'string') {
                         $('#opt-standard-string-string').prop('checked', true);
                         $('#string-edit').val(response.data.standard_check);
                         $('#value-edit').val('');
                         $('#dropdown-edit').val('');
-
-                        // Show input and dropdown, and hide string input
-                        $('#value-edit').prop('hidden', true);
-                        $('#dropdown-edit').prop('hidden', true);
-                        $('#string-edit').prop('hidden', false);
                     }
+
+                    console.log(response.data.status_data)
 
                     // $('.radio-type').prop('checked', response.data.status_data === 'int');
                     // $('.standard-input').val(response.data.standard_check);
 
                     //open modal
                     $('#modal-edit-standar').modal('show');
-                },
-                error: function(error) {
-                    console.error('Error fetching data:', error);
                 }
 
             });
@@ -223,6 +217,9 @@
         $('#update').click(function(e) {
             e.preventDefault();
             console.log("update button clicked");
+
+            const selectedRadio = $('input[name="check"]:checked').val();
+
 
             //define variable
             let id = $('#id').val();
@@ -239,10 +236,18 @@
             let status_data = '';
             let standard_check = '';
 
-            if ($('#opt-standard-value-int').prop('checked')) {
+            // if ($('#opt-standard-value-int').prop('checked')) {
+            //     status_data = 'int';
+            //     standard_check = $('#value-edit').val() + ' ' + $('#dropdown-edit').val();
+            // } else if ($('#opt-standard-string-string').prop('checked')) {
+            //     status_data = 'string';
+            //     standard_check = $('#string-edit').val();
+            // }
+
+            if (selectedRadio === 'Standard Value') {
                 status_data = 'int';
                 standard_check = $('#value-edit').val() + ' ' + $('#dropdown-edit').val();
-            } else if ($('#opt-standard-string-string').prop('checked')) {
+            } else if (selectedRadio === 'Standard String') {
                 status_data = 'string';
                 standard_check = $('#string-edit').val();
             }
@@ -306,7 +311,8 @@
                         $('#alert-pos-edit').html(error.responseJSON.pos_name[
                             0]);
                     }
-                    if (error.responseJSON.item_check[0]) {
+                    if (error.responseJSON.item_check && Array.isArray(error.responseJSON
+                            .item_check)) {
 
                         //show alert
                         $('#alert-item-edit').removeClass('d-none');
@@ -316,7 +322,8 @@
                         $('#alert-item-edit').html(error.responseJSON.item_check[
                             0]);
                     }
-                    if (error.responseJSON.batas_atas[0]) {
+                    if (error.responseJSON.batas_atas && Array.isArray(error.responseJSON
+                            .batas_atas)) {
 
                         //show alert
                         $('#alert-atas-edit').removeClass('d-none');
@@ -326,7 +333,8 @@
                         $('#alert-atas-edit').html(error.responseJSON.batas_atas[
                             0]);
                     }
-                    if (error.responseJSON.batas_bawah[0]) {
+                    if (error.responseJSON.batas_bawah && Array.isArray(error.responseJSON
+                            .batas_bawah)) {
 
                         //show alert
                         $('#alert-bawah-edit').removeClass('d-none');
@@ -336,7 +344,8 @@
                         $('#alert-bawah-edit').html(error.responseJSON.batas_bawah[
                             0]);
                     }
-                    if (error.responseJSON.status[0]) {
+                    if (error.responseJSON.status && Array.isArray(error.responseJSON
+                            .status)) {
 
                         //show alert
                         $('#alert-status-edit').removeClass('d-none');
@@ -347,7 +356,8 @@
                             .status[
                                 0]);
                     }
-                    if (error.responseJSON.status_data[0]) {
+                    if (error.responseJSON.status_data && Array.isArray(error.responseJSON
+                            .status_data)) {
 
                         //show alert
                         $('#alert-type-edit').removeClass('d-none');
