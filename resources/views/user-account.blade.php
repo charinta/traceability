@@ -41,8 +41,10 @@
                                     <br>
                                     <select class="form-select" name="role">
                                         <option value="">---Pilih Role---</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="User">User</option>
+                                        <<<<<<<<< Temporary merge branch 1 <option value="admin">admin</option>
+                                            <option value="User">user</option>
+                                            =========
+                                            >>>>>>> 92f3233cfb05c53ca0a6f60d088f09d841a7805e
                                     </select>
                                 </div>
                                 <div class="form-group">
