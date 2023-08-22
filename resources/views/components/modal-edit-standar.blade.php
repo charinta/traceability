@@ -27,7 +27,7 @@
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-item-edit" role="alert"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group radio-type">
                     <label class="control-label" for="name">Select Standard Type:</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="check" value="Standard Value"
@@ -41,25 +41,26 @@
                     </div>
                     <div class="alert alert-danger mt-2 d-none" id="alert-type-edit" role="alert"></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group standard-input">
                     <label class="control-label" for="name">Standard Value</label>
                     <div class="input-group">
                         @foreach ($standar as $stand)
                             <input type="text" class="form-control" name="standard_check" style="margin-right: 7px"
-                                id="value-edit" value="{{ explode(' ', $stand)[0] }}">
+                                id="value-edit" disabled>
                             <input type="hidden" name="selected_option" value="Standard Value">
                             <div class="input-group-append">
-                                <select class="form-select" id="dropdown-edit" name="unit-dropdown">
-                                    <option value="cm" {{ strpos($stand, 'cm') !== false ? 'selected' : '' }}>cm
+                                <select class="form-select" id="dropdown-edit" name="unit-dropdown" disabled>
+                                    <option value="cm">cm
                                     </option>
-                                    <option value="inch" {{ strpos($stand, 'inch') !== false ? 'selected' : '' }}>inch
+                                    <option value="inch">inch
                                     </option>
-                                    <option value="m" {{ strpos($stand, 'm') !== false ? 'selected' : '' }}>m
+                                    <option value="m">m
                                     </option>
-                                    <option value="ft" {{ strpos($stand, 'ft') !== false ? 'selected' : '' }}>ft
+                                    <option value="ft">ft
                                     </option>
                                 </select>
                             </div>
+                        @endforeach
                     </div>
                     <div class="alert alert-danger mt-2 d-none" id="alert-value-edit" role="alert"></div>
                 </div>
@@ -75,7 +76,7 @@
                         <div class="alert alert-danger mt-2 d-none" id="alert-bawah-edit" role="alert"></div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group standard-input">
                     <label class="control-label" for="name">Standard String</label>
                     <input class="form-control" id="string-edit" type="text">
                     <div class="alert alert-danger mt-2 d-none" id="alert-string-edit" role="alert"></div>
@@ -100,67 +101,65 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    // $(document).ready(function() {
-    //     const radioButtons1 = document.querySelectorAll('input[name="check"]');
-    //     const standardValueInput1 = document.getElementById('value-edit');
-    //     const unitDropdown1 = document.getElementById('dropdown-edit');
-    //     const batasAtas1 = document.getElementById('batas-atas');
-    //     const batasBawah1 = document.getElementById('batas-bawah');
-    //     const standardStringInput1 = document.getElementById('string-edit');
+    $(document).ready(function() {
+        const radioButtons = document.querySelectorAll('input[name="check"]');
+        const formElements = {
+            'Standard Value': [
+                'value-edit',
+                'dropdown-edit',
+                'batas-atas',
+                'batas-bawah'
+            ],
+            'Standard String': ['string-edit']
+        };
 
-    //     radioButtons1.forEach((radioButton) => {
-    //         radioButton.addEventListener('change', function() {
-    //             const selectedOption = this.value;
+        radioButtons.forEach((radioButton) => {
+            radioButton.addEventListener('change', function() {
+                const selectedOption = this.value;
+                resetFormElements();
 
-    //             standardValueInput1.disabled = selectedOption !== 'Standard Value';
-    //             unitDropdown1.disabled = selectedOption !== 'Standard Value';
-    //             batasAtas1.disabled = selectedOption !== 'Standard Value';
-    //             batasBawah1.disabled = selectedOption !== 'Standard Value';
-    //             standardStringInput1.disabled = selectedOption !== 'Standard String';
+                formElements[selectedOption].forEach(elementId => {
+                    document.getElementById(elementId).disabled = false;
+                    document.getElementById(elementId).required = true;
+                });
+            });
+        });
 
-    //             standardValueInput1.required = selectedOption === 'Standard Value';
-    //             unitDropdown1.required = selectedOption === 'Standard Value';
-    //             batasAtas1.required = selectedOption === 'Standard Value';
-    //             batasBawah1.required = selectedOption === 'Standard Value';
-    //             standardStringInput1.required = selectedOption === 'Standard String';
-    //         });
-    //     });
+        function resetFormElements() {
+            for (const option in formElements) {
+                formElements[option].forEach(elementId => {
+                    const element = document.getElementById(elementId);
+                    element.disabled = true;
+                    element.required = false;
+                    element.value = '';
+                });
+            }
+        }
 
-    //     function resetFormElements() {
-    //         standardValueInput1.value = '';
-    //         unitDropdown1.value = ''; // If you want to set a default option, update this accordingly
-    //         batasAtas1.value = '';
-    //         batasBawah1.value = '';
-    //         standardStringInput1.value = '';
-    //         // statusImage1.value = '';
-    //     }
+        // AJAX for handling changes in radio buttons
+        radioButtons.forEach((radioButton) => {
+            radioButton.addEventListener('change', function() {
+                const selectedOption = this.value;
+                resetFormElements();
+                formElements[selectedOption].forEach(elementId => {
+                    document.getElementById(elementId).disabled = false;
+                    document.getElementById(elementId).required = true;
+                });
+            });
+        });
 
-    //     radioButtons1.forEach((radioButtons) => {
-    //         radioButtons.addEventListener('change', function() {
-    //             const selectedOption = this.value;
-    //             resetFormElements();
-
-    //             standardValueInput1.disabled = selectedOption !== 'Standard Value';
-    //             unitDropdown1.disabled = selectedOption !== 'Standard Value';
-    //             batasAtas1.disabled = selectedOption !== 'Standard Value';
-    //             batasBawah1.disabled = selectedOption !== 'Standard Value';
-    //             standardStringInput1.disabled = selectedOption !== 'Standard String';
-    //             // remarkImage.disabled = selectedOption !== 'Standard Image';
-
-    //             standardValueInput1.required = selectedOption === 'Standard Value';
-    //             unitDropdown1.required = selectedOption === 'Standard Value';
-    //             batasAtas1.required = selectedOption === 'Standard Value';
-    //             batasBawah1.required = selectedOption === 'Standard Value';
-    //             standardStringInput1.required = selectedOption === 'Standard String';
-    //             // remarkImage.required = selectedOption === 'Standard Image';
-    //         });
-    //     });
-    // });
+        // AJAX for resetting form elements
+        $('#btn-reset-form').on('click', function() {
+            resetFormElements();
+        });
+    });
 
     $(document).ready(function() {
+
         $('body').on('click', '#btn-edit-standar', function() {
             let id = $(this).data('id');
             console.log(id);
+
 
             //fetch detail post with ajax
             $.ajax({
@@ -169,36 +168,55 @@
                 dataType: "json",
                 cache: false,
                 success: function(response) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     //fill data to form
+                    const standardCheck = response.data.standard_check;
+                    const statusData = response.data.status_data;
+
                     $('#id').val(response.data.id);
                     $('#pos-edit').val(response.data.pos_name);
                     $('#item-edit').val(response.data.item_check);
                     $('#batas-atas').val(response.data.batas_atas);
                     $('#batas-bawah').val(response.data.batas_bawah);
                     $('#status-edit').val(response.data.status);
+
                     // Set the selected radio button based on status_data
-                    $('#opt-standard-value-int').prop('checked', response.data
-                        .status_data ===
-                        'int');
-                    $('#opt-standard-string-string').prop('checked', response.data
-                        .status_data ===
-                        'string');
+                    // $('#opt-standard-value-int').prop('checked', response.data.status_data === 'int');
+                    // $('#opt-standard-string-string').prop('checked', response.data.status_data === 'string');
 
                     // Set values for dropdown and standard value based on the response data
                     if (response.data.status_data === 'int') {
+                        $('#opt-standard-value-int').prop('checked', true);
                         $('#value-edit').val(response.data.standard_check);
-                        $('#dropdown-edit').val(response.data.standard_check);
+                        $('#dropdown-edit').val(response.data.unit_dropdown);
+                        $('#string-edit').val('');
+
+                        // Show input and dropdown, and hide string input
+                        $('#value-edit').prop('hidden', false);
+                        $('#dropdown-edit').prop('hidden', false);
+                        $('#string-edit').prop('hidden', true);
                     } else if (response.data.status_data === 'string') {
+                        $('#opt-standard-string-string').prop('checked', true);
                         $('#string-edit').val(response.data.standard_check);
+                        $('#value-edit').val('');
+                        $('#dropdown-edit').val('');
+
+                        // Show input and dropdown, and hide string input
+                        $('#value-edit').prop('hidden', true);
+                        $('#dropdown-edit').prop('hidden', true);
+                        $('#string-edit').prop('hidden', false);
                     }
 
-                    $('.radio-type').prop('checked', response.data.status_data === 'int');
-                    $('.standard-input').val(response.data.standard_check);
+                    // $('.radio-type').prop('checked', response.data.status_data === 'int');
+                    // $('.standard-input').val(response.data.standard_check);
 
                     //open modal
                     $('#modal-edit-standar').modal('show');
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
                 }
+
             });
         });
 
@@ -277,7 +295,8 @@
                 },
                 error: function(error) {
 
-                    if (error.responseJSON.pos_name[0]) {
+                    if (error.responseJSON.pos_name && Array.isArray(error.responseJSON
+                            .pos_name)) {
 
                         //show alert
                         $('#alert-pos-edit').removeClass('d-none');
@@ -339,27 +358,24 @@
                             .status_data[
                                 0]);
                     }
-                    if (error.responseJSON.standard_check[0]) {
-
-                        //show alert
-                        $('#alert-string-edit').removeClass('d-none');
-                        $('#alert-string-edit').addClass('d-block');
-
-                        //add message to alert
-                        $('#alert-string-edit').html(error.responseJSON
-                            .standard_check[
-                                0]);
-                    }
-                    if (error.responseJSON.standard_check[0]) {
-
-                        //show alert
+                    if (error.responseJSON.standard_check && Array.isArray(error
+                            .responseJSON.standard_check)) {
+                        // Show alert
                         $('#alert-value-edit').removeClass('d-none');
                         $('#alert-value-edit').addClass('d-block');
 
-                        //add message to alert
-                        $('#alert-value-edit').html(error.responseJSON
-                            .standard_check[
-                                0]);
+                        // Add message to alert
+                        $('#alert-value-edit').html(error.responseJSON.standard_check[0]);
+                    }
+
+                    if (error.responseJSON.standard_check && Array.isArray(error
+                            .responseJSON.standard_check)) {
+                        // Show alert
+                        $('#alert-string-edit').removeClass('d-none');
+                        $('#alert-string-edit').addClass('d-block');
+
+                        // Add message to alert
+                        $('#alert-string-edit').html(error.responseJSON.standard_check[0]);
                     }
                 }
             });
