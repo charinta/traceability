@@ -55,7 +55,7 @@
     $(document).ready(function() {
         $('body').on('click', '#btn-edit-holder', function() {
             let id = $(this).data('id');
-            console.log(id);
+            // console.log(id);
 
             //fetch detail post with ajax
             $.ajax({
@@ -64,7 +64,7 @@
                 dataType: "json",
                 cache: false,
                 success: function(response) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     //fill data to form
                     $('#id').val(response.data.id);
                     $('#no-holder').val(response.data.no_drawing_holder);
@@ -81,13 +81,13 @@
 
         $('#update').click(function(e) {
             e.preventDefault();
-            console.log("update button clicked");
+            // console.log("update button clicked");
 
             //define variable
             let id = $('#id').val();
             // console.log("id clicked: ", id);
             if (!id) {
-                console.log('id is not defined');
+                // console.log('id is not defined');
             }
             let no_drawing_holder = $('#no-holder').val();
             let holder_name = $('#holder-name').val();

@@ -134,7 +134,7 @@
 
         $('body').on('click', '#btn-edit-standar', function() {
             let id = $(this).data('id');
-            console.log(id);
+            // console.log(id);
 
 
             //fetch detail post with ajax
@@ -149,7 +149,7 @@
                     const standardCheck = response.data.standard_check;
                     const statusData = response.data.status_data;
                     const selectedRadio = $('input[name="check"]:checked');
-                    console.log(selectedRadio.val());
+                    // console.log(selectedRadio.val());
 
                     $('#id').val(response.data.id);
                     $('#pos-edit').val(response.data.pos_name);
@@ -189,7 +189,7 @@
                         $('#batas-bawah').prop('disabled', true);
                     }
 
-                    console.log(response.data.status_data)
+                    // console.log(response.data.status_data)
 
                     // $('.radio-type').prop('checked', response.data.status_data === 'int');
                     // $('.standard-input').val(response.data.standard_check);
@@ -203,7 +203,7 @@
 
         $('#update').click(function(e) {
             e.preventDefault();
-            console.log("update button clicked");
+            // console.log("update button clicked");
 
             const selectedRadio = $('input[name="check"]:checked').val();
 
@@ -212,7 +212,7 @@
             let id = $('#id').val();
             // console.log("id clicked: ", id);
             if (!id) {
-                console.log('id is not defined');
+                // console.log('id is not defined');
             }
             let pos_name = $('#pos-edit').val();
             let item_check = $('#item-edit').val();
