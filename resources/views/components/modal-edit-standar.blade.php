@@ -113,6 +113,7 @@
         //         document.getElementById(elementId).required = true;
         //     });
         // });
+
         $('input[name="check"]').on('change', function() {
             const selectedOption = this.value;
             resetFormElements();
@@ -122,31 +123,13 @@
                     document.getElementById(elementId).disabled = false;
                     document.getElementById(elementId).required = true;
                 });
-            }
-        });
-
-        function resetFormElements() {
-            for (const option in formElements) {
-                formElements[option].forEach(elementId => {
-                    const element = document.getElementById(elementId);
-                    element.disabled = true;
-                    element.required = false;
-                    element.value = '';
+            } else if (selectedOption === 'Standard String') {
+                formElements[selectedOption].forEach(elementId => {
+                    document.getElementById(elementId).disabled = false;
+                    document.getElementById(elementId).required = false;
                 });
             }
-        }
-
-        // ... kode lainnya ...
-
-        // Ketika halaman dimuat pertama kali, pastikan elemen yang sesuai diaktifkan berdasarkan pilihan radio yang terpilih.
-        const selectedRadio = $('input[name="check"]:checked');
-        if (selectedRadio.length > 0) {
-            const selectedOption = selectedRadio.val();
-            formElements[selectedOption].forEach(elementId => {
-                document.getElementById(elementId).disabled = false;
-                document.getElementById(elementId).required = true;
-            });
-        }
+        });
 
         function resetFormElements() {
             for (const option in formElements) {
@@ -195,11 +178,25 @@
                         $('#value-edit').val(valueInput);
                         $('#dropdown-edit').val(unitDropdown);
                         $('#string-edit').val(''); // Reset nilai input Standard String
+
+                        // Enable the necessary input fields
+                        $('#value-edit').prop('disabled', false);
+                        $('#dropdown-edit').prop('disabled', false);
+                        $('#batas-atas').prop('disabled', false);
+                        $('#batas-bawah').prop('disabled', false);
+                        $('#string-edit').prop('disabled', true);
                     } else if (response.data.status_data === 'string') {
                         $('#opt-standard-string-string').prop('checked', true);
                         $('#string-edit').val(response.data.standard_check);
                         $('#value-edit').val('');
                         $('#dropdown-edit').val('');
+
+                        // Enable the necessary input fields
+                        $('#string-edit').prop('disabled', false);
+                        $('#value-edit').prop('disabled', true);
+                        $('#dropdown-edit').prop('disabled', true);
+                        $('#batas-atas').prop('disabled', true);
+                        $('#batas-bawah').prop('disabled', true);
                     }
 
                     console.log(response.data.status_data)
