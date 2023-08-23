@@ -103,16 +103,6 @@
         };
 
         // Event listener for radio button change
-        // $('input[name="check"]').on('change', function() {
-        //     console.log("Event listener dijalankan")
-        //     const selectedOption = this.value;
-        //     console.log(selectedOption)
-        //     resetFormElements();
-        //     formElements[selectedOption].forEach(elementId => {
-        //         document.getElementById(elementId).disabled = false;
-        //         document.getElementById(elementId).required = true;
-        //     });
-        // });
 
         $('input[name="check"]').on('change', function() {
             const selectedOption = this.value;
