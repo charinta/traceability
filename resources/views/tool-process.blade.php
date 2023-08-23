@@ -6,8 +6,8 @@
 
             {{-- button back --}}
             <div class="card card-plain col-1">
-                <a href="{{ route('register-op.line', ['line_id' => $ops->line_id]) }}" class="btn btn-primary active fa fa-arrow-left"
-                    role="button" aria-pressed="true"></a>
+                <a href="{{ route('register-op.line', ['line_id' => $ops->line_id]) }}"
+                    class="btn btn-primary active fa fa-arrow-left" role="button" aria-pressed="true"></a>
             </div>
 
             {{-- container --}}
@@ -21,8 +21,9 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                           <form action="{{ route('tool-process.store',['line_id' => $line_id, 'op_id' => $ops->id]) }}" method="POST">
-                             @csrf
+                            <form action="{{ route('tool-process.store', ['line_id' => $line_id, 'op_id' => $ops->id]) }}"
+                                method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label for="tool_process" class="form-control-label text-light">Tool Process</label>
                                     <input class="form-control" type="tool_process" name="tool_process" id="Tool Process">
@@ -68,8 +69,8 @@
                                         @foreach ($tool_process as $tp)
                                             <tr>
                                                 <td>{{ $tp->id }}</td>
-                                                <td>{{ $tp->date_created }}</td>
-                                                <td>{{ $line_name}}</td>
+                                                <td>{{ date('Y-m-d', strtotime($tp->date_created)) }}</td>
+                                                <td>{{ $line_name }}</td>
                                                 <td>{{ $ops->op }}</td>
                                                 <td>{{ $tp->tool_process }}</td>
                                                 <td class="text-center">

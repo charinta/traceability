@@ -191,7 +191,7 @@
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                           <table class="table align-items-center justify-content-center mb-0 table-striped">
+                            <table class="table align-items-center justify-content-center mb-0 table-striped">
                                 <thead class="text-center">
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -213,7 +213,8 @@
                                     @foreach ($tool as $tol)
                                         <tr id="{{ 'index_' . $tol->id }}">
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->id }}</td>
-                                            <td class="text-xs font-weight-bold mb-0">{{ $tol->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ date('Y-m-d', strtotime($tol->date_created)) }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->no_drawing_tool }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_type }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $tol->tool_lifetime_std }}</td>
