@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\Auth\AuthenticatedSessionController::class, 'create']);
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'admin')->group(function () {
 
 
     Route::resource('register-item', ItemController::class);
@@ -72,8 +72,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
     Route::get('register-tool.search', [ToolController::class, 'search'])->name('register-tool.search');
-    Route::resource('register-tool', \App\Http\Controllers\ToolController::class);
+    Route::get('findOp/{id}', '\App\Http\Controllers\ToolController@findOp');
+    Route::get('findOpEdit/{id}', '\App\Http\Controllers\ToolController@findOpEdit');
+});
 
+Route::middleware('auth')->group(function () {
     Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard.index');
     Route::get('resume-dashboard', function () {
         return view('resume-dashboard');

@@ -54,18 +54,16 @@
                             </div>
                             <div class="form-group">
                                 <label for="line" class="form-control-label text-light" name="line">Line</label>
-                                <select class="form-select" name="line">
-                                    @foreach ($getLineNames as $getLine)
-                                        <option value="{{ $getLine }}">{{ $getLine }}</option>
+                                <select class="form-select" name="line" id="line">
+                                    <option value="">Select Line</option>
+                                    @foreach ($lines as $line)
+                                        <option value="{{ $line->id }}">{{ ucfirst($line->line) }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="op" class="form-control-label text-light" name="op">OP</label>
-                                <select class="form-select" name="op">
-                                    @foreach ($getOPNames as $getOP)
-                                        <option value="{{ $getOP }}">{{ $getOP }}</option>
-                                    @endforeach
+                                <select class="form-select" name="op" id="ops">
                                 </select>
                             </div>
                             <div class="form-group">
@@ -123,7 +121,8 @@
                                 <img id="uploaded-image" class="uploaded-image" src="#" alt="Uploaded Image"
                                     hidden
                                     style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                            </div>
+                                    
+                                </div>
 
                             <div class="form-group">
                                 <label for="remark" class="form-control-label text-light">Remark</label>
@@ -300,4 +299,36 @@
     </div>
     </div>
     </div>
-@endsection
+
+<script type="text/javascript" src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	<script>
+         $(document).ready(function() {
+        $('#line').on('change', function() {
+            var lineID = $(this).val();
+            if(lineID) {
+                $.ajax({
+                    url: '/findOp/'+lineID,
+                    type: "GET",
+                    data : {"_token":"{{ csrf_token() }}"},
+                    dataType: "json",
+                    success:function(data) {
+                        //console.log(data);
+                      if(data){
+                        $('#ops').empty();
+                        $('#ops').append('<option value="">Select OP</option>'); 
+                        $.each(data, function(key, value){
+                        $('select[name="op"]').append('<option value="'+ value.op +'">' + value.op + '</option>');
+                    });
+                  }else{
+                    $('#ops').empty();
+                  }
+                  }
+                });
+            }else{
+              $('#ops').empty();
+            }
+        });
+    });
+    </script>
+    @endsection

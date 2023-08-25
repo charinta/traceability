@@ -44,9 +44,4 @@ class User extends Authenticatable
             $user->date_modify = Carbon::now('Asia/Jakarta');
         });
     }
-    // relasi ke tbl_pos
-    // public function pos()
-    // {
-    //     return $this->belongsTo(Pos::class, 'pos_id', 'pos_id');
-    // }
 }

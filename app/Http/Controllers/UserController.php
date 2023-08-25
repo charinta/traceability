@@ -58,10 +58,11 @@ class UserController extends Controller
             'role' => 'required',
             'password' => 'required',
         ]);
+
         $insertedRole = $request->input('role');
 
         // Pengecekan dan assign role
-        if ($insertedRole === "Admin") {
+        if ($insertedRole === "admin") {
             $assignRole = "admin";
         } else {
             $assignRole = "user";

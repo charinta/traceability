@@ -46,27 +46,19 @@
                     <div class="alert alert-danger mt-2 d-none" id="alert-frekuensi-edit" role="alert"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">Line</label>
+                    <label class="control-label" for="line">Line</label>
                     <select class="form-select" id="line-edit">
-                        @foreach ($getLineNames as $getLine)
-                                            <option value="{{ $getLine }}" >
-                                                {{ $getLine }}
-                                            </option>
-                                        @endforeach
+                        @foreach ($lines as $line)
+                                        <option value="{{ $line->id }}">{{ ucfirst($line->line) }}</option>
+                                    @endforeach
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-line-edit" role="alert"></div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="name">OP</label>
-                    <select class="form-select" id="op-edit">
-                       @foreach ($getOPNames as $getOP)
-                                            <option value="{{ $getOP }}">
-                                                {{ $getOP }}
-                                            </option>
-                                        @endforeach
+                    <label class="control-label" for="op">OP</label>
+                    <select class="form-select" id="ops" name="op">
                     </select>
-                    </select>
-                    <div class="alert alert-danger mt-2 d-none" id="alert-op-edit" role="alert"></div>
+                    <div class="alert alert-danger mt-2 d-none" id="alert-ops" role="alert"></div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">Holder</label>
@@ -94,54 +86,18 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="name">Image Check</label>
-                    <input class="form-control" type="file" id="image-edit" accept="image/*">
-                    <input type="hidden" name="selected_option" value="Image Check">
-
-                    {{-- <img id="image-edit" class="uploaded-image" src="#" alt="Uploaded Image" hidden
-                        style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;"> --}}
-                    @foreach ($tool as $img)
-                        @if ($img->image_check)
-                            <img id="image-edit" class="uploaded-image" src="{{ asset($img->image_check) }}"
-                                alt="Uploaded Image"
-                                style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                        @else
-                            <img id="image-edit" class="uploaded-image" src="#" alt="Uploaded Image" hidden
-                                style="max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;">
-                        @endif
-                        {{-- <div class="alert alert-danger mt-2 d-none" id="alert-image-edit" role="alert"></div> --}}
-                    @endforeach
-                    <script>
-                        const ImageInput1 = document.getElementById('image_check');
-                        // Function to handle image preview
-                        function previewImage1(event) {
-                            const input1 = event.target;
-                            const previewImage1 = document.getElementById('uploaded-image');
-
-                            if (input.files && input.files[0]) {
-                                const reader1 = new FileReader();
-
-                                reader1.onload = function(e) {
-                                    previewImage1.src = e.target.result;
-                                    previewImage1.hidden = false;
-                                };
-
-                                reader1.readAsDataURL(input.files[0]);
-                            } else {
-                                previewImage1.src = '#';
-                                previewImage1.hidden = true;
-                            }
-                        }
-
-                        // Add an event listener to the file input
-                        const fileInput1 = document.getElementById('image_check');
-                        fileInput1.addEventListener('change', previewImage);
-                    </script>
+                    <input class="form-control" type="file" name="image-edit" id="image-edit" accept="image/*">
+                    <input type="hidden" id="selected-image-id" value="">
+                    <div id="image-preview-container" class="mt-3">
+                          </div>
                 </div>
+                                    
                 <div class="form-group">
                     <label class="control-label" for="name">Remark</label>
                     <input class="form-control" id="remark-edit" type="text">
                     <div class="alert alert-danger mt-2 d-none" id="alert-remark-edit" role="alert"></div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
                     <button type="button" class="btn bg-gradient-warning update" id="update">UPDATE</button>
@@ -153,44 +109,132 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          
 <script>
-    $(document).ready(function() {
-        $('body').on('click', '#btn-edit-tool', function() {
-            let id = $(this).data('id');
-            console.log(id);
+  $(document).ready(function () {
+    function previewImage(input) {
+    const previewContainer = $('#image-preview-container');
+    previewContainer.empty();
 
-            //fetch detail post with ajax
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = $('<img>', {
+                class: 'uploaded-image',
+                src: e.target.result,
+                alt: 'Uploaded Image',
+                style: 'max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;'
+            });
+
+            previewContainer.append(img);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+  
+    // Code for handling Line dropdown change event
+    $('#line-edit').on('change', function () {
+        var lineID = $(this).val();
+        if (lineID) {
             $.ajax({
-                url: `/register-tool/${id}`,
+                url: '/findOp/' + lineID,
                 type: "GET",
+                data: {"_token": "{{ csrf_token() }}"},
                 dataType: "json",
-                cache: false,
-                success: function(response) {
-                    console.log(response.data);
-                    //fill data to form
-                    $('#id').val(response.data.id);
-                    $('#no-draw-edit').val(response.data.no_drawing_tool);
-                    $('#type-edit').val(response.data.tool_type);
-                    $('#spec-edit').val(response.data.tool_spec);
-                    $('#diameter-edit').val(response.data.tool_diameter);
-                    $('#lifetime-edit').val(response.data.tool_lifetime_std);
-                    $('#frekuensi-edit').val(response.data.tool_frequency_std);
-                    $('#line-edit').val(response.data.line);
-                    $('#op-edit').val(response.data.op);
-                    $('#holder-edit').val(response.data.no_drawing_holder);
-                    $('#washing-edit').val(response.data.washing_ct);
-                    $('#grinding-edit').val(response.data.grinding_ct);
-                    $('#setting-edit').val(response.data.setting_ct);
-                    $('#image-edit').attr('src', response.data.image_check);
-                    $('#image-edit').removeAttr('hidden'); // Show the image
-                    $('#remark-edit').val(response.data.remark);
-                    //open modal
+                success: function (data) {
+                    if (data) {
+                        $('select[name="op"]').empty();
+                        $.each(data, function (key, value) {
+                            $('select[name="op"]').append('<option value="'+ value.op +'">' + value.op + '</option>');
+                        });
+                    } else {
+                        $('select[name="op"]').empty();
+                    }
+                }
+            });
+        } else {
+            $('select[name="op"]').empty();
+        }
+    });
+
+    $('body').on('click', '#btn-edit-tool', function () {
+        let id = $(this).data('id');
+        // Fetch detail post with ajax
+        $.ajax({
+            url: `/register-tool/${id}`,
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function (response) {
+                console.log(response.data);
+                // Fill data to form
+                $('#id').val(response.data.id);
+                $('#no-draw-edit').val(response.data.no_drawing_tool);
+                $('#type-edit').val(response.data.tool_type);
+                $('#spec-edit').val(response.data.tool_spec);
+                $('#diameter-edit').val(response.data.tool_diameter);
+                $('#lifetime-edit').val(response.data.tool_lifetime_std);
+                $('#frekuensi-edit').val(response.data.tool_frequency_std);
+                $('#line-edit').val(response.data.line);
+                $('#holder-edit').val(response.data.no_drawing_holder);
+                $('#washing-edit').val(response.data.washing_ct);
+                $('#grinding-edit').val(response.data.grinding_ct);
+                $('#setting-edit').val(response.data.setting_ct);
+                $('#remark-edit').val(response.data.remark);
+                console.log("Image Path:", image_check);
+                $('#image-edit').html(`<img src="${response.data.image_check}" width="100">`);
+                $('#selected-image-id').val(response.data.image_check);
+               //  previewImage(document.getElementById('image-edit'));
+                $('#line-edit').trigger('change');
+
+                // Set default value for the OP dropdown
+                var defaultOp = response.data.op;
+
+                // Fetch OP options and set selected for default
+                var lineID = $('#line-edit').val();
+                if (lineID) {
+                    $.ajax({
+                        url: '/findOp/' + lineID,
+                        type: "GET",
+                        data: {"_token": "{{ csrf_token() }}"},
+                        dataType: "json",
+                        success: function (data) {
+                            if (data) {
+                                $('select[name="op"]').empty();
+                                $.each(data, function (key, value) {
+                                    var option = $('<option></option>')
+                                        .val(value.op)
+                                        .text(value.op);
+
+                                    if (value.op === defaultOp) {
+                                        option.attr('selected', 'selected');
+                                    }
+
+                                    $('select[name="op"]').append(option);
+                                });
+                            } else {
+                                $('select[name="op"]').empty();
+                            }
+                        }
+                    });
+                } else {
+                    $('select[name="op"]').empty();
+                }
+                     // Open modal
                     $('#modal-edit-tool').modal('show');
                 }
             });
         });
+        //ini buat nampilin image pas abis di input di form update
+    $('#image-edit').on('change', function () {
+    previewImage(this);
+});
 
-        $('#update').click(function(e) {
+
+        $('#update').click(function (e) {
             e.preventDefault();
             console.log("update button clicked");
 
@@ -206,35 +250,12 @@
             let tool_lifetime_std = $('#lifetime-edit').val();
             let tool_frequency_std = $('#frekuensi-edit').val();
             let line = $('#line-edit').val();
-            let op = $('#op-edit').val();
+            let op = $('#ops').val();
             let no_drawing_holder = $('#holder-edit').val();
             let washing_ct = $('#washing-edit').val();
             let grinding_ct = $('#grinding-edit').val();
             let setting_ct = $('#setting-edit').val();
-            let image_check = 'assets/img/image_check/' + $('#image-edit').val();
-
-            // var input = document.getElementById("image-edit");
-            // var fReader = new FileReader();
-            // fReader.readAsDataURL(input.files[0]);
-            // fReader.onloadend = function(event) {
-            //     var img = document.getElementById("image-edit");
-            //     img.src = event.target.result;
-            // }
-
-            // var imgpath = document.getElementById("image-input").value;
-            // var newPath = imgpath.replace("C:\\fakepath\\", "")
-
-            // let imageInput = $('#image-edit')[0];
-            // let imageFile = imageInput.files[0];
-            // let formData = new FormData();
-            // // ... (append other form data)
-            // if (imageInput.files.length > 0) {
-            //     let imgpath = imageInput.value;
-            //     let newPath = 'assets/img/image_check/' + imgpath.replace('C:\\fakepath\\', '');
-            //     formData.append('image_check', imageFile,
-            //         newPath); // Append the image with the new path
-            // }
-
+            let image_check = $('#image-edit img').attr('src'); // Get the src attribute of the img element
             let remark = $('#remark-edit').val();
             let token = $("meta[name='csrf-token']").attr("content");
             // console.log(token);
@@ -374,11 +395,11 @@
                     if (error.responseJSON.op[0]) {
 
                         //show alert
-                        $('#alert-op-edit').removeClass('d-none');
-                        $('#alert-op-edit').addClass('d-block');
+                        $('#alert-ops').removeClass('d-none');
+                        $('#alert-ops').addClass('d-block');
 
                         //add message to alert
-                        $('#alert-op-edit').html(error.responseJSON.op[0]);
+                        $('#alert-ops').html(error.responseJSON.op[0]);
                     }
                     if (error.responseJSON.no_drawing_holder[0]) {
 
@@ -448,3 +469,4 @@
         });
     });
 </script>
+<script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>

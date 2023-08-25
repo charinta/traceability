@@ -34,7 +34,7 @@
                     <select class="form-select" name="role" id="role-edit">
                         <option value="admin">Admin
                         </option>
-                        <option value="User">User
+                        <option value="user">User
                         </option>
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-role-edit" role="alert"></div>

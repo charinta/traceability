@@ -6,10 +6,12 @@ use App\Models\Holder;
 use App\Http\Controllers\HolderController;
 use App\Http\Controllers\LineController;
 use App\Models\Tool;
+use App\Models\Line;
+use App\Models\OP;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use DB;
 
 class ToolController extends Controller
 {
@@ -21,12 +23,8 @@ class ToolController extends Controller
         $HolderController = app(HolderController::class);
         $noDrawingHold = $HolderController->getNoDraw();
 
-        $LineController = app(LineController::class);
-        $getLineNames = $LineController->getLine();
-
-        $OPController = app(OPController::class);
-        $getOPNames = $OPController->getOP();
-        return view('register-tool', compact('tool', 'noDrawingHold', 'getLineNames', 'getOPNames'));
+        $lines = Line::all();
+        return view('register-tool', compact('tool', 'noDrawingHold', 'lines'));
     }
 
     // public function show(Tool $tool, $id)
@@ -57,6 +55,25 @@ class ToolController extends Controller
         return view('register-tool', compact('tool', 'noDrawingHold'))->with('i', ($tool->currentPage() - 1) * $tool->perPage());
     }
 
+    public function line()
+    {
+        $lines = Line::all();
+        return view('register-tool', compact('lines'));
+    }
+
+    public function findOp($id)
+    {
+        $ops = OP::where('line_id', $id)
+            ->get();
+        return response()->json($ops);
+    }
+
+    public function findOpEdit($id)
+    {
+        $op_edit = OP::where('line_id', $id)
+            ->get();
+        return response()->json($op_edit);
+    }
     // menyimpan data/menyimpan insert data 
     public function store(Request $request, Tool $tool): RedirectResponse
     {
@@ -101,13 +118,8 @@ class ToolController extends Controller
         $tool = Tool::findOrFail($id);
         $HolderController = app(HolderController::class);
         $noDrawingHold = $HolderController->getNoDraw();
-
-        $LineController = app(LineController::class);
-        $getLineNames = $LineController->getLine();
-
-        $OPController = app(OPController::class);
-        $getOPNames = $OPController->getOP();
-        return view('edit-register-tool', compact('tool', 'noDrawingHold', 'getLineNames', 'getOPNames'));
+        $lines = Line::all();
+        return view('edit-register-tool', compact('tool', 'noDrawingHold', 'lines'));
     }
 
     // update data
