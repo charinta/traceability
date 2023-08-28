@@ -15,8 +15,7 @@
                         </div>
                         {{-- form body --}}
                         <div class="card-body">
-                            <form action="{{ route('register-line.store') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{ route('register-line.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="line" class="form-control-label text-light">Line</label>
@@ -60,28 +59,29 @@
                                         @foreach ($line as $lin)
                                             <tr>
                                                 <td class="text-xs font-weight-bold mb-0">{{ $lin->id }}</td>
-                                                <td class="text-xs font-weight-bold mb-0">{{ $lin->date_created }}</td>
+                                                <td class="text-xs font-weight-bold mb-0">
+                                                    {{ date('Y-m-d', strtotime($lin->date_created)) }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">{{ $lin->line }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">
-                                                <form onsubmit="return confirm ('Apakah Anda Yakin?');"
-                                                    action="{{ route('register-line.destroy', $lin->id) }}"
-                                                    method="POST">
-                                                    {{-- icon edit --}}
-                                                    <a href="{{ route('register-line.edit', $lin->id) }}"
-                                                        class="btn btn-sm btn-primary fa fa-edit">
-                                                    </a>
-                                                     <a href="{{ route('register-op.line', $lin->id) }}"  }}"
-                                                    class="btn btn-sm btn-info fa fa-eye"></a>
-                                                    {{-- icon delete --}}
+                                                    <form onsubmit="return confirm ('Apakah Anda Yakin?');"
+                                                        action="{{ route('register-line.destroy', $lin->id) }}"
+                                                        method="POST">
+                                                        {{-- icon edit --}}
+                                                        <a href="{{ route('register-line.edit', $lin->id) }}"
+                                                            class="btn btn-sm btn-primary fa fa-edit">
+                                                        </a>
+                                                        <a href="{{ route('register-op.line', $lin->id) }}" }}"
+                                                            class="btn btn-sm btn-info fa fa-eye"></a>
+                                                        {{-- icon delete --}}
 
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-sm btn-outline-danger fa fa-trash"></button>
-                                                </form>
-                                            </td>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
+                                                    </form>
+                                                </td>
                                         @endforeach
-                                    </tr>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -107,16 +107,18 @@
                                     </a>
                                 </li>
                             @endif
-        
+
                             {{-- Page Links --}}
                             @foreach ($line->getUrlRange(1, $line->lastPage()) as $page => $url)
                                 @if ($page == $line->currentPage())
-                                    <li class="page-item active"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                    <li class="page-item active"><a class="page-link"
+                                            href="{{ $url }}">{{ $page }}</a></li>
                                 @else
-                                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                    <li class="page-item"><a class="page-link"
+                                            href="{{ $url }}">{{ $page }}</a></li>
                                 @endif
                             @endforeach
-        
+
                             {{-- Next Page Link --}}
                             @if ($line->hasMorePages())
                                 <li class="page-item">
@@ -135,11 +137,11 @@
                             @endif
                         </ul>
                     </nav>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 @endsection

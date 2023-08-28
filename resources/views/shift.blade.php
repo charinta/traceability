@@ -80,8 +80,8 @@
                                     @foreach ($shift as $shi)
                                         <tr id="{{ 'index_' . $shi->id }}">
                                             <td>{{ $shi->shift }}</td>
-                                            <td>{{ $shi->start }}</td>
-                                            <td>{{ $shi->finish }}</td>
+                                            <td>{{ date('H:i', strtotime($shi->start)) }}</td>
+                                            <td>{{ date('H:i', strtotime($shi->finish)) }}</td>
 
                                             <td class="text-center">
                                                 <form onsubmit="return confirm ('Apakah Anda Yakin?');"

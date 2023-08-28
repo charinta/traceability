@@ -64,7 +64,7 @@
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between align-items-center">
                             <h6 class="mb-0">Register Holder Table</h6>
-                            <form class="form-inline" method="get" action="{{route ('register-holder.search')}} ">
+                            <form class="form-inline" method="get" action="{{ route('register-holder.search') }} ">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <div class="form-group">
@@ -102,7 +102,8 @@
                                     @foreach ($holder as $hold)
                                         <tr id="{{ 'index_' . $hold->id }}">
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->id }}</td>
-                                            <td class="text-xs font-weight-bold mb-0">{{ $hold->date_created }}</td>
+                                            <td class="text-xs font-weight-bold mb-0">
+                                                {{ date('Y-m-d', strtotime($hold->date_created)) }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->no_drawing_holder }}</td>
                                             <td class="text-xs font-weight-bold mb-0">{{ $hold->holder_name }}</td>
 

@@ -34,24 +34,32 @@
 
                                     <thead>
                                         <tr class="text-center">
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 ID</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Date</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Pos</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Status</th>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($tbl_pos as $pos)
                                             <tr class="text-center">
-                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->id }}</td>
-                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->date_created }}</td>
-                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->pos_name }} </td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->id }}
+                                                </td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">
+                                                    {{ date('Y-m-d', strtotime($pos->date_created)) }}</td>
+                                                <td class="text-xs font-weight-bold mb-0 text-center">{{ $pos->pos_name }}
+                                                </td>
                                                 <td>
                                                     <label class="toggle-switch">
                                                         <input type="checkbox" class="toggle-switch-checkbox" name="status"

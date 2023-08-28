@@ -72,7 +72,8 @@
                                         @foreach ($item as $items)
                                             <tr class="text-center" id="{{ 'index_' . $items->id }}">
                                                 <td class="text-xs font-weight-bold mb-0">{{ $items->id }}</td>
-                                                <td class="text-xs font-weight-bold mb-0">{{ $items->date_created }}</td>
+                                                <td class="text-xs font-weight-bold mb-0">
+                                                    {{ date('Y-m-d', strtotime($items->date_created)) }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">{{ $items->item_check }}</td>
                                                 <td class="text-xs font-weight-bold mb-0">
                                                     <form action="{{ route('register-item.destroy', $items->id) }}"
