@@ -49,8 +49,8 @@
                     <label class="control-label" for="line">Line</label>
                     <select class="form-select" id="line-edit">
                         @foreach ($lines as $line)
-                                        <option value="{{ $line->id }}">{{ ucfirst($line->line) }}</option>
-                                    @endforeach
+                            <option value="{{ $line->id }}">{{ ucfirst($line->line) }}</option>
+                        @endforeach
                     </select>
                     <div class="alert alert-danger mt-2 d-none" id="alert-line-edit" role="alert"></div>
                 </div>
@@ -89,9 +89,9 @@
                     <input class="form-control" type="file" name="image-edit" id="image-edit" accept="image/*">
                     <input type="hidden" id="selected-image-id" value="">
                     <div id="image-preview-container" class="mt-3">
-                          </div>
+                    </div>
                 </div>
-                                    
+
                 <div class="form-group">
                     <label class="control-label" for="name">Remark</label>
                     <input class="form-control" id="remark-edit" type="text">
@@ -109,133 +109,141 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-          
+
 <script>
+    $(document).ready(function() {
+        function previewImage(input) {
+            const previewContainer = $('#image-preview-container');
+            previewContainer.empty();
 
-  $(document).ready(function () {
-    function previewImage(input) {
-    const previewContainer = $('#image-preview-container');
-    previewContainer.empty();
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = $('<img>', {
+                        class: 'uploaded-image',
+                        src: e.target.result,
+                        alt: 'Uploaded Image',
+                        style: 'max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;'
+                    });
 
-        reader.onload = function(e) {
-            const img = $('<img>', {
-                class: 'uploaded-image',
-                src: e.target.result,
-                alt: 'Uploaded Image',
-                style: 'max-width: 100%; max-height: 100%; object-fit: contain; margin-top: 10px;'
-            });
+                    previewContainer.append(img);
+                };
 
-            previewContainer.append(img);
-        };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
-  
-    // Code for handling Line dropdown change event
-    $('#line-edit').on('change', function () {
-        var lineID = $(this).val();
-        if (lineID) {
+        // Code for handling Line dropdown change event
+        $('#line-edit').on('change', function() {
+            var lineID = $(this).val();
+            if (lineID) {
+                $.ajax({
+                    url: '/findOp/' + lineID,
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data) {
+                            $('select[name="op"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="op"]').append('<option value="' +
+                                    value.op + '">' + value.op + '</option>');
+                            });
+                        } else {
+                            $('select[name="op"]').empty();
+                        }
+                    }
+                });
+            } else {
+                $('select[name="op"]').empty();
+            }
+        });
+
+        $('body').on('click', '#btn-edit-tool', function() {
+            let id = $(this).data('id');
+            // Fetch detail post with ajax
             $.ajax({
-                url: '/findOp/' + lineID,
+                url: `/register-tool/${id}`,
                 type: "GET",
-                data: {"_token": "{{ csrf_token() }}"},
                 dataType: "json",
-                success: function (data) {
-                    if (data) {
-                        $('select[name="op"]').empty();
-                        $.each(data, function (key, value) {
-                            $('select[name="op"]').append('<option value="'+ value.op +'">' + value.op + '</option>');
+                cache: false,
+                success: function(response) {
+                    console.log(response.data);
+                    // Fill data to form
+                    $('#id').val(response.data.id);
+                    $('#no-draw-edit').val(response.data.no_drawing_tool);
+                    $('#type-edit').val(response.data.tool_type);
+                    $('#spec-edit').val(response.data.tool_spec);
+                    $('#diameter-edit').val(response.data.tool_diameter);
+                    $('#lifetime-edit').val(response.data.tool_lifetime_std);
+                    $('#frekuensi-edit').val(response.data.tool_frequency_std);
+                    $('#line-edit').val(response.data.line);
+                    $('#holder-edit').val(response.data.no_drawing_holder);
+                    $('#washing-edit').val(response.data.washing_ct);
+                    $('#grinding-edit').val(response.data.grinding_ct);
+                    $('#setting-edit').val(response.data.setting_ct);
+                    $('#remark-edit').val(response.data.remark);
+                    console.log("Image Path:", image_check);
+                    $('#image-edit').html(
+                        `<img src="${response.data.image_check}" width="100">`);
+                    $('#selected-image-id').val(response.data.image_check);
+                    //  previewImage(document.getElementById('image-edit'));
+                    $('#line-edit').trigger('change');
+
+                    // Set default value for the OP dropdown
+                    var defaultOp = response.data.op;
+
+                    // Fetch OP options and set selected for default
+                    var lineID = $('#line-edit').val();
+                    if (lineID) {
+                        $.ajax({
+                            url: '/findOp/' + lineID,
+                            type: "GET",
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data) {
+                                    $('select[name="op"]').empty();
+                                    $.each(data, function(key, value) {
+                                        var option = $(
+                                                '<option></option>')
+                                            .val(value.op)
+                                            .text(value.op);
+
+                                        if (value.op === defaultOp) {
+                                            option.attr('selected',
+                                                'selected');
+                                        }
+
+                                        $('select[name="op"]').append(
+                                            option);
+                                    });
+                                } else {
+                                    $('select[name="op"]').empty();
+                                }
+                            }
                         });
                     } else {
                         $('select[name="op"]').empty();
                     }
-                }
-            });
-        } else {
-            $('select[name="op"]').empty();
-        }
-    });
-
-    $('body').on('click', '#btn-edit-tool', function () {
-        let id = $(this).data('id');
-        // Fetch detail post with ajax
-        $.ajax({
-            url: `/register-tool/${id}`,
-            type: "GET",
-            dataType: "json",
-            cache: false,
-            success: function (response) {
-                console.log(response.data);
-                // Fill data to form
-                $('#id').val(response.data.id);
-                $('#no-draw-edit').val(response.data.no_drawing_tool);
-                $('#type-edit').val(response.data.tool_type);
-                $('#spec-edit').val(response.data.tool_spec);
-                $('#diameter-edit').val(response.data.tool_diameter);
-                $('#lifetime-edit').val(response.data.tool_lifetime_std);
-                $('#frekuensi-edit').val(response.data.tool_frequency_std);
-                $('#line-edit').val(response.data.line);
-                $('#holder-edit').val(response.data.no_drawing_holder);
-                $('#washing-edit').val(response.data.washing_ct);
-                $('#grinding-edit').val(response.data.grinding_ct);
-                $('#setting-edit').val(response.data.setting_ct);
-                $('#remark-edit').val(response.data.remark);
-                console.log("Image Path:", image_check);
-                $('#image-edit').html(`<img src="${response.data.image_check}" width="100">`);
-                $('#selected-image-id').val(response.data.image_check);
-               //  previewImage(document.getElementById('image-edit'));
-                $('#line-edit').trigger('change');
-
-                // Set default value for the OP dropdown
-                var defaultOp = response.data.op;
-
-                // Fetch OP options and set selected for default
-                var lineID = $('#line-edit').val();
-                if (lineID) {
-                    $.ajax({
-                        url: '/findOp/' + lineID,
-                        type: "GET",
-                        data: {"_token": "{{ csrf_token() }}"},
-                        dataType: "json",
-                        success: function (data) {
-                            if (data) {
-                                $('select[name="op"]').empty();
-                                $.each(data, function (key, value) {
-                                    var option = $('<option></option>')
-                                        .val(value.op)
-                                        .text(value.op);
-
-                                    if (value.op === defaultOp) {
-                                        option.attr('selected', 'selected');
-                                    }
-
-                                    $('select[name="op"]').append(option);
-                                });
-                            } else {
-                                $('select[name="op"]').empty();
-                            }
-                        }
-                    });
-                } else {
-                    $('select[name="op"]').empty();
-                }
-                     // Open modal
+                    // Open modal
                     $('#modal-edit-tool').modal('show');
                 }
             });
         });
         //ini buat nampilin image pas abis di input di form update
-    $('#image-edit').on('change', function () {
-    previewImage(this);
-});
+        $('#image-edit').on('change', function() {
+            previewImage(this);
+        });
 
 
-        $('#update').click(function (e) {
+        $('#update').click(function(e) {
             e.preventDefault();
             console.log("update button clicked");
 
@@ -259,7 +267,7 @@
             let image_check = $('#selected-image-id').val();
             let remark = $('#remark-edit').val();
             let token = $("meta[name='csrf-token']").attr("content");
-          //  console.log(token);
+            //  console.log(token);
 
             $.ajax({
                 url: `/register-tool/${id}`,

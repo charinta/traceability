@@ -183,22 +183,17 @@ class ToolController extends Controller
             'remark' => ['required'],
         ]);
 
-
         if ($request->hasFile('image_check')) {
             $uploadedImage = $request->file('image_check');
-            $imagePath = public_path('assets/img/image_check/');
+            $imagePath = public_path('assets/img/image_check/'); // Tentukan folder penyimpanan gambar
+
             $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
             $uploadedImage->move($imagePath, $imageName);
 
-            // Delete the old image file if it exists
-            if ($tool->image_check) {
-                unlink(public_path($tool->image_check));
-            }
 
             // Update the image_check property
             $tool->image_check = 'assets/img/image_check/' . $imageName;
         }
-
         // Updating
         $tool->update([
             'no_drawing_tool' => $request->no_drawing_tool,
