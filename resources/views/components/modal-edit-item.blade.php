@@ -30,7 +30,7 @@
     $(document).ready(function() {
         $('body').on('click', '#btn-edit-item', function() {
             let id = $(this).data('id');
-            console.log(id);
+            // console.log(id);
 
             //fetch detail post with ajax
             $.ajax({
@@ -39,7 +39,7 @@
                 dataType: "json",
                 cache: false,
                 success: function(response) {
-                    console.log(response.data);
+                    // console.log(response.data);
                     //fill data to form
                     $('#id').val(response.data.id);
                     $('#item-edit').val(response.data.item_check);
@@ -51,12 +51,12 @@
 
         $('#update').click(function(e) {
             e.preventDefault();
-            console.log("update button clicked");
+            // console.log("update button clicked");
 
             //define variable
             let id = $('#id').val();
             if (!id) {
-                console.log('id is not defined');
+                // console.log('id is not defined');
             }
             let item_check = $('#item-edit').val();
             // console.log("item:", item_check);

@@ -106,17 +106,13 @@ class StandarController extends Controller
     {
         $standar = Standar::findOrFail($id);
 
+        $statusData = '';
+
         $validate = $request->validate([
             'pos_name' => ['required'],
             'item_check' => ['required'],
             'status' => ['required'],
         ]);
-        
-        // $this->validate($request, [
-        //     'pos_name' => 'required',
-        //     'item_check' => 'required',
-        //     'status' => 'required',
-        // ]);
 
         // Fetch the current status_data from the database
         $currentStatusData = $standar->status_data;
@@ -129,8 +125,6 @@ class StandarController extends Controller
                 'batas_bawah' => ['required'],
 
             ]);
-            // $this->validate($request, [
-            // ]);
 
             $combinedValue = $request->input('standard_check') . ' ' . $request->input('unit-dropdown');
             $statusData = 'int';
@@ -139,8 +133,6 @@ class StandarController extends Controller
             $validate = $request->validate([
                 'standard_check' => ['required'],
             ]);
-            // $this->validate($request, [
-            // ]);
 
             $combinedValue = $request->input('standard_check');
             $statusData = 'string';
@@ -159,6 +151,11 @@ class StandarController extends Controller
         // $data = $request->all();
         // $data['standard_check'] = $combinedValue;
         // $data['date_modify'] = Carbon::now('Asia/Jakarta');
+
+         if ($statusData !== $standar->status_data) {
+        $standar->status_data = $statusData;
+    }
+
 
         $standar->update([
             'pos_name' => $request->pos_name,

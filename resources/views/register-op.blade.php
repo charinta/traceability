@@ -21,10 +21,10 @@
                             <hr class="text-light">
                         </div>
                         <div class="card-body">
-                           <form action="{{ route('register-op.store', $line->id) }}" method="POST">
-                          @csrf
+                            <form action="{{ route('register-op.store', $line->id) }}" method="POST">
+                                @csrf
                                 <div class="form-group">
-                                  
+
                                     <label for="op" class="form-control-label text-light">OP</label>
                                     <input class="form-control" type="text" name="op" id="op">
                                 </div>
@@ -66,16 +66,20 @@
                                         @foreach ($ops as $op)
                                             <tr>
                                                 <td>{{ $op->id }}</td>
-                                                <td>{{ $op->date_created }}</td>
-                                                <td>{{ $line->line}}</td>
+                                                <td>{{ date('Y-m-d', strtotime($op->date_created)) }}</td>
+                                                <td>{{ $line->line }}</td>
                                                 <td>{{ $op->op }}</td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('register-op.destroy', $op->id) }}" method="POST">
-                                                        <a href="{{ route('register-op.edit', $op->id) }}" class="btn btn-sm btn-primary fa fa-edit"></a>
-                                                        <a href="{{ route('tool-process.op', $op->id)}}" class="btn btn-sm btn-info fa fa-eye"></a>
+                                                    <form action="{{ route('register-op.destroy', $op->id) }}"
+                                                        method="POST">
+                                                        <a href="{{ route('register-op.edit', $op->id) }}"
+                                                            class="btn btn-sm btn-primary fa fa-edit"></a>
+                                                        <a href="{{ route('tool-process.op', $op->id) }}"
+                                                            class="btn btn-sm btn-info fa fa-eye"></a>
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger fa fa-trash"></button>
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger fa fa-trash"></button>
                                                     </form>
                                                 </td>
                                             </tr>
