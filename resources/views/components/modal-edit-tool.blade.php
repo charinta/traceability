@@ -111,6 +111,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
           
 <script>
+
   $(document).ready(function () {
     function previewImage(input) {
     const previewContainer = $('#image-preview-container');
@@ -255,11 +256,10 @@
             let washing_ct = $('#washing-edit').val();
             let grinding_ct = $('#grinding-edit').val();
             let setting_ct = $('#setting-edit').val();
-            let image_check = $('#image-edit img').attr('src'); // Get the src attribute of the img element
+            let image_check = $('#selected-image-id').val();
             let remark = $('#remark-edit').val();
             let token = $("meta[name='csrf-token']").attr("content");
-            // console.log(token);
-
+          //  console.log(token);
 
             $.ajax({
                 url: `/register-tool/${id}`,
@@ -315,7 +315,7 @@
 
                     //append to post data
                     $(`#index_${response.data.id}`).replaceWith(tool);
-
+                    $('#image-edit').attr('src', newImageUrl);
                     //close modal
                     $('#modal-edit-tool').modal('hide');
 

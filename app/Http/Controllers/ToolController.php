@@ -195,6 +195,7 @@ class ToolController extends Controller
                 unlink(public_path($tool->image_check));
             }
 
+            // Update the image_check property
             $tool->image_check = 'assets/img/image_check/' . $imageName;
         }
 
