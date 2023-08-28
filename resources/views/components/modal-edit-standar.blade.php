@@ -44,25 +44,6 @@
                 <div class="form-group standard-input">
                     <label class="control-label" for="name">Standard Value</label>
                     <div class="input-group">
-<<<<<<< HEAD
-                        @foreach ($standar as $stand)
-                            <input type="text" class="form-control" name="standard_check" style="margin-right: 7px"
-                                id="value-edit" value="{{ explode(' ', $stand)[0] }}">
-                            <input type="hidden" name="selected_option" value="Standard Value">
-                            <div class="input-group-append">
-                                <select class="form-select" id="dropdown-edit" name="unit-dropdown">
-                                    <option value="cm" {{ strpos($stand, 'cm') !== false ? 'selected' : '' }}>cm
-                                    </option>
-                                    <option value="inch" {{ strpos($stand, 'inch') !== false ? 'selected' : '' }}>inch
-                                    </option>
-                                    <option value="m" {{ strpos($stand, 'm') !== false ? 'selected' : '' }}>m
-                                    </option>
-                                    <option value="ft" {{ strpos($stand, 'ft') !== false ? 'selected' : '' }}>ft
-                                    </option>
-                                </select>
-                            </div>
-                            @endforeach
-=======
                         <input type="text" class="form-control" name="standard_check" style="margin-right: 7px"
                             id="value-edit" disabled>
                         <input type="hidden" name="selected_option" value="Standard Value">
@@ -74,7 +55,6 @@
                                 <option value="ft" ${unitDropdown==='ft' ? 'selected' : '' }>ft</option>
                             </select>
                         </div>
->>>>>>> 15f3536061c7ad72630b220fd37878e599f45a40
                     </div>
                     <div class="alert alert-danger mt-2 d-none" id="alert-value-edit" role="alert"></div>
                 </div>
