@@ -60,6 +60,7 @@
                                     </option>
                                 </select>
                             </div>
+                            @endforeach
                     </div>
                     <div class="alert alert-danger mt-2 d-none" id="alert-value-edit" role="alert"></div>
                 </div>
